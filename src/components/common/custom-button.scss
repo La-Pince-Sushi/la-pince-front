@@ -1,0 +1,62 @@
+@use '../../styles/variables' as vars;
+
+// Styles communs pour les boutons
+.button.is-update,
+.button.is-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  border: none;
+
+  .icon {
+    color: vars.$cacao;
+    font-size: 1em;
+    vertical-align: middle;
+  }
+}
+
+// Bouton "Modifier"
+.button.is-update {
+  transition: transform 0.2s ease-in-out;
+  background-color: rgb(196, 222, 241);
+  color: vars.$cacao;
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: rgb(196, 222, 241, 0.8);
+  }
+}
+
+// Bouton "Supprimer"
+.button.is-delete {
+  transition: transform 0.2s ease-in-out;
+  background-color: rgb(240, 188, 192); 
+  color: vars.$cacao;
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: rgb(240, 188, 192, 0.8);
+  }
+}
+
+.button.is-expense {
+  transition: transform 0.2s ease-in-out;
+  background-color: vars.$peche;
+  color: vars.$cacao;
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: #FF965E;
+  }
+}
+
+.button.is-budget {
+  transition: transform 0.2s ease-in-out;
+  background-color: vars.$vert-sauge;
+  color: vars.$cacao;
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: #83D9B0;
+  }
+}

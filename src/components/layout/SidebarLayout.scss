@@ -1,0 +1,50 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-box {
+  height: 76px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  min-height: 100%;
+  // margin-bottom: 2rem;
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+  margin-bottom: 0;
+}
+
+.sidebar {
+  position: sticky;
+  flex-shrink: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+
+@media screen and (min-width: 769px) {
+
+  .main {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .sidebar {
+    flex-basis: 200px;
+  }
+
+  .content {
+    padding: 2rem;
+  }
+}

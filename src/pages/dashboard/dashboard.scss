@@ -1,0 +1,25 @@
+@use "../../styles/variables" as vars;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+// 🖥 Desktop : à partir de 768px
+@media (min-width: 768px) {
+  .actions {
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+  }
+}

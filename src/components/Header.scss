@@ -1,0 +1,9 @@
+@use '../styles/variables' as vars;
+
+.header {
+  background-color: vars.$ivoire;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #ddd;
+  height: 76px;
+}

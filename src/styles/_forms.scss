@@ -1,0 +1,13 @@
+@use "./variables" as vars;
+
+
+
+.container .box-custom-form {
+  background-color: vars.$ivoire;
+  padding: 2rem;
+  border: solid 1px vars.$jaune-sable;
+  border-radius: 1rem;  
+  height: 100%;
+  min-height: 500px;
+}
+

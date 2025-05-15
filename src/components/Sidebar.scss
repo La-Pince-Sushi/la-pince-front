@@ -1,0 +1,146 @@
+@use '../styles/variables' as vars;
+
+$sidebar-bg: vars.$ivoire;
+$sidebar-text: vars.$cacao;
+
+// Icônes : taille uniforme
+.icon {
+  font-size: 1.4rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  transition: color 0.2s;
+  color: vars.$cacao;
+}
+
+.custom-sidebar {
+  
+  width: 100%;
+  min-height: auto;
+  padding: 0;
+  background: $sidebar-bg;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #ddd;
+  
+
+  .menu-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+
+    li {
+      flex: 1;
+    }
+
+    a,
+    .sidebar-logout-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0.75rem 0;
+      text-align: center;
+      font-size: 0;
+      cursor: pointer;
+      background: transparent;
+
+      // ✅ Affiche uniquement l'icône
+      .icon {
+        font-size: 1.6rem;
+        width: 1.6rem;
+        height: 1.6rem;
+        color: $sidebar-text;
+      }
+
+      &.is-active {
+        background: vars.$beige;
+
+        .icon {
+          color: vars.$cacao;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (min-width: 769px) {
+  .custom-sidebar {
+    
+    background: $sidebar-bg;
+    min-height: calc(100vh - 76px);
+    margin: 0;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
+    
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+  
+    .menu-list {      
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      gap: 0;
+      padding: 0.2rem;
+      width: 100%;
+      
+      li {
+        width: 100%;
+      }
+      a, .sidebar-logout-btn {        
+        background: $sidebar-bg;
+        color: $sidebar-text;
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        margin-bottom: 0.5rem;
+        display: flex; // ← pour alignement icône + texte
+        align-items: center;
+        justify-content: start;
+        flex: 1;
+        gap: 6px;
+        transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+        border: none;
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        box-sizing: border-box;
+        
+  
+        &:hover,
+        &:focus {
+          box-shadow: 0 0 0 2px #{vars.$cacao};
+          background: vars.$ivoire;
+          color: vars.$cacao;          
+        }
+  
+        &.is-active {
+          background: vars.$beige;
+          color: vars.$cacao;
+          font-weight: bold;
+          box-shadow: 0 0 0 2px #{vars.$beige};
+  
+          .icon {
+            color: vars.$cacao;
+          }
+        }
+      }
+  
+      .sidebar-logout-btn {
+        margin-bottom: 0;        
+      }
+    }
+  }
+}

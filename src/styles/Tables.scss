@@ -1,0 +1,78 @@
+@use "./variables.scss" as vars;
+
+.ivory-panel {
+  background-color: vars.$ivoire;
+  padding: 2rem;
+  border: solid 1px vars.$jaune-sable;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 250px;
+
+  .table-title {
+    color: vars.$cacao;
+  }
+
+  .table.custom-table {
+    border: none;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: vars.$cacao;
+
+    thead.thead-beige {
+      background-color: vars.$beige;
+      color: vars.$cacao;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid vars.$jaune-sable;
+      border-left: none;
+      border-right: none;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    tr:first-child th {
+      border-top: none;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr {
+      background-color: transparent;
+    }
+
+    // Coins arrondis
+    thead tr:first-child th:first-child {
+      border-top-left-radius: 0.5rem;
+    }
+
+    thead tr:first-child th:last-child {
+      border-top-right-radius: 0.5rem;
+    }
+
+    tbody tr:last-child td:first-child {
+      border-bottom-left-radius: 0.5rem;
+    }
+
+    tbody tr:last-child td:last-child {
+      border-bottom-right-radius: 0.5rem;
+    }
+  }
+}
+.content .ivory-panel ul {
+  margin-inline-start: 0;
+  &:not(:first-child) {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .ivory-panel {
+    min-height: 350px;
+  }
+}

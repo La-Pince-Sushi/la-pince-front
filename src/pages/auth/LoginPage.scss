@@ -1,0 +1,178 @@
+@use '../../styles/variables' as vars;
+@use 'sass:color';
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: vars.$ivoire;
+  // padding-bottom: 5rem;
+
+  .login-logo {
+    display: block;
+    margin: 0 auto 2rem auto;
+    width: 300px;
+    height: auto;
+  }
+
+  .login-box {
+    background: #fff;
+    padding: 2.5rem 2rem 2rem 2rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.07);
+    width: 100%;
+    max-width: 370px;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+
+  .login-title {
+    // Plus de @extend .title !
+    text-align: center;
+    color: vars.$cacao;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    // Les styles Bulma (.title) sont appliqués via la classe dans le JSX
+  }
+
+  .login-error {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    // Tu peux ajouter .has-text-danger dans le JSX si tu veux la couleur Bulma
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .field {
+    width: 100%;
+  }
+
+  .label {
+    color: vars.$cacao;
+    margin-bottom: 0.25rem;
+  }
+
+  .input {
+    border-radius: 0.5rem;
+    border: 1px solid vars.$cannelle;
+    font-size: 1.1rem;
+    padding: 0.75rem;
+    background: vars.$ivoire;
+    color: vars.$cacao;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: vars.$peche;
+      box-shadow: 0 0 0 2px vars.$peche;
+      background: color.adjust(vars.$beige, $lightness: 5%);
+      outline: none;
+    }
+  }
+
+  .login-btn {
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    background: vars.$peche;
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.9rem 0;
+    transition: background 0.2s, color 0.2s;
+    width: 100%;
+    margin-top: 0.5rem;
+
+    &:hover,
+    &:focus {
+      background: color.adjust(vars.$peche, $lightness: -10%);
+      color: #fff;
+    }
+  }
+
+  .register-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+
+    a {
+      color: vars.$cannelle;
+      font-weight: bold;
+      margin-left: 0.25em;
+      text-decoration: underline;
+      transition: color 0.2s;
+
+      &:hover {
+        color: vars.$peche;
+      }
+    }
+  }
+}
+
+.login-main {
+  .login-title {
+    margin-bottom: 0rem;
+  }
+  .login-box {
+    gap: 1rem;
+  }
+}
+
+.password-input-wrapper {
+  position: relative;
+  width: 100%;
+
+  .input {
+    padding-right: 3rem; // pour laisser de la place à l'icône
+  }
+  
+  .password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    color: vars.$cannelle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      color: vars.$peche;
+    }
+  }
+}
+
+.policy-font-size {
+  font-size: 0.9rem;
+}
+
+// Responsive
+@media (max-width: 480px) {
+  .login-page .login-logo {
+    width: 180px;
+    margin-bottom: 1rem;
+  }
+
+  .login-page .login-box {
+    padding: 1.5rem 0.75rem;
+    max-width: 98vw;
+    min-height: 420px;
+  }
+}
