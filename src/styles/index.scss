@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+$custom-colors: (
+  "ivoire":#FFF8F0,
+  "bleu":#D4E3FC,
+  "vert":#ACD7C2,
+  "peche":#FFB085,
+  "cannelle":#8B5E3C,
+  "cacao":#603C3C,
+  "beige":#FFE3AE
+);
+
+@use "bulma/bulma";
