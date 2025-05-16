@@ -23,7 +23,7 @@ export const doughnutOptions: ChartOptions<"doughnut"> = {
     },
     title: {
       display: true,
-      text: 'Totaux',
+      text: 'Bilan global',
       color: '#603C3C',
       font: {
         size: 18,
