@@ -271,7 +271,7 @@ export function ExpensesEditForm() {
                 >
                   Oui, enregistrer quand même
                 </button>
-                <button className="button" onClick={handleCancelExpense}>
+                <button className="button ml-4" onClick={handleCancelExpense}>
                   Annuler
                 </button>
               </footer>
