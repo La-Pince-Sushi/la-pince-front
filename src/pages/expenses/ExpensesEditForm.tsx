@@ -126,29 +126,6 @@ export function ExpensesEditForm() {
       navigate(-1);
     }
 
-    // if (budget){
-    //   // Toutes les dépenses sauf celle qu’on modifie
-    //   const otherExpenses = useExpenseStore
-    //     .getState()
-    //     .expenses.filter(
-    //       (e) => e.category_id === categoryId && e.id !== Number(id)
-    //     );
-
-    //   const totalWithoutTargetExpense = otherExpenses.reduce(
-    //     (sum, e) => sum + Number(e.amount),
-    //     0
-    //   );
-    //   const newTotal = Number(totalWithoutTargetExpense) + Number(formData.amount);
-
-    //   if (budget.alert && newTotal >= budget.alert) {
-    //     setPendingExpense(updatedExpense);
-    //     setShowModal(true); // Afficher la modale
-    //     return;
-    //   }
-
-    //   updateExpense(updatedExpense.id, updatedExpense);
-    //   navigate(-1);
-    // }
     if (!budget) {
       updateExpense(Number(id), updatedExpense);
       navigate(-1);
@@ -192,7 +169,7 @@ export function ExpensesEditForm() {
                   <option disabled value="">
                     -- Choisir une catégorie --
                   </option>
-                  {categories.map((cat) => (
+                  {categories.slice().sort((a, b) => a.name.localeCompare(b.name)).map((cat) => (
                     <option key={cat.id} value={cat.id}>
                       {cat.name}
                     </option>
