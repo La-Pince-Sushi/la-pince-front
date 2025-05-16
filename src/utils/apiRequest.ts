@@ -2,7 +2,7 @@ import { useAuthStore } from "../store/authStore.ts";
 import { THttpMethods } from "../types/index";
 import { getAccessToken, getRefreshToken } from "../utils/jwtUtils.ts";
 
-const BASE_URL = "https://la-pince-back-production.up.railway.app/";
+const BASE_URL = "https://la-pince-api.up.railway.app/";
 
 /**
  * Utility function to make any API request.
@@ -30,7 +30,6 @@ export async function apiRequest<T>(endpoint: string, method: THttpMethods = "GE
   if (response.status === 401 && refreshToken) {
     const newAccessToken = await useAuthStore.getState().refreshAccessToken();
     if (newAccessToken) {
-      console.log("🔄 Nouveau token obtenu");
       token = newAccessToken;
       response = await fetch(`${BASE_URL}${endpoint}`, buildOptions(token));
       result = await response.json();
