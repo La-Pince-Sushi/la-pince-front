@@ -5,7 +5,6 @@ import { IParsedError } from '../types'; // Assurez-vous que le chemin d'importa
 // Options par défaut pour les toasts
 const defaultToastOptions: ToastOptions = {
   position: "top-right",
-  autoClose: 7000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,
@@ -40,30 +39,30 @@ const FormattedToastContent: React.FC<IToastContent> = ({ message, details }) =>
 export const showErrorToast = (parsedError: IParsedError, options?: ToastOptions) => {
   toast.error(
     <FormattedToastContent message={parsedError.message} details={parsedError.details} />,
-    { ...defaultToastOptions, ...options }
+    { autoClose: 3000, ...defaultToastOptions, ...options }
   );
 };
 
 export const showSuccessToast = (content: string | IToastContent, options?: ToastOptions) => {
   if (typeof content === 'string') {
-    toast.success(<FormattedToastContent message={content} />, { ...defaultToastOptions, ...options });
+    toast.success(<FormattedToastContent message={content} />, { autoClose: 2000, ...defaultToastOptions, ...options });
   } else {
-    toast.success(<FormattedToastContent message={content.message} details={content.details} />, { ...defaultToastOptions, ...options });
+    toast.success(<FormattedToastContent message={content.message} details={content.details} />, { autoClose: 2000, ...defaultToastOptions, ...options });
   }
 };
 
 export const showInfoToast = (content: string | IToastContent, options?: ToastOptions) => {
   if (typeof content === 'string') {
-    toast.info(<FormattedToastContent message={content} />, { ...defaultToastOptions, ...options });
+    toast.info(<FormattedToastContent message={content} />, { autoClose: 4000, ...defaultToastOptions, ...options });
   } else {
-    toast.info(<FormattedToastContent message={content.message} details={content.details} />, { ...defaultToastOptions, ...options });
+    toast.info(<FormattedToastContent message={content.message} details={content.details} />, { autoClose: 4000, ...defaultToastOptions, ...options });
   }
 };
 
 export const showWarningToast = (content: string | IToastContent, options?: ToastOptions) => {
   if (typeof content === 'string') {
-    toast.warn(<FormattedToastContent message={content} />, { ...defaultToastOptions, ...options });
+    toast.warn(<FormattedToastContent message={content} />, { autoClose: 4000, ...defaultToastOptions, ...options });
   } else {
-    toast.warn(<FormattedToastContent message={content.message} details={content.details} />, { ...defaultToastOptions, ...options });
+    toast.warn(<FormattedToastContent message={content.message} details={content.details} />, { autoClose: 4000, ...defaultToastOptions, ...options });
   }
 };
