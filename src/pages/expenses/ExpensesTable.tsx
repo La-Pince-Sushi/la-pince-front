@@ -48,40 +48,54 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
                 </tr>
               </thead>
               <tbody>
-                {expensesToShow.map((expense) => (
-                  <tr key={expense.id}>
-                    <td>{expense.category?.name}</td>
-                    <td>{new Date(expense.date).toLocaleDateString("fr-FR")}</td>
-                    <td>{Number(expense.amount).toFixed(2)}€</td>
-                    <td>{expense.description}</td>
-                    <td>
-                      <UpdateButton to={`/expenses/edit/${expense.id}`} label="Modifier" />
-                    </td>
-                    <td>
-                      <DeleteButton label="Supprimer" onClick={() => deleteExpense(expense.id)} />
-                    </td>
-                  </tr>
-                ))}
+                {expensesToShow
+                  .slice()
+                  .sort((a, b) => {
+                    const dateA = new Date(a.date as string).getTime();
+                    const dateB = new Date(b.date as string).getTime();
+                    return dateB - dateA;
+                  })
+                  .map((expense) => (
+                    <tr key={expense.id}>
+                      <td>{expense.category?.name}</td>
+                      <td>{new Date(expense.date).toLocaleDateString("fr-FR")}</td>
+                      <td>{Number(expense.amount).toFixed(2)}€</td>
+                      <td>{expense.description}</td>
+                      <td>
+                        <UpdateButton to={`/expenses/edit/${expense.id}`} label="Modifier" />
+                      </td>
+                      <td>
+                        <DeleteButton label="Supprimer" onClick={() => deleteExpense(expense.id)} />
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
 
           {/* Liste mobile */}
           <ul className="is-hidden-desktop">
-            {expensesToShow.map((expense) => (
-              <li className="grid box" key={expense.id}>
-                <div className="cell category">{expense.category?.name}</div>
-                <div className="cell amount">{Number(expense.amount).toFixed(2)}€</div>
-                <div className="cell date">{new Date(expense.date).toLocaleDateString("fr-FR")}</div>
-                <div className="cell description">{expense.description}</div>
-                <div className="cell editing">
-                  <UpdateButton to={`/expenses/edit/${expense.id}`} label="Modifier" />
-                </div>
-                <div className="cell deleting">
-                  <DeleteButton label="Supprimer" onClick={() => deleteExpense(expense.id)} />
-                </div>
-              </li>
-            ))}
+            {expensesToShow
+              .slice()
+              .sort((a, b) => {
+                const dateA = new Date(a.date as string).getTime();
+                const dateB = new Date(b.date as string).getTime();
+                return dateB - dateA;
+              })
+              .map((expense) => (
+                <li className="grid box" key={expense.id}>
+                  <div className="cell category">{expense.category?.name}</div>
+                  <div className="cell amount">{Number(expense.amount).toFixed(2)}€</div>
+                  <div className="cell date">{new Date(expense.date).toLocaleDateString("fr-FR")}</div>
+                  <div className="cell description">{expense.description}</div>
+                  <div className="cell editing">
+                    <UpdateButton to={`/expenses/edit/${expense.id}`} label="Modifier" />
+                  </div>
+                  <div className="cell deleting">
+                    <DeleteButton label="Supprimer" onClick={() => deleteExpense(expense.id)} />
+                  </div>
+                </li>
+              ))}
           </ul>
         </>
       ) : (
