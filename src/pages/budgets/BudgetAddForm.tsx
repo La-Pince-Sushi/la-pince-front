@@ -88,6 +88,8 @@ export function BudgetAddForm() {
     addNewBudget(newBudget);
 
     setFormData(initialFormState);
+
+    navigate("/budgets");
   };
   return (
     <main className="container">
