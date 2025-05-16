@@ -7,18 +7,18 @@ export function Home() {
   const location = useLocation();
 
   return (
-    <section className="hero p-0 bg-ivoire">
-      <div className="is-flex-direction-column">
-        <div className="hero-body">
+    <section className="bg-ivoire">
+      <div className="container is-flex-direction-column">
+        
           <div className="columns is-vcentered is-gapless">
             <div className="column is-half">
-              <h1 className="title mb-3 has-text-centered">Bienvenue sur La Pince</h1>
-              <div className="subtitle mb-4">
-              <p>Suivez vos <strong>revenus</strong> et <strong>dépenses</strong> en un clin d’œil. 
-              Fixez vos objectifs d’épargne et contrôlez vos <strong>finances</strong> facilement. 
-              Adaptée à tous : étudiants, familles, indépendants.
-              La <strong>Sécurité</strong> et <strong>confidentialité</strong> sont garanties.
-              </p>
+              <h1 className="title pb-5 has-text-centered">Bienvenue sur La Pince</h1>
+              <div className="subtitle pb-4">
+                <p className="px-4">Suivez vos <strong>revenus</strong> et <strong>dépenses</strong> en un clin d’œil. 
+                Fixez vos objectifs d’épargne et contrôlez vos <strong>finances</strong> facilement. 
+                Adaptée à tous : étudiants, familles, indépendants.
+                La <strong>Sécurité</strong> et <strong>confidentialité</strong> sont garanties.
+                </p>
               </div>
               {location.pathname === "/mentions-legales" ? (
                 <LegalNotice />
@@ -26,8 +26,8 @@ export function Home() {
                 <PrivacyPolicy />
               ) : (
                 <>
-                  <div className="hero-foot buttons is-centered mb-1">
-                    <Link to="/signin" className="button is-medium">
+                  <div className="hero-foot buttons is-centered pb-4">
+                    <Link to="/signin" className="button is-medium mr-6">
                       Se connecter
                     </Link>
                     <Link to="/signup" className="button is-medium">
@@ -48,13 +48,8 @@ export function Home() {
               )}
             </div>
           </div>
-        </div>
-        <footer className="has-text-centered mt-5">
-          <Link to="/legal-notice">Mentions légales</Link> |{" "}
-          <Link to="/privacy-policy">
-            Politique de confidentialité
-          </Link>
-        </footer>
+       
+        
       </div>
     </section>
   );

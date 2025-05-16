@@ -1,0 +1,15 @@
+@use "../../styles/variables" as *;
+
+.public-layout {
+  display: flex;
+  flex-direction: column; 
+  height: 100vh; 
+  background-color: $ivoire;
+}
+.main-public {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - (48px + 76px))  
+}

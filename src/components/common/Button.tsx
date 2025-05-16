@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import '../../components/common/custom-button.scss';
+import './custom-button.scss';
 
 
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
