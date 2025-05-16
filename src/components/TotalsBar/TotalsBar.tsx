@@ -38,7 +38,7 @@ export const TotalsBar = () => {
   const remainingBudget = Number((totalBudget - totalExpenses).toFixed(2));
 
   const doughnutData = {
-    labels: ["Budget restant", "Dépenses totales"],
+    labels: [`Budget restant ${remainingBudget}`, `Dépenses totales ${totalExpenses}`],
     datasets: [
       {
         data: [remainingBudget, totalExpenses],
