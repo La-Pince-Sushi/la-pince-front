@@ -34,9 +34,6 @@ export const AppRoutes = () => {
       <Route element={<RedirectIfAuth />}>
         <Route element={<HeaderLayout />}>
           <Route index element={<Home />} />
-        
-        {/* SANS LAYOUT */}
-        {/* Connexion et inscription */}
           <Route path="signin" element={<LoginPage />} />
           <Route path="signup" element={<RegisterPage />} />
         </Route>
