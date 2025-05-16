@@ -12,7 +12,7 @@ $danger: vars.$terre-cuite,
 $text: vars.$cacao,
 $text-strong: vars.$cacao,
 $scheme-main: vars.$ivoire,
-$shadow-color: vars.$cacao
+$shadow-color: vars.$cacao,
 );
 
 @use "bulma/bulma";
@@ -20,7 +20,10 @@ $shadow-color: vars.$cacao
 
 html, body {
   background-color: #FFFFF9;  
-  // height: 100%;
+}
+
+.content {
+  margin-bottom: 0 !important;
 }
 
 .Toastify__toast {
