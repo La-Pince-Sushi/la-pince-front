@@ -11,7 +11,7 @@ export const doughnutOptions: ChartOptions<"doughnut"> = {
       labels: {
         color: '#603C3C',
         font: {
-          size: 15,
+          size: 14,
         },
       },
     },
@@ -20,14 +20,6 @@ export const doughnutOptions: ChartOptions<"doughnut"> = {
       backgroundColor: '#FFF7E9',
       titleColor: '#603C3C',
       bodyColor: '#603C3C',
-    },
-    title: {
-      display: true,
-      text: 'Bilan global',
-      color: '#603C3C',
-      font: {
-        size: 18,
-      },
     },
   },
 };
@@ -41,7 +33,7 @@ export const pieOptions: ChartOptions<"pie"> = {
       labels: {
         color: '#603C3C',
         font: {
-          size: 15,
+          size: 14,
         },
       },
     },
@@ -50,14 +42,6 @@ export const pieOptions: ChartOptions<"pie"> = {
       backgroundColor: '#FFF7E9',
       titleColor: '#603C3C',
       bodyColor: '#603C3C',
-    },
-    title: {
-      display: true,
-      text: 'Dépenses par catégories',
-      color: '#603C3C',
-      font: {
-        size: 18,
-      },
     },
   },
 };
