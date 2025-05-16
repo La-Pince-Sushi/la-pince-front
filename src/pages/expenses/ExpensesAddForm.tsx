@@ -127,7 +127,7 @@ export function ExpensesAddForm() {
                     <option disabled value="">
                       -- Choisir une catégorie --
                     </option>
-                    {categories.map((category) => (
+                    {categories.slice().sort((a, b) => a.name.localeCompare(b.name)).map((category) => (
                       <option key={`category-${category.id}`} value={category.id}>
                         {category.name}
                       </option>
