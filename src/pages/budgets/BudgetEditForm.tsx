@@ -83,7 +83,7 @@ export function BudgetEditForm() {
                     onChange={handleChange}
                   >
                     <option disabled value="">-- Choisir une catégorie --</option>
-                    {categories.map((category) => (
+                    {categories.slice().sort((a, b) => a.name.localeCompare(b.name)).map((category) => (
                       <option key={category.id} value={category.id}>{category.name}</option>
                     ))}
                   </select>
