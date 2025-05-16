@@ -14,14 +14,10 @@ export function EmailForm() {
   const [newEmail, setNewEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [localSuccess, setLocalSuccess] = useState(false);
-
+ 
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
-
-  useEffect(() => {
-    setCurrentEmail(user?.email || "");
-  }, [user?.email]);
 
   useEffect(() => {
     if (localSuccess) {
@@ -29,6 +25,10 @@ export function EmailForm() {
       setLocalSuccess(false);
     }
   }, [localSuccess])
+
+  useEffect(() => {
+    setCurrentEmail(user?.email || "");
+  }, [user?.email]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -55,10 +55,16 @@ export function EmailForm() {
       return;
     }
 
-    await updateUser({ email: newEmail });
-    setLocalSuccess(true);
-
-  }
+    const success = await updateUser({ email: newEmail });
+  
+    if (success) {
+      navigate("/profile");
+    } else {
+      setNewEmail("");
+      setConfirmEmail("");
+      inputRef.current?.focus();
+    }
+  };
 
   return (
     <div className="container">
