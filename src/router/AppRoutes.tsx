@@ -23,23 +23,24 @@ export const AppRoutes = () => {
 
   return (
     <Routes>
+      <Route element={<HeaderLayout />}>
+        {/* Mentions légales et politique de confidentialité accessibles à tous */}
+        <Route path="/legal-notice" element={<LegalNotice />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+      </Route>
+
       {/* HEADER LAYOUT */}
       {/* Page d'accueil */}
       <Route element={<RedirectIfAuth />}>
         <Route element={<HeaderLayout />}>
           <Route index element={<Home />} />
-          {/* Mentions légales et politique de confidentialité accessibles à tous */}
-          <Route path="/legal-notice" element={<LegalNotice />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Route>
-      </Route>
-
-      {/* SANS LAYOUT */}
-      {/* Connexion et inscription */}
-      <Route element={<RedirectIfAuth />}>
+        {/* SANS LAYOUT */}
+        {/* Connexion et inscription */}
         <Route path="signin" element={<LoginPage />} />
         <Route path="signup" element={<RegisterPage />} />
       </Route>
+
 
       {/* SIDEBAR LAYOUT */}
       <Route element={<ProtectedRoute />}>
