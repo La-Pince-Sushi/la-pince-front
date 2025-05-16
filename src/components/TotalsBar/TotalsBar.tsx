@@ -1,30 +1,34 @@
 import { useBudgetStore } from "../../store/budgetStore";
 import { useExpenseStore } from "../../store/expensesStore";
 import { useCategoryStore } from "../../store/categoryStore.ts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DoughnutChart } from "../Doughnut/DoughnutChart.tsx";
-import { doughnutOptions, pieOptions } from "../../utils/chartOptions.ts";
-import { PieChart } from "../Pie/PieChart.tsx"
+import { getDoughnutOptions, getPieOptions } from "../../utils/chartOptions.ts";
+import { PieChart } from "../Pie/PieChart.tsx";
+import { generateCategoryColors } from "../../utils/colorsUtils";
 import "./TotalsBar.scss";
-import "../Doughnut/Doughtnut.scss"
-import "../Pie/Pie.scss"
 
 export const TotalsBar = () => {
-
   const budgets = useBudgetStore(state => state.budgets);
   const expenses = useExpenseStore(state => state.expenses);
-  const categories = useCategoryStore(state => state.categories)
+  const categories = useCategoryStore(state => state.categories);
   const isLoadedBudget = useBudgetStore(state => state.isLoadedBudget);
-  const isLoadedExpense = useExpenseStore(state => state);
+  const isLoadedExpense = useExpenseStore(state => state.isLoadedExpense);
   const isLoadedCategory = useCategoryStore(state => state.isLoadedCategory);
   const getAllCategories = useCategoryStore(state => state.getAllCategories);
   const getAllBudgets = useBudgetStore(state => state.getAllBudgets);
   const getAllExpenses = useExpenseStore(state => state.getAllExpenses);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
   useEffect(() => {
     if (!isLoadedExpense) getAllExpenses();
     if (!isLoadedBudget) getAllBudgets();
     if (!isLoadedCategory) getAllCategories();
+
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [isLoadedExpense, isLoadedBudget, isLoadedCategory]);
 
   const totalBudget = Math.round(
@@ -36,19 +40,20 @@ export const TotalsBar = () => {
   ) / 100;
 
   const remainingBudget = Number((totalBudget - totalExpenses).toFixed(2));
+  const remainingBudgetColor = remainingBudget <= 0 ? "#FF6B6B" : "#ACD7C2";
 
   const doughnutData = {
-    labels: ["Budget restant", "Dépenses totales"],
+    labels: [`Budget restant ${remainingBudget} €`, `Dépenses totales ${totalExpenses} €`],
     datasets: [
       {
         data: [remainingBudget, totalExpenses],
-        backgroundColor: ["#ACD7C2", "#FFB085"],
+        backgroundColor: [remainingBudgetColor, "#FFB085"],
         borderColor: "#fff",
         borderWidth: 2,
       },
     ],
   };
-  
+
   const filteredCategories = categories.filter(category =>
     expenses.some(expense => expense.category_id === category.id)
   );
@@ -62,9 +67,7 @@ export const TotalsBar = () => {
             .filter(expense => expense.category_id === category.id)
             .reduce((sum, expense) => sum + Number(expense.amount), 0)
         ),
-        backgroundColor: filteredCategories.map((_, index) =>
-          `hsl(${(index * 360) / filteredCategories.length}, 70%, 70%)`
-        ),
+        backgroundColor: generateCategoryColors(filteredCategories.length),
         borderColor: "#fff",
         borderWidth: 2,
       },
@@ -74,20 +77,20 @@ export const TotalsBar = () => {
   return (
     <>
       {budgets.length > 0 || expenses.length > 0 ? (
-        <div className="charts-container">
+        <div className={`charts-container ${isMobile ? "mobile" : ""}`}>
           {budgets.length > 0 && (
             <div className="doughnut-wrapper">
-              <DoughnutChart data={doughnutData} options={doughnutOptions} />
+              <DoughnutChart data={doughnutData} options={getDoughnutOptions(isMobile)} />
             </div>
           )}
 
           {expenses.length > 0 && (
             <div className="pie-wrapper">
-              <PieChart data={pieData} options={pieOptions} />
+              <PieChart data={pieData} options={getPieOptions(isMobile)} />
             </div>
           )}
         </div>
       ) : null}
     </>
   );
-}
+};
