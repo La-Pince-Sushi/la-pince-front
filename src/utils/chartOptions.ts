@@ -34,7 +34,7 @@ export const getDoughnutOptions = (isMobile: boolean): ChartOptions<"doughnut"> 
     },
     title: {
       display: true,
-      text: "Etat global",
+      text: "État global",
       font: {
         size: isMobile ? 16 : 20,
       },

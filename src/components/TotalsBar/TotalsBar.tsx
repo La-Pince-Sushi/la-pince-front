@@ -49,7 +49,7 @@ export const TotalsBar = () => {
         data: [remainingBudget, totalExpenses],
         backgroundColor: [remainingBudgetColor, "#FFB085"],
         borderColor: "#fff",
-        borderWidth: 2,
+        borderWidth: 1,
       },
     ],
   };
@@ -69,7 +69,7 @@ export const TotalsBar = () => {
         ),
         backgroundColor: generateCategoryColors(filteredCategories.length),
         borderColor: "#fff",
-        borderWidth: 2,
+        borderWidth: 1,
       },
     ],
   };

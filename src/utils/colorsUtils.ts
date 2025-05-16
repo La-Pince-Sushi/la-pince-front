@@ -15,20 +15,20 @@ const primaryColors = [
 ];
 
 /**
- * Génère une couleur HSL basée sur un index et le nombre total d'éléments.
+ * Génère une couleur HSL pastel basée sur un index et le nombre total d'éléments.
  * @param index Index de l'élément
  * @param total Nombre total d'éléments
  * @returns Une couleur HSL sous forme de chaîne
  */
 export const generateHSLColor = (index: number, total: number): string => {
   const hue = (index * 360) / total; // Répartit les teintes sur la roue chromatique
-  const saturation = 70; // Saturation fixe à 70%
-  const lightness = 70; // Luminosité fixe à 70%
+  const saturation = 50; // Saturation réduite pour un effet pastel
+  const lightness = 80; // Luminosité élevée pour un effet pastel
   return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 };
 
 /**
- * Génère une liste de couleurs HSL pour un ensemble d'éléments, en excluant les couleurs primaires.
+ * Génère une liste de couleurs HSL pastel pour un ensemble d'éléments, en excluant les couleurs primaires.
  * @param length Nombre total d'éléments
  * @returns Un tableau de couleurs HSL
  */
@@ -46,11 +46,10 @@ export const generateCategoryColors = (length: number): string[] => {
 
 /**
  * Note :
- * - Cette fonction utilise une boucle `do...while` pour garantir que chaque couleur générée
- *   n'est pas incluse dans le tableau `primaryColors`.
- * - La fonction `generateHSLColor` est appelée pour générer une couleur unique basée sur l'index.
- * - Si une couleur générée est trouvée dans `primaryColors`, elle est recalculée jusqu'à ce qu'une
- *   couleur valide soit trouvée.
- * - Une fois une couleur valide trouvée, elle est ajoutée au tableau `colors`.
- * - À la fin, la fonction retourne un tableau contenant uniquement des couleurs uniques et valides.
+ * - Cette fonction utilise une palette générée dynamiquement en fonction de l'index et du total.
+ * - Les couleurs générées sont fixes pour un index donné, garantissant une association constante.
+ * - Les couleurs générées sont orientées vers des teintes pastel grâce à une saturation réduite (50%)
+ *   et une luminosité élevée (80%).
+ * - Les couleurs contenues dans `primaryColors` sont exclues.
+ * - Si une couleur générée est trouvée dans `primaryColors`, elle est recalculée.
  */
