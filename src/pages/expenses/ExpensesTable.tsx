@@ -48,41 +48,63 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
                 </tr>
               </thead>
               <tbody>
-                {expensesToShow.map((expense) => (
-                  <tr key={expense.id}>
-                    <td>{expense.category?.name}</td>
-                    <td>{new Date(expense.date).toLocaleDateString("fr-FR")}</td>
-                    <td>{Number(expense.amount).toFixed(2)}€</td>
-                    <td>{expense.description}</td>
-                    <td>
-                      <UpdateButton to={`/expenses/edit/${expense.id}`} label="Modifier" />
-                    </td>
-                    <td>
-                      <DeleteButton label="Supprimer" onClick={() => deleteExpense(expense.id)} />
-                    </td>
-                  </tr>
-                ))}
+                {expensesToShow
+                  .slice()
+                  .sort((a, b) => {
+                    const dateA = new Date(a.date as string).getTime();
+                    const dateB = new Date(b.date as string).getTime();
+                    return dateB - dateA;
+                  })
+                  .map((expense) => (
+                    <tr key={expense.id}>
+                      <td>{expense.category?.name}</td>
+                      <td>{new Date(expense.date).toLocaleDateString("fr-FR")}</td>
+                      <td>{Number(expense.amount).toFixed(2)}€</td>
+                      <td>{expense.description}</td>
+                      <td>
+                        <UpdateButton to={`/expenses/edit/${expense.id}`} label="Modifier" />
+                      </td>
+                      <td>
+                        <DeleteButton label="Supprimer" onClick={() => deleteExpense(expense.id)} />
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
 
           {/* Liste mobile */}
           <ul className="is-hidden-desktop">
-            {expensesToShow.map((expense) => (
-              <li className="grid box" key={expense.id}>
-                <div className="cell category">{expense.category?.name}</div>
-                <div className="cell amount">{Number(expense.amount).toFixed(2)}€</div>
-                <div className="cell date">{new Date(expense.date).toLocaleDateString("fr-FR")}</div>
-                <div className="cell description">{expense.description}</div>
-                <div className="cell editing">
-                  <UpdateButton to={`/expenses/edit/${expense.id}`} label="Modifier" />
-                </div>
-                <div className="cell deleting">
-                  <DeleteButton label="Supprimer" onClick={() => deleteExpense(expense.id)} />
-                </div>
-              </li>
-            ))}
-          </ul>
+  {expensesToShow
+    .slice()
+    .sort((a, b) => {
+      const dateA = new Date(a.date as string).getTime();
+      const dateB = new Date(b.date as string).getTime();
+      return dateB - dateA;
+    })
+    .map((expense) => (
+      <li className="box mb-4" key={expense.id}>
+        {/* Ligne 1 : Catégorie | Date | Montant */}
+        <div className="columns is-mobile is-vcentered mb-0">
+          <div className="column is-5 has-text-weight-semibold">{expense.category?.name}</div>
+          <div className="column is-3 is-size-6 has-text-weight-bold has-text-right">{Number(expense.amount).toFixed(2)}€</div>
+          <div className="column is-4">{new Date(expense.date).toLocaleDateString("fr-FR")}</div>
+        </div>
+        {/* Ligne 2 : Description */}
+        <div className="mb-3">
+        <span className="description-mobile">
+          {expense.description}
+        </span>
+        </div>
+        {/* Ligne 3 : Boutons Modifier & Supprimer */}
+        <div className="buttons is-flex is-justify-content-space-between">
+          <UpdateButton to={`/expenses/edit/${expense.id}`} label="Modifier" />
+          <DeleteButton label="Supprimer" onClick={() => deleteExpense(expense.id)} />
+        </div>
+      </li>
+    ))}
+</ul>
+
         </>
       ) : (
         <p className="has-text-left mt-5">Aucune dépense n'a été trouvée.</p>

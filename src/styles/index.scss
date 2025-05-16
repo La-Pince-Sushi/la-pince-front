@@ -16,11 +16,11 @@ $shadow-color: vars.$cacao
 );
 
 @use "bulma/bulma";
-@use '../pages/auth/LoginPage.scss';
+// @use '../pages/auth/LoginPage.scss';
 
 html, body {
-  background-color: white;
-  height: 100%;
+  background-color: #FFFFF9;  
+  // height: 100%;
 }
 
 .Toastify__toast {
@@ -32,7 +32,7 @@ html, body {
   --toastify-color-success: #98E08C;
   --toastify-color-warning: #F0DF87;
   --toastify-color-error: #D77D82;
-  // height: 100%;
+    height: 100%;
 }
 .bg-ivoire {
   background-color: vars.$ivoire; }
