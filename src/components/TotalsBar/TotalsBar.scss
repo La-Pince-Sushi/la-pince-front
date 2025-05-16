@@ -11,17 +11,29 @@
   }
 }
 
-.doughnut-wrapper,
 .pie-wrapper {
   width: 100%;
-  max-width: 450px;
-  height: 300px;
+  max-width: 425px;
+  height: 280px;
   position: relative;
   margin: 0 auto;
 
   @media (max-width: 768px) {
     max-width: 90%;
-    height: 250px;
+    height: 210px;
+  }
+}
+
+.doughnut-wrapper {
+  width: 100%;
+  max-width: 500px;
+  height: 280px;
+  position: relative;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    max-width: 90%;
+    height: 210px;
   }
 }
 
