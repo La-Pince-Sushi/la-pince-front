@@ -36,7 +36,7 @@ export function BudgetsTable() {
                 </tr>
               </thead>
               <tbody>
-                {budgets.map((budget) => (
+                {budgets.slice().sort((a, b) => (a.category?.name || "").localeCompare(b.category?.name || "")).map((budget) => (
                   <tr key={budget.id}>
                     <td>{budget.category?.name}</td>
                     <td>{Number(budget.amount).toFixed(2)}€</td>
@@ -55,7 +55,7 @@ export function BudgetsTable() {
 
           {/* Mobile list */}
           <ul className="is-hidden-desktop">
-            {budgets.map((budget) => (
+            {budgets.slice().sort((a, b) => (a.category?.name || "").localeCompare(b.category?.name || "")).map((budget) => (
               <li className="box mb-4" key={budget.id}>
                 <p><strong>Catégorie :</strong> {budget.category?.name}</p>
                 <p><strong>Montant :</strong> {Number(budget.amount).toFixed(2)}€</p>
