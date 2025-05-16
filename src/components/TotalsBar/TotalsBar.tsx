@@ -1,30 +1,33 @@
 import { useBudgetStore } from "../../store/budgetStore";
 import { useExpenseStore } from "../../store/expensesStore";
 import { useCategoryStore } from "../../store/categoryStore.ts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DoughnutChart } from "../Doughnut/DoughnutChart.tsx";
-import { doughnutOptions, pieOptions } from "../../utils/chartOptions.ts";
-import { PieChart } from "../Pie/PieChart.tsx"
+import { getDoughnutOptions, getPieOptions } from "../../utils/chartOptions.ts";
+import { PieChart } from "../Pie/PieChart.tsx";
 import "./TotalsBar.scss";
-import "../Doughnut/Doughtnut.scss"
-import "../Pie/Pie.scss"
 
 export const TotalsBar = () => {
-
   const budgets = useBudgetStore(state => state.budgets);
   const expenses = useExpenseStore(state => state.expenses);
-  const categories = useCategoryStore(state => state.categories)
+  const categories = useCategoryStore(state => state.categories);
   const isLoadedBudget = useBudgetStore(state => state.isLoadedBudget);
-  const isLoadedExpense = useExpenseStore(state => state);
+  const isLoadedExpense = useExpenseStore(state => state.isLoadedExpense);
   const isLoadedCategory = useCategoryStore(state => state.isLoadedCategory);
   const getAllCategories = useCategoryStore(state => state.getAllCategories);
   const getAllBudgets = useBudgetStore(state => state.getAllBudgets);
   const getAllExpenses = useExpenseStore(state => state.getAllExpenses);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
   useEffect(() => {
     if (!isLoadedExpense) getAllExpenses();
     if (!isLoadedBudget) getAllBudgets();
     if (!isLoadedCategory) getAllCategories();
+
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [isLoadedExpense, isLoadedBudget, isLoadedCategory]);
 
   const totalBudget = Math.round(
@@ -38,7 +41,7 @@ export const TotalsBar = () => {
   const remainingBudget = Number((totalBudget - totalExpenses).toFixed(2));
 
   const doughnutData = {
-    labels: [`Budget restant ${remainingBudget}`, `Dépenses totales ${totalExpenses}`],
+    labels: [`Budget restant ${remainingBudget} €`, `Dépenses totales ${totalExpenses} €`],
     datasets: [
       {
         data: [remainingBudget, totalExpenses],
@@ -48,7 +51,7 @@ export const TotalsBar = () => {
       },
     ],
   };
-  
+
   const filteredCategories = categories.filter(category =>
     expenses.some(expense => expense.category_id === category.id)
   );
@@ -74,20 +77,20 @@ export const TotalsBar = () => {
   return (
     <>
       {budgets.length > 0 || expenses.length > 0 ? (
-        <div className="charts-container">
+        <div className={`charts-container ${isMobile ? "mobile" : ""}`}>
           {budgets.length > 0 && (
             <div className="doughnut-wrapper">
-              <DoughnutChart data={doughnutData} options={doughnutOptions} />
+              <DoughnutChart data={doughnutData} options={getDoughnutOptions(isMobile)} />
             </div>
           )}
 
           {expenses.length > 0 && (
             <div className="pie-wrapper">
-              <PieChart data={pieData} options={pieOptions} />
+              <PieChart data={pieData} options={getPieOptions(isMobile)} />
             </div>
           )}
         </div>
       ) : null}
     </>
   );
-}
+};

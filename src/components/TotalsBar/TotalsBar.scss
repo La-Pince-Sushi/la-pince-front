@@ -1,7 +1,13 @@
 .charts-container {
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   gap: 1rem;
+
+  &.mobile {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .doughnut-wrapper,
@@ -10,6 +16,12 @@
   max-width: 600px;
   height: 300px;
   position: relative;
+
+  @media (max-width: 768px) {
+    max-width: 90%;
+    height: 250px;
+    margin-bottom: 1rem;
+  }
 }
 
 canvas {
@@ -18,26 +30,4 @@ canvas {
   left: 0;
   width: 100% !important;
   height: 100% !important;
-}
-
-@media (min-width: 768px) {
-  .charts-container {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
-  .doughnut-wrapper,
-  .pie-wrapper {
-    flex: 1;
-    max-width: none;
-    height: auto;
-    min-height: 200px; // Hauteur minimale si besoin
-    max-height: 230px; // ✅ Gère la hauteur max ici
-  }
-
-  canvas {
-    width: 100% !important;
-    height: 100% !important;
-  }
 }
