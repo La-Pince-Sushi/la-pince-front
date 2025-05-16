@@ -76,13 +76,13 @@ export const TotalsBar = () => {
       {budgets.length > 0 || expenses.length > 0 ? (
         <div className="charts-container">
           {budgets.length > 0 && (
-            <div className="doughnut-wrapper">
+            <div className="doughnut-container">
               <DoughnutChart data={doughnutData} options={doughnutOptions} />
             </div>
           )}
 
           {expenses.length > 0 && (
-            <div className="pie-wrapper">
+            <div className="pie-container">
               <PieChart data={pieData} options={pieOptions} />
             </div>
           )}

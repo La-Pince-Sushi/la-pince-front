@@ -24,6 +24,9 @@ export const doughnutOptions: ChartOptions<"doughnut"> = {
     title: {
       display: true,
       text: 'Bilan global',
+      padding: {
+        bottom: 20
+      },
       color: '#603C3C',
       font: {
         size: 18,
@@ -54,6 +57,9 @@ export const pieOptions: ChartOptions<"pie"> = {
     title: {
       display: true,
       text: 'Dépenses par catégories',
+      padding: {
+        bottom: 20
+      },
       color: '#603C3C',
       font: {
         size: 18,
