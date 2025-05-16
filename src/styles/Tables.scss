@@ -71,6 +71,11 @@
   }
 }
 
+.description-mobile {
+  white-space: pre-line;
+  display: block;
+}
+
 @media (max-width: 768px) {
   .ivory-panel {
     min-height: 350px;
