@@ -25,7 +25,6 @@ export function ProfilePage() {
     useUserStore.getState().clearUserState();
     useBudgetStore.getState().clearBudgetState();
     useExpenseStore.getState().clearExpenseState();
-    // set({ token: null, error: null });
     setShowModal(false);
   };
 
