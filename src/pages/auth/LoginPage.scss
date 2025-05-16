@@ -2,20 +2,20 @@
 @use 'sass:color';
 
 .login-page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: vars.$ivoire;
+  // min-height: 100vh;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // justify-content: center;
+  // background: vars.$ivoire;
   // padding-bottom: 5rem;
 
-  .login-logo {
-    display: block;
-    margin: 0 auto 2rem auto;
-    width: auto;
-    height: auto;
-  }
+  // .login-logo {
+  //   display: block;
+  //   margin: 0 auto 2rem auto;
+  //   width: auto;
+  //   height: auto;
+  // }
 
   .login-box {
     background: #fff;
@@ -172,7 +172,7 @@
 
   .login-page .login-box {
     padding: 1.5rem 0.75rem;
-    max-width: 98vw;
+    max-width: 94vw;
     min-height: 420px;
   }
 }

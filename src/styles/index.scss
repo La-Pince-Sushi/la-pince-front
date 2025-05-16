@@ -19,8 +19,8 @@ $shadow-color: vars.$cacao
 @use '../pages/auth/LoginPage.scss';
 
 html, body {
-  background-color: white;
-  height: 100%;
+  background-color: #FFFFF9;  
+  // height: 100%;
 }
 
 .Toastify__toast {
