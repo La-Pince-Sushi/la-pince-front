@@ -1,4 +1,6 @@
-import { ChartOptions } from "chart.js";
+import { ChartOptions, Chart, Title } from "chart.js";
+
+Chart.register(Title);
 
 export const doughnutOptions: ChartOptions<"doughnut"> = {
   responsive: true,
@@ -18,6 +20,14 @@ export const doughnutOptions: ChartOptions<"doughnut"> = {
       backgroundColor: '#FFF7E9',
       titleColor: '#603C3C',
       bodyColor: '#603C3C',
+    },
+    title: {
+      display: true,
+      text: 'Totaux',
+      color: '#603C3C',
+      font: {
+        size: 18,
+      },
     },
   },
 };
@@ -40,6 +50,14 @@ export const pieOptions: ChartOptions<"pie"> = {
       backgroundColor: '#FFF7E9',
       titleColor: '#603C3C',
       bodyColor: '#603C3C',
+    },
+    title: {
+      display: true,
+      text: 'Dépenses par catégories',
+      color: '#603C3C',
+      font: {
+        size: 18,
+      },
     },
   },
 };
