@@ -17,7 +17,7 @@ export const getDoughnutOptions = (isMobile: boolean): ChartOptions<"doughnut"> 
         font: {
           size: isMobile ? 12 : 15, // Taille de police mobile : desktop
         },
-        padding: 3,
+        padding: 2,
       },
     },
     tooltip: {
@@ -53,7 +53,7 @@ export const getPieOptions = (isMobile: boolean): ChartOptions<"pie"> => ({
         font: {
           size: 15,
         },
-        padding: 3, // Réduction de l'espace interne
+        padding: 2, // Réduction de l'espace interne
       },
     },
     tooltip: {
