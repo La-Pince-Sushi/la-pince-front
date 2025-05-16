@@ -1,7 +1,7 @@
-import { ChartOptions, Chart, Title, Legend, Tooltip } from "chart.js";
+import { ChartOptions, Chart, Title, Legend, Tooltip, SubTitle} from "chart.js";
 
 // Enregistrement des plugins nécessaires
-Chart.register(Title, Legend, Tooltip);
+Chart.register(Title, Legend, Tooltip, SubTitle);
 
 export const getDoughnutOptions = (isMobile: boolean): ChartOptions<"doughnut"> => ({
   responsive: true,
@@ -11,7 +11,7 @@ export const getDoughnutOptions = (isMobile: boolean): ChartOptions<"doughnut"> 
   },
   plugins: {
     legend: {
-      position: isMobile ? "top" : "left", // Mobile : légende en haut, Desktop : légende à gauche
+      position: isMobile ? "top" : "right", // Mobile : légende en haut, Desktop : légende à gauche
       labels: {
         color: "#603C3C",
         font: {
@@ -47,13 +47,13 @@ export const getPieOptions = (isMobile: boolean): ChartOptions<"pie"> => ({
     legend: {
       rtl: true,
       display: !isMobile,
-      position: "right",
+      position: "left",
       labels: {
         color: "#603C3C",
         font: {
           size: 15,
         },
-        padding: 2, // Réduction de l'espace interne
+        padding: 2,
       },
     },
     tooltip: {
@@ -70,5 +70,18 @@ export const getPieOptions = (isMobile: boolean): ChartOptions<"pie"> => ({
       },
       color: "#603C3C",
     },
+    subtitle: isMobile
+      ? {
+          display: true,
+          text: "Appuyez sur une part pour afficher les détails.",
+          font: {
+            size: 12,
+          },
+          color: "#603C3C",
+          padding: {
+            bottom: 5,
+          },
+        }
+      : undefined,
   },
 });
