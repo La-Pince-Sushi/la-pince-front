@@ -1,4 +1,4 @@
-import { ChartOptions, Chart, Title, Legend, Tooltip, SubTitle} from "chart.js";
+import { ChartOptions, Chart, Title, Legend, Tooltip, SubTitle } from "chart.js";
 
 // Enregistrement des plugins nécessaires
 Chart.register(Title, Legend, Tooltip, SubTitle);
@@ -25,6 +25,12 @@ export const getDoughnutOptions = (isMobile: boolean): ChartOptions<"doughnut"> 
       backgroundColor: "#FFF7E9",
       titleColor: "#603C3C",
       bodyColor: "#603C3C",
+      callbacks: {
+        label: (context) => {
+          const value = context.raw; // Récupère la valeur brute
+          return `${value} €`; // Ajoute le symbole €
+        },
+      },
     },
     title: {
       display: true,
@@ -61,6 +67,12 @@ export const getPieOptions = (isMobile: boolean): ChartOptions<"pie"> => ({
       backgroundColor: "#FFF7E9",
       titleColor: "#603C3C",
       bodyColor: "#603C3C",
+      callbacks: {
+        label: (context) => {
+          const value = context.raw; // Récupère la valeur brute
+          return `${value} €`; // Ajoute le symbole €
+        },
+      },
     },
     title: {
       display: true,
