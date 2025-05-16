@@ -1,10 +1,12 @@
 import { Button } from "../../components/common/Button";
 import { useUserStore } from "../../store/userStore";
-import { clearAccessToken, clearRefreshToken } from "../../utils/jwtUtils.ts";
 import { useLocation } from "react-router-dom";
 import LegalNotice from "../legal/LegalNotice";
 import PrivacyPolicy from "../legal/PrivacyPolicy";
 import { useState } from "react";
+import { clearAccessToken, clearRefreshToken } from "../../utils/jwtUtils.ts";
+import { useBudgetStore } from "../../store/budgetStore.ts";
+import { useExpenseStore } from "../../store/expensesStore.ts";
 
 export function ProfilePage() {
   const user = useUserStore((state) => state.user);
@@ -18,8 +20,12 @@ export function ProfilePage() {
 
   const handleConfirmDeleteUser = async () => {
     await deleteUser();
-    clearRefreshToken();
     clearAccessToken();
+    clearRefreshToken();
+    useUserStore.getState().clearUserState();
+    useBudgetStore.getState().clearBudgetState();
+    useExpenseStore.getState().clearExpenseState();
+    // set({ token: null, error: null });
     setShowModal(false);
   };
 
@@ -65,7 +71,11 @@ export function ProfilePage() {
               />
             </div>
             <div className="column">
-              <Button type="button" label="Supprimer le compte" onClick={handleOpenModal} />
+              <Button
+                type="button"
+                label="Supprimer le compte"
+                onClick={handleOpenModal}
+              />
             </div>
           </div>
         </form>
@@ -108,7 +118,7 @@ export function ProfilePage() {
               >
                 Oui, supprimer
               </button>
-              <button className="button" onClick={handleCancelDeleteUser}>
+              <button className="button ml-4" onClick={handleCancelDeleteUser}>
                 Annuler
               </button>
             </footer>
