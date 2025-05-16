@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { DoughnutChart } from "../Doughnut/DoughnutChart.tsx";
 import { getDoughnutOptions, getPieOptions } from "../../utils/chartOptions.ts";
 import { PieChart } from "../Pie/PieChart.tsx";
+import { generateCategoryColors } from "../../utils/colorsUtils";
 import "./TotalsBar.scss";
 
 export const TotalsBar = () => {
@@ -39,13 +40,14 @@ export const TotalsBar = () => {
   ) / 100;
 
   const remainingBudget = Number((totalBudget - totalExpenses).toFixed(2));
+  const remainingBudgetColor = remainingBudget <= 0 ? "#FF6B6B" : "#ACD7C2";
 
   const doughnutData = {
     labels: [`Budget restant ${remainingBudget} €`, `Dépenses totales ${totalExpenses} €`],
     datasets: [
       {
         data: [remainingBudget, totalExpenses],
-        backgroundColor: ["#ACD7C2", "#FFB085"],
+        backgroundColor: [remainingBudgetColor, "#FFB085"],
         borderColor: "#fff",
         borderWidth: 2,
       },
@@ -65,9 +67,7 @@ export const TotalsBar = () => {
             .filter(expense => expense.category_id === category.id)
             .reduce((sum, expense) => sum + Number(expense.amount), 0)
         ),
-        backgroundColor: filteredCategories.map((_, index) =>
-          `hsl(${(index * 360) / filteredCategories.length}, 70%, 70%)`
-        ),
+        backgroundColor: generateCategoryColors(filteredCategories.length),
         borderColor: "#fff",
         borderWidth: 2,
       },
