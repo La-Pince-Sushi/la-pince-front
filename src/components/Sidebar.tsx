@@ -6,6 +6,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useState } from "react";
 
 const menuItems = [
   { id: "dashboard", label: (<><HomeIcon className="icon" />Tableau de bord</>), path: "/dashboard" },
@@ -16,42 +17,88 @@ const menuItems = [
 ];
 
 export default function Sidebar() {
+  const [showModal, setShowModal] = useState(false);
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogoutClick = () => {
+    setShowModal(true); // Affiche la modale
+  };
+
+  const handleConfirmLogout = () => {
     logout();
     navigate("/signin");
+    setShowModal(false); // Ferme la modale
+  };
+
+  const handleCancelLogout = () => {
+    setShowModal(false); // Ferme la modale sans déconnexion
   };
 
   return (
-    <aside className="menu custom-sidebar">
-      <ul className="menu-list">
-        {menuItems.map((item) => (
-          <li key={item.id}>
-            {item.onClick ? (
-              <button
-                className="sidebar-logout-btn"
-                onClick={handleLogout}
-              >
-                {item.label}
-              </button>
-            ) : (
-              item.path && ( // Vérification que item.path est défini
-                <NavLink
-                  to={item.path}
-                  className={({ isActive }) =>
-                    isActive ? "is-active" : undefined
-                  }
-                  end={item.path === "/"}
+    <>
+      <aside className="menu custom-sidebar">
+        <ul className="menu-list">
+          {menuItems.map((item) => (
+            <li key={item.id}>
+              {item.onClick ? (
+                <button
+                  className="sidebar-logout-btn"
+                  onClick={handleLogoutClick}
                 >
                   {item.label}
-                </NavLink>
-              )
-            )}
-          </li>
-        ))}
-      </ul>
-    </aside>
+                </button>
+              ) : (
+                item.path && (
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) =>
+                      isActive ? "is-active" : undefined
+                    }
+                    end={item.path === "/"}
+                  >
+                    {item.label}
+                  </NavLink>
+                )
+              )}
+            </li>
+          ))}
+        </ul>
+      </aside>
+
+      {/* Modale de confirmation */}
+      {showModal && (
+        <div className="modal is-active">
+          <div
+            className="modal-background"
+            onClick={handleCancelLogout}
+          ></div>
+          <div className="modal-card">
+            <header className="modal-card-head">
+              <p className="modal-card-title">Confirmation de déconnexion</p>
+              <button
+                className="delete"
+                aria-label="close"
+                onClick={handleCancelLogout}
+              ></button>
+            </header>
+            <section className="modal-card-body">
+              <p>Êtes-vous sûr de vouloir vous déconnecter ?</p>
+            </section>
+            <footer className="modal-card-foot">
+              <button
+                className="button is-danger"
+                onClick={handleConfirmLogout}
+              >
+                Oui, déconnecter
+              </button>
+              <button className="button ml-4" onClick={handleCancelLogout}>
+                Annuler
+              </button>
+            </footer>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

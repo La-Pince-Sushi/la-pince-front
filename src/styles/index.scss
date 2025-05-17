@@ -12,15 +12,18 @@ $danger: vars.$terre-cuite,
 $text: vars.$cacao,
 $text-strong: vars.$cacao,
 $scheme-main: vars.$ivoire,
-$shadow-color: vars.$cacao
+$shadow-color: vars.$cacao,
 );
 
 @use "bulma/bulma";
-@use '../pages/auth/LoginPage.scss';
+// @use '../pages/auth/LoginPage.scss';
 
 html, body {
-  background-color: white;
-  height: 100%;
+  background-color: #FFFFF9;  
+}
+
+.content {
+  margin-bottom: 0 !important;
 }
 
 .Toastify__toast {
@@ -32,7 +35,7 @@ html, body {
   --toastify-color-success: #98E08C;
   --toastify-color-warning: #F0DF87;
   --toastify-color-error: #D77D82;
-  // height: 100%;
+    height: 100%;
 }
 .bg-ivoire {
   background-color: vars.$ivoire; }

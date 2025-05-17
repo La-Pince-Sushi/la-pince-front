@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { useAuthStore } from '../../store/authStore.ts';
 import { useNavigate, Link } from 'react-router-dom';
-import logo from '../../assets/logo-la-pince.png';
+// import logo from '../../assets/logo-la-pince.png';
 import './LoginPage.scss';
 import { showErrorToast } from '../../utils/toastUtils.tsx';
 import { PasswordInput } from '../../components/common/PasswordInput.tsx';
@@ -61,7 +61,7 @@ export default function RegisterPage() {
 
   return (
     <main className="login-page">
-      <img src={logo} alt="Logo" className="login-logo" />
+      {/* <img src={logo} alt="Logo" className="login-logo" /> */}
       <div className="login-box">
         <h1 className="title login-title">Créer un compte</h1>
 
@@ -143,10 +143,7 @@ export default function RegisterPage() {
           <Link to="/signin">Se connecter</Link>
         </div>
       </div>
-      <footer className="has-text-centered mt-5">
-        <Link to="/legal-notice">Mentions légales</Link> |{" "}
-        <Link to="/privacy-policy">Politique de confidentialité</Link>
-      </footer>
+     
     </main>
   );
 }

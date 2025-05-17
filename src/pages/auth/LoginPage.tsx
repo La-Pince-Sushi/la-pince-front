@@ -1,10 +1,11 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { useAuthStore } from "../../store/authStore.ts";
-import logo from "../../assets/logo-la-pince.png";
+
 import './LoginPage.scss';
 import { Link, useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore.ts";
 import  { PasswordInput } from "../../components/common/PasswordInput.tsx";
+// import { LogoLink } from "../../components/common/LogoLink.tsx";
 
 export default function LoginPage() {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -44,7 +45,9 @@ export default function LoginPage() {
 
   return (
     <main className="login-page">
-      <img src={logo} alt="Logo La Pince" className="login-logo" />
+      {/* <div className="login-logo">
+        <LogoLink />
+      </div> */}
       <div className="login-box">
         <h1 className="title login-title">Connexion</h1>
 
@@ -92,10 +95,7 @@ export default function LoginPage() {
           <Link to="/signup">S'inscrire</Link>
         </div>
       </div>
-      <footer className="has-text-centered mt-5">
-        <Link to="/legal-notice">Mentions légales</Link> |{" "}
-        <Link to="/privacy-policy">Politique de confidentialité</Link>
-      </footer>
+      
     </main>
   );
 }

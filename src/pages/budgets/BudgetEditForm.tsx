@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCategoryStore } from "../../store/categoryStore";
 import { useBudgetStore } from "../../store/budgetStore.ts";
+import { getSortedCategories } from "../../utils/categoryUtils";
 
 export function BudgetEditForm() {
   const selectRef = useRef<HTMLSelectElement>(null)
@@ -63,6 +64,8 @@ export function BudgetEditForm() {
     updateBudget(Number(id), updatedBudget);
   }
 
+  const sortedCategories = getSortedCategories(categories);
+
   if (!budgetToEdit) return <p>Budget non trouvé.</p>;
 
   return (
@@ -83,8 +86,10 @@ export function BudgetEditForm() {
                     onChange={handleChange}
                   >
                     <option disabled value="">-- Choisir une catégorie --</option>
-                    {categories.map((category) => (
-                      <option key={category.id} value={category.id}>{category.name}</option>
+                    {sortedCategories.map((category) => (
+                      <option key={`category-${category.id}`} value={category.id}>
+                        {category.name}
+                      </option>
                     ))}
                   </select>
                 </div>

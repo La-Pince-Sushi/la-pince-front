@@ -4,10 +4,11 @@ import { useExpenseStore } from "../../store/expensesStore";
 import { useCategoryStore } from "../../store/categoryStore";
 import { IExpense } from "../../types";
 import { useBudgetStore } from "../../store/budgetStore";
+import { getSortedCategories } from "../../utils/categoryUtils";
 import "../../styles/Tables.scss"
 
 export function ExpensesAddForm() {
-  const selectRef = useRef<HTMLSelectElement>(null)
+  const selectRef = useRef<HTMLSelectElement>(null);
   const navigate = useNavigate();
 
   const addNewExpense = useExpenseStore((state) => state.addNewExpense);
@@ -23,7 +24,7 @@ export function ExpensesAddForm() {
   const initialFormState = {
     amount: "",
     description: "",
-    date: "",
+    date: new Date().toISOString().split("T")[0], // Date du jour
     categoryId: ""
   };
 
@@ -33,8 +34,8 @@ export function ExpensesAddForm() {
   const [formData, setFormData] = useState(initialFormState);
 
   useEffect(() => {
-    selectRef.current?.focus()
-  }, [])
+    selectRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     if (!isLoadedExpense || !isLoadedCategory) {
@@ -104,146 +105,155 @@ export function ExpensesAddForm() {
     setShowModal(false);
   };
 
+  const sortedCategories = getSortedCategories(categories);
+
   return (
     <main className="container">
-      
-        <h2 className="title">Ajouter une dépense</h2>
-        <div className="box box-custom-form">
-          <form onSubmit={handleSubmit} method="POST">
-            <div className="field">
-              <label className="label" htmlFor="category">
-                Sélection de la Catégorie
-              </label>
-              <div className="control">
-                <div className="select">
-                  <select
-                    id="category"
-                    name="categoryId"
-                    className="select"
-                    value={formData.categoryId}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option disabled value="">
-                      -- Choisir une catégorie --
-                    </option>
-                    {categories.map((category) => (
-                      <option key={`category-${category.id}`} value={category.id}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div className="field">
-              <label className="label" htmlFor="description">
-                Description de la dépense
-              </label>
-              <div className="control">
-                <input
-                  name="description"
-                  className="input"
-                  type="text"
-                  id="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                  placeholder="Ex : Courses, Restaurant..."
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="field">
-              <label className="label" htmlFor="amount">
-                Montant (€)
-              </label>
-              <div className="control">
-                <input
-                  name="amount"
-                  className="input"
-                  type="number"
-                  id="amount"
-                  value={formData.amount}
+      <h2 className="title">Ajouter une dépense</h2>
+      <div className="box box-custom-form">
+        <form onSubmit={handleSubmit} method="POST">
+          <div className="field">
+            <label className="label" htmlFor="category">
+              Sélection de la Catégorie
+            </label>
+            <div className="control">
+              <div className="select">
+                <select
+                  id="category"
+                  name="categoryId"
+                  className="select"
+                  value={formData.categoryId}
                   onChange={handleChange}
                   required
-                  min="0.01"
-                  step="0.01"
-                  placeholder="Ex : 25.50"
-                />
-              </div>
-            </div>
-
-            <div className="field">
-              <label className="label" htmlFor="date">
-                Date
-              </label>
-              <div className="control">
-                <input
-                  name="date"
-                  className="input"
-                  type="date"
-                  id="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="field is-grouped">
-              <div className="control">
-                <button className="button is-link" type="submit">
-                  Ajouter
-                </button>
-              </div>
-              <div className="control">
-                <button type="button" className="button is-light" onClick={() => navigate(-1)}>
-                  Retour
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-        
-        {/* Modale de confirmation */}
-        {showModal && (
-          <div className="modal is-active">
-            <div
-              className="modal-background"
-              onClick={handleCancelExpense}
-            ></div>
-            <div className="modal-card">
-              <header className="modal-card-head">
-                <p className="modal-card-title">Dépassement de budget</p>
-                <button
-                  className="delete"
-                  aria-label="close"
-                  onClick={handleCancelExpense}
-                ></button>
-              </header>
-              <section className="modal-card-body">
-                <p>
-                  Cette dépense va faire dépasser le seuil d’alerte du budget.
-                </p>
-                <p>Souhaitez-vous vraiment continuer ?</p>
-              </section>
-              <footer className="modal-card-foot">
-                <button
-                  className="button is-danger"
-                  onClick={handleConfirmExpense}
                 >
-                  Oui, enregistrer quand même
-                </button>
-                <button className="button" onClick={handleCancelExpense}>
-                  Annuler
-                </button>
-              </footer>
+                  <option disabled value="">
+                    -- Choisir une catégorie --
+                  </option>
+                  {sortedCategories.map((category) => (
+                    <option key={`category-${category.id}`} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
-        )}
-     
+
+          <div className="field">
+            <label className="label" htmlFor="description">
+              Description de la dépense
+            </label>
+            <div className="control">
+              <input
+                name="description"
+                className="input"
+                type="text"
+                id="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Ex : Courses, Restaurant..."
+                required
+              />
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label" htmlFor="amount">
+              Montant (€)
+            </label>
+            <div className="control">
+              <input
+                name="amount"
+                className="input"
+                type="number"
+                id="amount"
+                value={formData.amount}
+                onChange={handleChange}
+                required
+                min="0.01"
+                step="0.01"
+                placeholder="Ex : 25.50"
+              />
+            </div>
+          </div>
+
+          <div className="field">
+            <label className="label" htmlFor="date">
+              Date
+            </label>
+            <div className="control">
+              <input
+                name="date"
+                className="input"
+                type="date"
+                id="date"
+                value={formData.date}
+                onChange={handleChange}
+                required
+                min="2024-01-01" // Date minimale
+                max="2100-12-31" // Date maximale
+              />
+            </div>
+          </div>
+
+          <div className="field is-grouped">
+            <div className="control">
+              <button className="button is-link" type="submit">
+                Ajouter
+              </button>
+            </div>
+            <div className="control">
+              <button
+                type="button"
+                className="button is-light"
+                onClick={() => navigate(-1)}
+              >
+                Retour
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      {/* Modale de confirmation */}
+      {showModal && (
+        <div className="modal is-active">
+          <div
+            className="modal-background"
+            onClick={handleCancelExpense}
+          ></div>
+          <div className="modal-card">
+            <header className="modal-card-head">
+              <p className="modal-card-title">Dépassement de budget</p>
+              <button
+                className="delete"
+                aria-label="close"
+                onClick={handleCancelExpense}
+              ></button>
+            </header>
+            <section className="modal-card-body">
+              <p>
+                Cette dépense va faire dépasser le seuil d’alerte du budget.
+              </p>
+              <p>Souhaitez-vous vraiment continuer ?</p>
+            </section>
+            <footer className="modal-card-foot">
+              <button
+                className="button is-danger"
+                onClick={handleConfirmExpense}
+              >
+                Oui, enregistrer quand même
+              </button>
+              <button
+                className="button ml-4"
+                onClick={handleCancelExpense}
+              >
+                Annuler
+              </button>
+            </footer>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

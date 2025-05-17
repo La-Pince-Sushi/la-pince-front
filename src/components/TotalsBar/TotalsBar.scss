@@ -1,45 +1,46 @@
 .charts-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
   gap: 1rem;
 
-  .doughnut-wrapper,
-  .pie-wrapper {
-    width: 100%;
-    max-width: 600px;
-    height: 300px;
-    position: relative;
-  }
-
-  canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
+  &.mobile {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
   }
 }
 
-@media (min-width: 768px) {
-  .charts-container {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 1rem;
-  }
+.pie-wrapper {
+  width: 100%;
+  max-width: 425px;
+  height: 280px;
+  position: relative;
+  margin: 0 auto;
 
-  .doughnut-wrapper,
-  .pie-wrapper {
-    flex: 1;
-    max-width: none;
-    height: auto;
-    min-height: 200px; // Hauteur minimale si besoin
-    max-height: 230px; // ✅ Gère la hauteur max ici
+  @media (max-width: 768px) {
+    max-width: 90%;
+    height: 200px;
   }
+}
 
-  canvas {
-    width: 100% !important;
-    height: 100% !important;
+.doughnut-wrapper {
+  width: 100%;
+  max-width: 490px;
+  height: 280px;
+  position: relative;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    max-width: 90%;
+    height: 205px;
   }
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
 }

@@ -1,10 +1,11 @@
-import logo from "../assets/logo-la-pince.png";
+import { LogoLink } from "./common/LogoLink";
+import "./Header.scss";
 
 export default function Header() {
   return (
     <header className="header p-2">
       <div className="logo">
-        <img src={logo} alt="logo La Pince" />
+        <LogoLink />
       </div>
     </header>
   );

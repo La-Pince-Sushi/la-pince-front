@@ -46,7 +46,7 @@ const useUserStoreBase = create<IUserState>()((set) => ({
     } catch (error) {
       const parsedError = parseStoreError(error);
       logStoreError(parsedError);
-      showErrorToast(parsedError);
+      showErrorToast(parsedError, { autoClose: 7000 });
       set({ error: parsedError });
       return false;
     }

@@ -8,9 +8,8 @@ import "./dashboard.scss";
 export function Dashboard() {
   return (
     <div className="container">
-      <div className="charts-container">
-        <TotalsBar />
-      </div>
+      
+      <TotalsBar />
 
       <div className="actions">
         <AddBudgetButton to={"/budgets/add"} label="+ Ajout Budget" />
