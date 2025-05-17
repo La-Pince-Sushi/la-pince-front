@@ -2,7 +2,7 @@ import { useAuthStore } from "../store/authStore.ts";
 import { THttpMethods } from "../types/index";
 import { getAccessToken, getRefreshToken } from "../utils/jwtUtils.ts";
 
-const BASE_URL = "https://la-pince-api.up.railway.app/";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 /**
  * Utility function to make any API request.
