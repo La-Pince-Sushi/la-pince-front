@@ -23,26 +23,19 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   async checkAuth() {
     set({ isLoading: true, isAuthChecked: false }); // Début du chargement
     const token = getAccessToken();
-
     if (!token) {
-      console.warn("Aucun token trouvé. L'utilisateur n'est pas authentifié.");
       set({ isLoading: false, isAuthChecked: true }); // Fin du chargement si aucun token
       return;
     }
-
     set({ token });
 
     try {
-      console.log("Vérification du profil utilisateur...");
       await useUserStore.getState().getProfile(); // Récupération du profil utilisateur
-      console.log("Profil utilisateur récupéré avec succès.");
     } catch (error) {
-      console.error("Erreur lors de la récupération du profil utilisateur :", error);
       clearAccessToken();
       set({ token: null });
     } finally {
       set({ isLoading: false, isAuthChecked: true }); // Fin du chargement et vérification
-      console.log("Vérification de l'authentification terminée.");
     }
   },
 
