@@ -12,12 +12,18 @@ export function App() {
   const hasMountedOnce = useRef(false);
 
   useEffect(() => {
-    if (!hasMountedOnce.current) return void (hasMountedOnce.current = true);
-    checkAuth(); // Appelle checkAuth directement
+    if (!hasMountedOnce.current) {
+      hasMountedOnce.current = true;
+      checkAuth();
+    }
   }, [checkAuth]);
 
-  if (isLoading || !isAuthChecked) {
-    return <div>Chargement de l'application...</div>; // Loader global
+  if (isLoading) {
+    return <div>Chargement de l'application...</div>;
+  }
+
+  if (!isAuthChecked) {
+    return <div>Vérification de l'authentification...</div>;
   }
 
   return <AppRoutes />;

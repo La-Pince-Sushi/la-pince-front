@@ -14,35 +14,28 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   refreshToken: getRefreshToken(),
   error: null,
   isLoading: false,
-  isAuthChecked: false, // Nouvel état pour indiquer si l'authentification a été vérifiée
+  isAuthChecked: false,
 
   clearTokenState: () => {
     set({ token: null, error: null });
   },
 
   async checkAuth() {
-    set({ isLoading: true, isAuthChecked: false }); // Début du chargement
-    const token = getAccessToken();
-
-    if (!token) {
-      console.warn("Aucun token trouvé. L'utilisateur n'est pas authentifié.");
-      set({ isLoading: false, isAuthChecked: true }); // Fin du chargement si aucun token
-      return;
-    }
-
-    set({ token });
-
+    set({ isLoading: true, isAuthChecked: false });
     try {
-      console.log("Vérification du profil utilisateur...");
-      await useUserStore.getState().getProfile(); // Récupération du profil utilisateur
-      console.log("Profil utilisateur récupéré avec succès.");
+      const token = getAccessToken();
+      if (!token) {
+        console.warn("Aucun utilisateur authentifié.");
+        return;
+      }
+      set({ token });
+      await useUserStore.getState().getProfile();
     } catch (error) {
-      console.error("Erreur lors de la récupération du profil utilisateur :", error);
+      console.error("Erreur lors de la vérification de l'authentification :", error);
       clearAccessToken();
       set({ token: null });
     } finally {
-      set({ isLoading: false, isAuthChecked: true }); // Fin du chargement et vérification
-      console.log("Vérification de l'authentification terminée.");
+      set({ isLoading: false, isAuthChecked: true });
     }
   },
 
