@@ -182,6 +182,7 @@ export function ExpensesEditForm() {
             </label>
             <div className="control">
               <input
+                id="description"
                 name="description"
                 type="text"
                 className="input"
@@ -197,6 +198,7 @@ export function ExpensesEditForm() {
             </label>
             <div className="control">
               <input
+                id="amount"
                 name="amount"
                 type="number"
                 className="input"
@@ -212,10 +214,10 @@ export function ExpensesEditForm() {
             </label>
             <div className="control">
               <input
+                id="date"
                 name="date"
                 className="input"
                 type="date"
-                id="date"
                 value={formData.date}
                 onChange={handleChange}
                 required
