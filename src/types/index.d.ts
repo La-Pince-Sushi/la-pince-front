@@ -11,9 +11,9 @@ export type THttpMethods = "GET" | "POST" | "PATCH" | "DELETE" | "PUT"
 // # INTERFACE
 
 export interface IStoreError {
-  message: string
-  details: string[]
-}
+  message: string;
+  details: string[];
+};
 
 export interface ICategory {
   id?: number
@@ -49,10 +49,8 @@ export interface IAuthStore {
   token: string | null
   refreshToken: string | null
   error: IStoreError | null
-  isLoading: boolean
-  isAuthChecked: boolean
   checkAuth: () => Promise<void>
-  refreshAccessToken: () => Promise<string | null>
+  refreshAccessToken: () => Promise<string | null>;
   clearTokenState: () => void
   register: (email: string, password: string) => Promise<boolean | void>
   login: (email: string, password: string) => Promise<void>
