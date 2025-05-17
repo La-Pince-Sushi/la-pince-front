@@ -12,32 +12,8 @@ import { useExpenseStore } from "./expensesStore.ts";
 export const useAuthStore = create<IAuthStore>((set) => ({
   token: getAccessToken(),
   refreshToken: getRefreshToken(),
+  clearTokenState: () => { set({ token: null }) },
   error: null,
-  isLoading: false,
-  isAuthChecked: false, // Nouvel état pour indiquer si l'authentification a été vérifiée
-
-  clearTokenState: () => {
-    set({ token: null, error: null });
-  },
-
-  async checkAuth() {
-    set({ isLoading: true, isAuthChecked: false }); // Début du chargement
-    const token = getAccessToken();
-    if (!token) {
-      set({ isLoading: false, isAuthChecked: true }); // Fin du chargement si aucun token
-      return;
-    }
-    set({ token });
-
-    try {
-      await useUserStore.getState().getProfile(); // Récupération du profil utilisateur
-    } catch (error) {
-      clearAccessToken();
-      set({ token: null });
-    } finally {
-      set({ isLoading: false, isAuthChecked: true }); // Fin du chargement et vérification
-    }
-  },
 
   async register(email, password) {
     try {
@@ -53,7 +29,6 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   },
 
   async login(email, password) {
-    set({ isLoading: true });
     try {
       const response = await loginRequest(email, password);
       const { accessToken, refreshToken, user } = response;
@@ -67,8 +42,6 @@ export const useAuthStore = create<IAuthStore>((set) => ({
       logStoreError(parsedError);
       showErrorToast(parsedError);
       set({ error: parsedError });
-    } finally {
-      set({ isLoading: false });
     }
   },
 
@@ -88,6 +61,19 @@ export const useAuthStore = create<IAuthStore>((set) => ({
       logStoreError(parsedError);
       this.logout();
       return null;
+    }
+  },
+
+  async checkAuth() {
+    const token = getAccessToken();
+    if (!token) return;
+    set({ token });
+
+    try {
+      await useUserStore.getState().getProfile();
+    } catch (error) {
+      clearAccessToken();
+      set({ token: null });
     }
   },
 
