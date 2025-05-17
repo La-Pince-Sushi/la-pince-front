@@ -4,6 +4,7 @@ import { useCategoryStore } from "../../store/categoryStore";
 import { useNavigate } from "react-router-dom";
 import { showInfoToast, showWarningToast } from "../../utils/toastUtils";
 import { useExpenseStore } from "../../store/expensesStore";
+import { getSortedCategories } from "../../utils/categoryUtils";
 
 export function BudgetAddForm() {
   const selectRef = useRef<HTMLSelectElement>(null)
@@ -38,7 +39,6 @@ export function BudgetAddForm() {
       if (!isLoadedExpense) getAllExpenses();
     }
   }, [isLoadedBudget, isLoadedCategory]);
-
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -91,6 +91,9 @@ export function BudgetAddForm() {
 
     navigate("/budgets");
   };
+
+  const sortedCategories = getSortedCategories(categories);
+
   return (
     <main className="container">
 
@@ -114,7 +117,7 @@ export function BudgetAddForm() {
                   <option disabled value="">
                     -- Choisir une catégorie --
                   </option>
-                  {categories.slice().sort((a, b) => a.name.localeCompare(b.name)).map((category) => (
+                  {sortedCategories.map((category) => (
                     <option key={`category-${category.id}`} value={category.id}>
                       {category.name}
                     </option>

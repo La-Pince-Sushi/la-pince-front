@@ -4,6 +4,7 @@ import { useExpenseStore } from "../../store/expensesStore";
 import { useCategoryStore } from "../../store/categoryStore";
 import { IExpense } from "../../types";
 import { useBudgetStore } from "../../store/budgetStore";
+import { getSortedCategories } from "../../utils/categoryUtils";
 import "../../styles/Tables.scss"
 
 export function ExpensesAddForm() {
@@ -104,6 +105,8 @@ export function ExpensesAddForm() {
     setShowModal(false);
   };
 
+  const sortedCategories = getSortedCategories(categories);
+
   return (
     <main className="container">
       <h2 className="title">Ajouter une dépense</h2>
@@ -126,7 +129,7 @@ export function ExpensesAddForm() {
                   <option disabled value="">
                     -- Choisir une catégorie --
                   </option>
-                  {categories.slice().sort((a, b) => a.name.localeCompare(b.name)).map((category) => (
+                  {sortedCategories.map((category) => (
                     <option key={`category-${category.id}`} value={category.id}>
                       {category.name}
                     </option>
