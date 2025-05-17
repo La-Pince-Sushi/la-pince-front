@@ -4,6 +4,7 @@ import { IExpense } from "../../types";
 import { useExpenseStore } from "../../store/expensesStore";
 import { useCategoryStore } from "../../store/categoryStore";
 import { useBudgetStore } from "../../store/budgetStore";
+import { getSortedCategories } from "../../utils/categoryUtils";
 
 export function ExpensesEditForm() {
   const selectRef = useRef<HTMLSelectElement>(null);
@@ -145,6 +146,8 @@ export function ExpensesEditForm() {
     setShowModal(false);
   };
 
+  const sortedCategories = getSortedCategories(categories);
+
   if (!expenseToEdit) return <p>Dépense non trouvée.</p>;
 
   return (
@@ -167,9 +170,9 @@ export function ExpensesEditForm() {
                 <option disabled value="">
                   -- Choisir une catégorie --
                 </option>
-                {categories.slice().sort((a, b) => a.name.localeCompare(b.name)).map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.name}
+                {sortedCategories.map((category) => (
+                  <option key={`category-${category.id}`} value={category.id}>
+                    {category.name}
                   </option>
                 ))}
               </select>
