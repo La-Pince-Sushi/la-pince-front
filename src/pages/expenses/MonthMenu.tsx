@@ -1,24 +1,21 @@
 import { useState } from "react"
 import ArrowDropDownIcon from'@mui/icons-material/ArrowDropDown'
 import { formatMonth } from "../../utils/resetExpenses";
-import { ALL_MONTHS } from "./ExpensesTable";
+import { useExpenseStore } from "../../store/expensesStore";
+import { ALL_MONTHS } from "../../constant/constant";
 
-type IMonthMenuProps = {
-  months: string[];
-  onSelect: (month: string) => void;
-};
 
-// const ALL_EXPENSES = "all";
-
-export function MonthMenu({months, onSelect}:IMonthMenuProps) {
+export function MonthMenu() {
   const [ isActive, setIsActive ] = useState(false)
-  const [ selectedMonth, setSelectedMonth ] = useState(months[0] || "")
+  const selectedMonth = useExpenseStore((state) => state.monthSelected)
+  const setSelectedMonth = useExpenseStore((state) => state.setMonthSelected)
+  const months = useExpenseStore((state) => state.availableMonths)
 
   const handleSelect = (month: string) => {
     setSelectedMonth(month)
-    setIsActive(false)
-    onSelect(month)
+    setIsActive(false)    
   }
+
   return (
     <div className={`dropdown ${isActive ? "is-active" : ""}`}>
       <div className="dropdown-trigger">

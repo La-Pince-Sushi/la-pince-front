@@ -6,11 +6,20 @@ import { useCategoryStore } from "./categoryStore.ts";
 import { parseStoreError } from "../utils/parseStoreError.ts";
 import { logStoreError } from "../utils/logStoreError.ts";
 import { showErrorToast, showSuccessToast } from "../utils/toastUtils.tsx";
+import { filterExpensesByMonth, handleUniqueMonth } from "../utils/resetExpenses.ts";
+import { ALL_MONTHS } from "../constant/constant.ts";
+
 
 export interface IExpenseState {
   expenses: TExpenses;
+  filteredExpenses: TExpenses;
   error: IStoreError | null
   isLoadedExpense: boolean;
+  monthSelected: string;
+  availableMonths: string[];
+
+
+  setMonthSelected: (month: string) => void;
   clearError: () => void;
   getAllExpenses: () => Promise<void>;
   clearExpenseState: () => void;
@@ -21,8 +30,17 @@ export interface IExpenseState {
 
 const useExpenseStoreBase = create<IExpenseState>()((set, get) => ({
   expenses: [],
+  filteredExpenses: [],
   isLoadedExpense: false,
   error: null,
+  monthSelected: ALL_MONTHS,
+  availableMonths: [],
+  
+  setMonthSelected: (month) => {
+    const expenses = get().expenses;
+    const filtered = filterExpensesByMonth(expenses, month);
+    set({monthSelected: month, filteredExpenses:filtered})
+  },
 
   clearExpenseState: () => set({ expenses: [], isLoadedExpense: false, error: null }),
 
@@ -32,7 +50,10 @@ const useExpenseStoreBase = create<IExpenseState>()((set, get) => ({
     try {
       if (get().isLoadedExpense) return;
       const expenses = await getAllExpenses();
-      set({ expenses, error: null, isLoadedExpense: true });
+      const months = handleUniqueMonth(expenses);
+      const month = get().monthSelected;
+      const filtered = filterExpensesByMonth(expenses, month);
+      set({ expenses, filteredExpenses: filtered, availableMonths: months, error: null, isLoadedExpense: true });
     } catch (error) {
       const parsedError = parseStoreError(error);
       logStoreError(parsedError);
@@ -89,4 +110,14 @@ const useExpenseStoreBase = create<IExpenseState>()((set, get) => ({
   }
 }));
 
-export const useExpenseStore = createSelectors(useExpenseStoreBase)
+export const useExpenseStore = createSelectors(useExpenseStoreBase);
+
+// export const selectFilteredExpenses = (state: IExpenseState) => {
+//   if(!state.monthSelected || state.monthSelected === ALL_MONTHS) {
+//     return state.expenses;
+//   }
+//   return state.expenses.filter((expense) => {
+//     const dateMonth = expense.date.slice(0,7);
+//     return dateMonth === state.monthSelected
+//   });
+// };

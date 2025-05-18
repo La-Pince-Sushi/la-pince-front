@@ -1,20 +1,17 @@
 import { useExpenseStore } from "../../store/expensesStore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { UpdateButton, DeleteButton, AddExpenseButton } from "../../components/common/Button.tsx";
 import { useLocation } from "react-router-dom";
 import "../../styles/Tables.scss"
-import { handleUniqueMonth } from "../../utils/resetExpenses.ts";
+
 import { MonthMenu } from "./MonthMenu.tsx";
+
 
 interface ExpensesTableProps {
   limit?: number;
 }
 
-export const ALL_MONTHS = "all";
-
 export function ExpensesTable({ limit }: ExpensesTableProps) {
-const [selectedMonth, setSelectedMonth] = useState(ALL_MONTHS)
-
   const expenses = useExpenseStore((state) => state.expenses);
   const getAllExpenses = useExpenseStore((state) => state.getAllExpenses);
   const deleteExpense = useExpenseStore((state) => state.deleteExpense);
@@ -26,21 +23,16 @@ const [selectedMonth, setSelectedMonth] = useState(ALL_MONTHS)
     if (!isLoadedExpense) getAllExpenses();
   }, [isLoadedExpense]);
 
-  const months = handleUniqueMonth(expenses)
+  const filteredExpenses = useExpenseStore.use.filteredExpenses();
 
-  const filteredExpenses = selectedMonth === ALL_MONTHS ? expenses : expenses.filter((expense) => {
-    const dateMonth = expense.date.slice(0,7)
-    return dateMonth === selectedMonth
-  })
-
-  const expensesToShow = limit ? filteredExpenses.slice(0, limit) : filteredExpenses;
+  const expensesToShow = limit ? filteredExpenses.slice(0, limit) : expenses;
 
   return (
     <div className="container ivory-panel">
       <div className="table-bar">
         <h2 className="table-title is-size-4 m-0">Dépenses</h2>
         <div className="month-menu">
-          <MonthMenu months={months} onSelect={setSelectedMonth} />
+          <MonthMenu />
         </div>
       </div>
 
