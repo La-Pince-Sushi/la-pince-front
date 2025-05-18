@@ -1,7 +1,8 @@
 import { useExpenseStore } from "../../store/expensesStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { UpdateButton, DeleteButton, AddExpenseButton } from "../../components/common/Button.tsx";
 import { useLocation } from "react-router-dom";
+import Pagination from "@mui/material/Pagination";
 import "../../styles/Tables.scss"
 
 interface ExpensesTableProps {
@@ -16,9 +17,21 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
 
   const location = useLocation();
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = location.pathname === "/dashboard" ? 5 : 10;
+
   useEffect(() => {
     if (!isLoadedExpense) getAllExpenses();
   }, [isLoadedExpense]);
+
+  const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
+    setCurrentPage(page);
+  };
+
+  // Calculate paginated data
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const paginatedExpenses = expenses.slice(startIndex, startIndex + rowsPerPage);
 
   const expensesToShow = limit ? expenses.slice(0, limit) : expenses;
 
@@ -32,7 +45,7 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
         )}
       </div>
 
-      {expensesToShow.length > 0 ? (
+      {paginatedExpenses.length > 0 ? (
         <>
           {/* Table desktop */}
           <div className="is-hidden-touch table-container m-0">
@@ -48,7 +61,7 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
                 </tr>
               </thead>
               <tbody>
-                {expensesToShow
+                {paginatedExpenses
                   .slice()
                   .sort((a, b) => {
                     const dateA = new Date(a.date as string).getTime();
@@ -75,36 +88,44 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
 
           {/* Liste mobile */}
           <ul className="is-hidden-desktop">
-  {expensesToShow
-    .slice()
-    .sort((a, b) => {
-      const dateA = new Date(a.date as string).getTime();
-      const dateB = new Date(b.date as string).getTime();
-      return dateB - dateA;
-    })
-    .map((expense) => (
-      <li className="box mb-4" key={expense.id}>
-        {/* Ligne 1 : Catégorie | Date | Montant */}
-        <div className="columns is-mobile is-vcentered mb-0">
-          <div className="column is-5 has-text-weight-semibold">{expense.category?.name}</div>
-          <div className="column is-3 is-size-6 has-text-weight-bold has-text-right">{Number(expense.amount).toFixed(2)}€</div>
-          <div className="column is-4">{new Date(expense.date).toLocaleDateString("fr-FR")}</div>
-        </div>
-        {/* Ligne 2 : Description */}
-        <div className="mb-3">
-        <span className="description-mobile">
-          {expense.description}
-        </span>
-        </div>
-        {/* Ligne 3 : Boutons Modifier & Supprimer */}
-        <div className="buttons is-flex is-justify-content-space-between">
-          <UpdateButton to={`/expenses/edit/${expense.id}`} label="Modifier" />
-          <DeleteButton label="Supprimer" onClick={() => deleteExpense(expense.id)} />
-        </div>
-      </li>
-    ))}
-</ul>
+            {expensesToShow
+              .slice()
+              .sort((a, b) => {
+                const dateA = new Date(a.date as string).getTime();
+                const dateB = new Date(b.date as string).getTime();
+                return dateB - dateA;
+              })
+              .map((expense) => (
+                <li className="box mb-4" key={expense.id}>
+                  {/* Ligne 1 : Catégorie | Date | Montant */}
+                  <div className="columns is-mobile is-vcentered mb-0">
+                    <div className="column is-5 has-text-weight-semibold">{expense.category?.name}</div>
+                    <div className="column is-3 is-size-6 has-text-weight-bold has-text-right">{Number(expense.amount).toFixed(2)}€</div>
+                    <div className="column is-4">{new Date(expense.date).toLocaleDateString("fr-FR")}</div>
+                  </div>
+                  {/* Ligne 2 : Description */}
+                  <div className="mb-3">
+                    <span className="description-mobile">
+                      {expense.description}
+                    </span>
+                  </div>
+                  {/* Ligne 3 : Boutons Modifier & Supprimer */}
+                  <div className="buttons is-flex is-justify-content-space-between">
+                    <UpdateButton to={`/expenses/edit/${expense.id}`} label="Modifier" />
+                    <DeleteButton label="Supprimer" onClick={() => deleteExpense(expense.id)} />
+                  </div>
+                </li>
+              ))}
+          </ul>
 
+          {/* Pagination */}
+          <Pagination
+            className="pagination"
+            count={Math.ceil(expenses.length / rowsPerPage)}
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary"
+          />
         </>
       ) : (
         <p className="has-text-left mt-5">Aucune dépense n'a été trouvée.</p>

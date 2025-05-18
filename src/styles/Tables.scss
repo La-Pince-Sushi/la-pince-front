@@ -76,6 +76,12 @@
   display: block;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
 @media (max-width: 768px) {
   .ivory-panel {
     min-height: 350px;
