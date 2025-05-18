@@ -1,5 +1,5 @@
 import { useBudgetStore } from "../../store/budgetStore";
-import { selectFilteredExpenses, useExpenseStore } from "../../store/expensesStore";
+import { useExpenseStore } from "../../store/expensesStore";
 import { useCategoryStore } from "../../store/categoryStore.ts";
 import { useEffect, useState } from "react";
 import { DoughnutChart } from "../Doughnut/DoughnutChart.tsx";
@@ -17,8 +17,7 @@ export const TotalsBar = () => {
   const isLoadedCategory = useCategoryStore(state => state.isLoadedCategory);
   const getAllCategories = useCategoryStore(state => state.getAllCategories);
   const getAllBudgets = useBudgetStore(state => state.getAllBudgets);
-  const getAllExpenses = useExpenseStore(state => state.getAllExpenses);
-  const currentMonth = useExpenseStore((state) => state.monthSelected)
+  const getAllExpenses = useExpenseStore(state => state.getAllExpenses);  
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 

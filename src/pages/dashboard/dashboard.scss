@@ -6,7 +6,10 @@
   gap: 1rem;
   width: 100%;
 }
-
+#dashboard-title{
+  color: vars.$cacao;
+  
+}
 .actions {
   display: flex;
   flex-direction: column;
