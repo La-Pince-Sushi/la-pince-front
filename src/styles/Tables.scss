@@ -10,8 +10,16 @@
   justify-content: flex-start;
   min-height: 250px;
 
-  .table-title {
-    color: vars.$cacao;
+  .table-bar {
+    display: flex;
+    justify-content: space-between;
+    .month-menu span, .dropdown-content .dropdown-item{
+      color: vars.$cacao;      
+    }
+  
+    .table-title {
+      color: vars.$cacao;
+    }
   }
 
   .table.custom-table {
