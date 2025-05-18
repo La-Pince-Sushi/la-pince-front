@@ -68,7 +68,13 @@ const useExpenseStoreBase = create<IExpenseState>()((set, get) => ({
       const categories = useCategoryStore.getState().categories;
       const category = categories.find(category => category.id === Number(response.category_id));
       const createdExpense = { ...response, category: category ? { name: category.name } : null };
-      set((state) => ({ expenses: [...state.expenses, createdExpense], error: null }));
+
+      const state = get();
+      const updatedExpenses = [...state.expenses, createdExpense];
+
+      const updatedFiltered = filterExpensesByMonth(updatedExpenses, state.monthSelected);
+
+      set((state) => ({ expenses: [...state.expenses, createdExpense], filteredExpenses: updatedFiltered, error: null }));
       showSuccessToast("Dépense ajoutée avec succès !");
     } catch (error) {
       const parsedError = parseStoreError(error);
