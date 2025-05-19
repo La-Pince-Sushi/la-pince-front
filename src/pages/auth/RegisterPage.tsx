@@ -11,7 +11,7 @@ export default function RegisterPage() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const checkboxRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-  const { register } = useAuthStore();
+  const register = useAuthStore(state => state.register);
 
   const initialFormState = {
     email: "",
