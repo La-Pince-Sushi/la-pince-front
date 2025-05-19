@@ -12,12 +12,12 @@ const currentMonth = useExpenseStore((state) => state.monthSelected)
 
   return (
     <div className="container">
-      <h1 id="dashboard-title" className="has-text-centered">
+      <h1 id="dashboard-title" className="has-text-centered mb-4">
         {currentMonth === "all" ? "Situation pour toutes les dépenses" : `Situation pour le mois de ${formatMonth(currentMonth)}`}
       </h1>
       <TotalsBar />
 
-      <div className="actions">
+      <div className="actions mb-4">
         <AddBudgetButton to={"/budgets/add"} label="+ Ajout Budget" />
         <AddExpenseButton to={"/expenses/add"} label="+ Ajout Dépense" />
       </div>
