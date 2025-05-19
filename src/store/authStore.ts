@@ -12,8 +12,33 @@ import { useExpenseStore } from "./expensesStore.ts";
 export const useAuthStore = create<IAuthStore>((set) => ({
   token: getAccessToken(),
   refreshToken: getRefreshToken(),
-  clearTokenState: () => { set({ token: null }) },
   error: null,
+  isLoading: false,
+  isAuthChecked: false,
+
+  clearTokenState: () => {
+    set({ token: null, error: null });
+  },
+
+  async checkAuth() {
+    set({ isLoading: true, isAuthChecked: false });
+    try {
+      const token = getAccessToken();
+      if (!token) {
+        console.warn("Aucun utilisateur authentifié.");
+        set({ isAuthChecked: true });
+        return;
+      }
+      set({ token });
+      await useUserStore.getState().getProfile();
+    } catch (error) {
+      console.error("Erreur lors de la vérification de l'authentification :", error);
+      clearAccessToken();
+      set({ token: null });
+    } finally {
+      set({ isLoading: false, isAuthChecked: true });
+    }
+  },
 
   async register(email, password) {
     try {
@@ -29,6 +54,7 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   },
 
   async login(email, password) {
+    set({ isLoading: true });
     try {
       const response = await loginRequest(email, password);
       const { accessToken, refreshToken, user } = response;
@@ -42,6 +68,8 @@ export const useAuthStore = create<IAuthStore>((set) => ({
       logStoreError(parsedError);
       showErrorToast(parsedError);
       set({ error: parsedError });
+    } finally {
+      set({ isLoading: false });
     }
   },
 
@@ -61,19 +89,6 @@ export const useAuthStore = create<IAuthStore>((set) => ({
       logStoreError(parsedError);
       this.logout();
       return null;
-    }
-  },
-
-  async checkAuth() {
-    const token = getAccessToken();
-    if (!token) return;
-    set({ token });
-
-    try {
-      await useUserStore.getState().getProfile();
-    } catch (error) {
-      clearAccessToken();
-      set({ token: null });
     }
   },
 
