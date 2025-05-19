@@ -1,9 +1,11 @@
 @charset "utf-8";
 
 @use './variables' as vars;
+@use './fonts' as fonts;
 
 @use "bulma/sass/utilities" with (
-  $family-primary: '"Ubuntu", sans-serif',
+  $family-primary: fonts.$font-family,
+  $family-secondary: fonts.$font-family,
   $primary: vars.$cannelle,
   $link: vars.$beige,
   $info: vars.$info,
