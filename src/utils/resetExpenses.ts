@@ -1,8 +1,12 @@
 import { ALL_MONTHS } from "../constant/constant";
 import { TExpenses } from "../types";
 
+export function getYearMonthFromISO(dateISO: string) {
+  return dateISO.slice(0,7);
+}
+
 export function handleUniqueMonth(expenses: TExpenses) {
-  const  month = expenses.map(expense => expense.date.slice(0,7));
+  const  month = expenses.map(expense => getYearMonthFromISO(expense.date));
   const UniqueMonth = [... new Set(month)].sort().reverse();
   return UniqueMonth;
 }

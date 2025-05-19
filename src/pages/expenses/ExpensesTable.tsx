@@ -3,16 +3,14 @@ import { useEffect } from "react";
 import { UpdateButton, DeleteButton, AddExpenseButton } from "../../components/common/Button.tsx";
 import { useLocation } from "react-router-dom";
 import "../../styles/Tables.scss"
-
 import { MonthMenu } from "./MonthMenu.tsx";
-
 
 interface ExpensesTableProps {
   limit?: number;
 }
 
 export function ExpensesTable({ limit }: ExpensesTableProps) {
-  const expenses = useExpenseStore((state) => state.expenses);
+  
   const getAllExpenses = useExpenseStore((state) => state.getAllExpenses);
   const deleteExpense = useExpenseStore((state) => state.deleteExpense);
   const isLoadedExpense = useExpenseStore((state) => state.isLoadedExpense);
@@ -25,7 +23,11 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
 
   const filteredExpenses = useExpenseStore.use.filteredExpenses();
 
-  const expensesToShow = limit ? filteredExpenses.slice(0, limit) : expenses;
+  const sortedExpenses = [...filteredExpenses].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
+  const expensesToShow = limit ? sortedExpenses.slice(0, limit) : sortedExpenses;
 
   return (
     <div className="container ivory-panel">
@@ -58,14 +60,7 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
                 </tr>
               </thead>
               <tbody>
-                {expensesToShow
-                  .slice()
-                  .sort((a, b) => {
-                    const dateA = new Date(a.date as string).getTime();
-                    const dateB = new Date(b.date as string).getTime();
-                    return dateB - dateA;
-                  })
-                  .map((expense) => (
+                {expensesToShow.map((expense) => (
                     <tr key={expense.id}>
                       <td>{expense.category?.name}</td>
                       <td>{new Date(expense.date).toLocaleDateString("fr-FR")}</td>
@@ -85,14 +80,7 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
 
           {/* Liste mobile */}
           <ul className="is-hidden-desktop">
-  {expensesToShow
-    .slice()
-    .sort((a, b) => {
-      const dateA = new Date(a.date as string).getTime();
-      const dateB = new Date(b.date as string).getTime();
-      return dateB - dateA;
-    })
-    .map((expense) => (
+  {expensesToShow.map((expense) => (
       <li className="box mb-4" key={expense.id}>
         {/* Ligne 1 : Catégorie | Date | Montant */}
         <div className="columns is-mobile is-vcentered mb-0">

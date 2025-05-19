@@ -19,7 +19,7 @@ export function MonthMenu() {
   return (
     <div className={`dropdown ${isActive ? "is-active" : ""}`}>
       <div className="dropdown-trigger">
-        <button className="button" aria-haspopup="true" aria-controls="drop-down-menu" onClick={() => setIsActive(!isActive)}>
+        <button className="button is-small" aria-haspopup="true" aria-controls="drop-down-menu" onClick={() => setIsActive(!isActive)}>
           <span>
           {selectedMonth && selectedMonth !== ALL_MONTHS
             ? formatMonth(selectedMonth)

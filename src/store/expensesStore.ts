@@ -67,15 +67,17 @@ const useExpenseStoreBase = create<IExpenseState>()((set, get) => ({
       const response = await addNewExpense(data);
       const categories = useCategoryStore.getState().categories;
       const category = categories.find(category => category.id === Number(response.category_id));
-      const createdExpense = { ...response, category: category ? { name: category.name } : null };
+      const createdExpense = { ...response, category: category ? { name: category.name } : null };      
 
       const state = get();
       const updatedExpenses = [...state.expenses, createdExpense];
 
+      const updatedAvailableMonths = handleUniqueMonth(updatedExpenses);
       const updatedFiltered = filterExpensesByMonth(updatedExpenses, state.monthSelected);
 
-      set((state) => ({ expenses: [...state.expenses, createdExpense], filteredExpenses: updatedFiltered, error: null }));
+      set({ expenses: updatedExpenses, filteredExpenses: updatedFiltered, availableMonths: updatedAvailableMonths, error: null });
       showSuccessToast("Dépense ajoutée avec succès !");
+
     } catch (error) {
       const parsedError = parseStoreError(error);
       logStoreError(parsedError);
@@ -90,8 +92,15 @@ const useExpenseStoreBase = create<IExpenseState>()((set, get) => ({
       const categories = useCategoryStore.getState().categories;
       const category = categories.find(category => category.id === Number(response.category_id));
       const updatedExpense = { ...response, category: category ? { name: category.name } : null };
-      set((state) => ({ expenses: state.expenses.map((expense) => expense.id === expenseId ? updatedExpense : expense), error: null }));
+
+      const updatedExpenses = get().expenses.map((expense) => expense.id === expenseId ? updatedExpense: expense);
+
+      const updatedAvailableMonths = handleUniqueMonth(updatedExpenses);
+      const updatedFiltered = filterExpensesByMonth(updatedExpenses, get().monthSelected);
+
+      set({ expenses: updatedExpenses, filteredExpenses: updatedFiltered, availableMonths: updatedAvailableMonths, error: null });
       showSuccessToast("Dépense mise à jour avec succès !");
+
     } catch (error) {
       const parsedError = parseStoreError(error);
       logStoreError(parsedError);
@@ -103,10 +112,14 @@ const useExpenseStoreBase = create<IExpenseState>()((set, get) => ({
   deleteExpense: async (expenseId) => {
     try {
       await deleteExpense(expenseId);
-      set((state) => ({
-        expenses: state.expenses.filter((expense) => expense.id !== expenseId), error: null
-      }));
+
+      const updatedExpenses = get().expenses.filter((expense) => expense.id !== expenseId);
+      const updatedAvailableMonths = handleUniqueMonth(updatedExpenses);
+      const updatedFiltered = filterExpensesByMonth(updatedExpenses, get().monthSelected);
+
+      set({expenses: updatedExpenses, filteredExpenses: updatedFiltered, availableMonths: updatedAvailableMonths, error: null});
       showSuccessToast("Dépense supprimée avec succès !");
+
     } catch (error) {
       const parsedError = parseStoreError(error);
       logStoreError(parsedError);
@@ -117,13 +130,3 @@ const useExpenseStoreBase = create<IExpenseState>()((set, get) => ({
 }));
 
 export const useExpenseStore = createSelectors(useExpenseStoreBase);
-
-// export const selectFilteredExpenses = (state: IExpenseState) => {
-//   if(!state.monthSelected || state.monthSelected === ALL_MONTHS) {
-//     return state.expenses;
-//   }
-//   return state.expenses.filter((expense) => {
-//     const dateMonth = expense.date.slice(0,7);
-//     return dateMonth === state.monthSelected
-//   });
-// };
