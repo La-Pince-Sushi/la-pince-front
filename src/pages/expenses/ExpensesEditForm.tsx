@@ -97,7 +97,6 @@ export function ExpensesEditForm() {
     const hasCategoryChanged = formData.categoryId !== currentData.categoryId;
 
     if (!hasAmountChanged && !hasCategoryChanged) {
-      updateExpense(updatedExpense.id, updatedExpense);
       navigate(-1);
       return;
     }

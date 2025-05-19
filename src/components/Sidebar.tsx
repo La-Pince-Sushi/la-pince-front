@@ -85,7 +85,7 @@ export default function Sidebar() {
             <section className="modal-card-body">
               <p>Êtes-vous sûr de vouloir vous déconnecter ?</p>
             </section>
-            <footer className="modal-card-foot">
+            <footer className="modal-card-foot is-justify-content-space-between">
               <button
                 className="button is-danger"
                 onClick={handleConfirmLogout}

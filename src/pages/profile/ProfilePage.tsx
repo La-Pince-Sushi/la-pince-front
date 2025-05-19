@@ -122,7 +122,7 @@ export function ProfilePage() {
                 est irréversible et toutes vos données seront supprimées.
               </p>
             </section>
-            <footer className="modal-card-foot">
+            <footer className="modal-card-foot is-justify-content-space-between">
               <button
                 className="button is-danger"
                 onClick={handleConfirmDeleteUser}

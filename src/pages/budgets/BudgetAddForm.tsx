@@ -73,7 +73,7 @@ export function BudgetAddForm() {
           message: `Total dépenses: ${totalExpenses} €`,
           details: [`Catégorie: "${selectedCategory.name}"`]
         },
-          { autoClose: 10000 });
+          { autoClose: 5000 });
       }
     }
   };
