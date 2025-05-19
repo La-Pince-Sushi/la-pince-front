@@ -30,7 +30,6 @@ export function BudgetsTable() {
                 <tr>
                   <th>Catégorie</th>
                   <th>Montant</th>
-                  <th>Alerte</th>
                   <th>Modifier</th>
                   <th>Supprimer</th>
                 </tr>
@@ -38,9 +37,8 @@ export function BudgetsTable() {
               <tbody>
                 {budgets.slice().sort((a, b) => (a.category?.name || "").localeCompare(b.category?.name || "")).map((budget) => (
                   <tr key={budget.id}>
-                    <td>{budget.category?.name}</td>
+                    <td title={`Seuil d’alerte : ${budget.alert}€`}>{budget.category?.name}</td>
                     <td>{Number(budget.amount).toFixed(2)}€</td>
-                    <td>{budget.alert}€</td>
                     <td>
                       <UpdateButton to={`/budgets/edit/${budget.id}`} label="Modifier" />
                     </td>
@@ -56,11 +54,12 @@ export function BudgetsTable() {
           {/* Mobile list */}
           <ul className="is-hidden-desktop">
             {budgets.slice().sort((a, b) => (a.category?.name || "").localeCompare(b.category?.name || "")).map((budget) => (
-              <li className="box mb-4" key={budget.id}>
-                <p><strong>Catégorie :</strong> {budget.category?.name}</p>
-                <p><strong>Montant :</strong> {Number(budget.amount).toFixed(2)}€</p>
-                <p><strong>Alerte :</strong> {budget.alert}€</p>
-                <div className="buttons mt-2">
+              <li className="box mb-4 p-2" key={budget.id}>
+                <div className="columns is-mobile is-vcentered mb-0 mr-2 pl-1">
+                <div className="column is-5">{budget.category?.name}</div>
+                <div className="column is-3 is-size-6 has-text-weight-bold has-text-right">{Number(budget.amount).toFixed(2)}€</div>
+                </div>
+                <div className="buttons is-flex is-justify-content-space-between mt-2">
                   <UpdateButton to={`/budgets/edit/${budget.id}`} label="Modifier" />
                   <DeleteButton label="Supprimer" onClick={() => deleteBudget(budget.id)} />
                 </div>

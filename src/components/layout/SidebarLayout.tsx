@@ -7,7 +7,7 @@ export default function SidebarLayout() {
   return (
     <div className="layout">
       <div className="header-box">
-        <Header />
+        <Header hasSidebar />
       </div>      
       <main className="main">
         <div className="content">
