@@ -15,7 +15,7 @@ export function BudgetsTable() {
 
   return (
     <div className="container ivory-panel">
-      <h2 className="table-title is-size-4 m-0">Budgets</h2>
+      <h2 className="table-title is-size-4 m-0">Budgets mensuels</h2>
 
       <div>
       <AddBudgetButton to={"/budgets/add"} label="+ Ajout Budget" />
