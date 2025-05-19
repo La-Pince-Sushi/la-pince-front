@@ -39,10 +39,10 @@ export function ProfilePage() {
   }
 
   return (
-    <div className="container">
+    <div className="container profile-page">
       <h2 className="title">Profil utilisateur</h2>
       <div
-        className="box box-custom-form is-flex is-flex-direction-column is-justify-content-space-between"
+        className="box box-custom-form is-flex is-flex-direction-column is-justify-content-space-between uniform-spacing"
         style={{ height: "100%" }}
       >
         <form className="mb-3">
@@ -60,7 +60,7 @@ export function ProfilePage() {
             </div>
           </div>
 
-          <div className=""id="box-button-profile-form">
+          <div id="box-button-profile-form">
             <div className="p-2">
               <Button to={"/profile/email"} label="Modifier l'email" />
             </div>
@@ -68,6 +68,7 @@ export function ProfilePage() {
               <Button
                 to={"/profile/password"}
                 label="Modifier le mot de passe"
+                className="is-fullwidth"
               />
             </div>
             <div className="p-2">
@@ -75,17 +76,23 @@ export function ProfilePage() {
                 type="button"
                 label="Supprimer le compte"
                 onClick={handleOpenModal}
+                className="button"
               />
             </div>
           </div>
         </form>
 
         {/* Section pour les mentions légales et la politique de confidentialité */}
-        <div className="buttons is-centered">
-          <Button to={"/profile/legal-notice"} label="Mentions légales" />
+        <div className="buttons is-flex is-justify-content-center is-align-items-center">
+          <Button
+            to={"/profile/legal-notice"}
+            label="Mentions légales"
+            className="is-fullwidth"
+          />
           <Button
             to={"/profile/privacy-policy"}
             label="Politique de confidentialité"
+            className="is-fullwidth ml-4" // Ajoutez un espacement entre les boutons
           />
         </div>
       </div>
@@ -111,7 +118,7 @@ export function ProfilePage() {
                 est irréversible et toutes vos données seront supprimées.
               </p>
             </section>
-            <footer className="modal-card-foot">
+            <footer className="modal-card-foot is-justify-content-space-between">
               <button
                 className="button is-danger"
                 onClick={handleConfirmDeleteUser}

@@ -69,3 +69,23 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 }
+
+.profile-page {
+  // Styles pour les boutons en version mobile
+  @media (max-width: 768px) {
+    .button {
+      width: 100%; // Les boutons occupent toute la largeur
+      margin: auto; // Espacement entre les boutons
+    }
+
+    .buttons {
+      flex-direction: column; // Les boutons s'empilent verticalement
+      align-items: center; // Centrer les boutons
+    }
+
+    .columns {
+      flex-direction: column; // Les colonnes s'empilent verticalement
+      align-items: center; // Centrer les colonnes
+    }
+  }
+}

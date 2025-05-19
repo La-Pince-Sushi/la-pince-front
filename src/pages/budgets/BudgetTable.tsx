@@ -54,7 +54,7 @@ export function BudgetsTable() {
           {/* Mobile list */}
           <ul className="is-hidden-desktop">
             {budgets.slice().sort((a, b) => (a.category?.name || "").localeCompare(b.category?.name || "")).map((budget) => (
-              <li className="box mb-4 p-2" key={budget.id}>
+              <li className="box mb-4" key={budget.id}>
                 <div className="columns is-mobile is-vcentered mb-0 mr-2 pl-1">
                 <div className="column is-5">{budget.category?.name}</div>
                 <div className="column is-3 is-size-6 has-text-weight-bold has-text-right">{Number(budget.amount).toFixed(2)}€</div>
