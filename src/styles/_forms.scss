@@ -8,22 +8,23 @@
   height: 100%;
   min-height: 400px;
 }
+form #box-button-profile-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.button-profile {
+  width: 220px;
+}
+#is-no-gap {
+  gap: 0;
+}
 
-.profile-page {
-  .box-custom-form {
-    @media (max-width: 768px) {
-      padding: 1rem; // Réduire le padding pour les petits écrans
-      min-height: auto; // Ajuster la hauteur minimale
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    .uniform-spacing > * {
-      margin-bottom: 1rem;
-    }
-
-    .uniform-spacing > *:last-child {
-      margin-bottom: 0;
-    }
+@media screen and (min-width: 769px) {
+  form #box-button-profile-form {
+    display: flex;
+    flex-direction: row;    
+    justify-content: space-between;    
   }
 }
