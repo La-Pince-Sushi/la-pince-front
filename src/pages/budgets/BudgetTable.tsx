@@ -40,7 +40,6 @@ export function BudgetsTable() {
                   <tr key={budget.id}>
                     <td>{budget.category?.name}</td>
                     <td>{Number(budget.amount).toFixed(2)}€</td>
-                    <td>{budget.alert}€</td>
                     <td>
                       <UpdateButton to={`/budgets/edit/${budget.id}`} label="Modifier" />
                     </td>
@@ -59,7 +58,6 @@ export function BudgetsTable() {
               <li className="box mb-4" key={budget.id}>
                 <p><strong>Catégorie :</strong> {budget.category?.name}</p>
                 <p><strong>Montant :</strong> {Number(budget.amount).toFixed(2)}€</p>
-                <p><strong>Alerte :</strong> {budget.alert}€</p>
                 <div className="buttons mt-2">
                   <UpdateButton to={`/budgets/edit/${budget.id}`} label="Modifier" />
                   <DeleteButton label="Supprimer" onClick={() => deleteBudget(budget.id)} />

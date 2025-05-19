@@ -28,6 +28,8 @@ export function BudgetAddForm() {
   };
   const [formData, setFormData] = useState(initialFormState);
 
+  const alertAmount = formData.amount && !isNaN(Number(formData.amount)) ? (Number(formData.amount) * 0.8) : 0;
+
   useEffect(() => {
     selectRef.current?.focus()
   }, [])
@@ -158,6 +160,15 @@ export function BudgetAddForm() {
                 Retour
               </button>
             </div>
+          </div>
+
+          <div className="mt-2">
+            <p className="is-info">
+              À la création de ce budget, un seuil d'alerte sera défini automatiquement <strong>{alertAmount}€</strong>
+            </p>
+            <p className="is-info">
+              Lorsque les dépenses pour cette catégorie dépasseront le seuil d'alerte vous recevrez automatiquement une notification.
+            </p>
           </div>
         </form>
       </div>
