@@ -30,7 +30,6 @@ export function BudgetsTable() {
                 <tr>
                   <th>Catégorie</th>
                   <th>Montant</th>
-                  <th>Alerte</th>
                   <th>Modifier</th>
                   <th>Supprimer</th>
                 </tr>
@@ -38,7 +37,7 @@ export function BudgetsTable() {
               <tbody>
                 {budgets.slice().sort((a, b) => (a.category?.name || "").localeCompare(b.category?.name || "")).map((budget) => (
                   <tr key={budget.id}>
-                    <td>{budget.category?.name}</td>
+                    <td title={`Seuil d’alerte : ${budget.alert}€`}>{budget.category?.name}</td>
                     <td>{Number(budget.amount).toFixed(2)}€</td>
                     <td>
                       <UpdateButton to={`/budgets/edit/${budget.id}`} label="Modifier" />
