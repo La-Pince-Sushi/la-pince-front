@@ -77,6 +77,7 @@ export function ProfilePage() {
             </div>
             <div className="column is-one-third-desktop has-text-right">
               <Button
+                type="button"
                 label="Supprimer le compte"
                 onClick={handleOpenModal}
                 className="button"
