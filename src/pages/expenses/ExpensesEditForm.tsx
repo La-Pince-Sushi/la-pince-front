@@ -160,22 +160,24 @@ export function ExpensesEditForm() {
               Catégorie
             </label>
             <div className="control">
-              <select
-                id="category"
-                name="categoryId"
-                className="select"
-                value={formData.categoryId}
-                onChange={handleChange}
-              >
-                <option disabled value="">
-                  -- Choisir une catégorie --
-                </option>
-                {sortedCategories.map((category) => (
-                  <option key={`category-${category.id}`} value={category.id}>
-                    {category.name}
+              <div id="arrow-select" className="select select-category">
+                <select
+                  id="category"
+                  name="categoryId"
+                  className="select"
+                  value={formData.categoryId}
+                  onChange={handleChange}
+                >
+                  <option disabled value="">
+                    -- Choisir une catégorie --
                   </option>
-                ))}
-              </select>
+                  {sortedCategories.map((category) => (
+                    <option key={`category-${category.id}`} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
 

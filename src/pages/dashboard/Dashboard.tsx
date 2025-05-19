@@ -4,11 +4,17 @@ import { AddBudgetButton, AddExpenseButton } from "../../components/common/Butto
 import "../../components/Header.scss";
 import "../../components/layout/HeaderLayout"
 import "./dashboard.scss";
+import { useExpenseStore } from "../../store/expensesStore.ts";
+import { formatMonth } from "../../utils/resetExpenses.ts";
 
 export function Dashboard() {
+const currentMonth = useExpenseStore((state) => state.monthSelected)
+
   return (
     <div className="container">
-      
+      <h1 id="dashboard-title" className="has-text-centered">
+        {currentMonth === "all" ? "Situation pour toutes les dépenses" : `Situation pour le mois de ${formatMonth(currentMonth)}`}
+      </h1>
       <TotalsBar />
 
       <div className="actions">
