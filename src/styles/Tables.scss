@@ -14,7 +14,7 @@
   .table-bar {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     .month-menu span, .dropdown-content .dropdown-item{
       color: vars.$cacao;      
     }

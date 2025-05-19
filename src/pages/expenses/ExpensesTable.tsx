@@ -84,15 +84,21 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
       <li className="box mb-4" key={expense.id}>
         {/* Ligne 1 : Catégorie | Date | Montant */}
         <div className="columns is-mobile is-vcentered mb-0">
-          <div className="column is-5 has-text-weight-semibold">{expense.category?.name}</div>
-          <div className="column is-3 is-size-6 has-text-weight-bold has-text-right">{Number(expense.amount).toFixed(2)}€</div>
-          <div className="column is-4">{new Date(expense.date).toLocaleDateString("fr-FR")}</div>
+          <div className="column p-2">
+            {expense.category?.name}
+          </div>
+          <div className="column has-text-centered has-text-weight-semibold is-size-6 p-0">
+            {Number(expense.amount).toFixed(2)}€
+          </div>
+          <div className="column is-size-6 mr-2 p-0">
+            {new Date(expense.date).toLocaleDateString("fr-FR")}
+          </div>
         </div>
         {/* Ligne 2 : Description */}
         <div className="mb-3">
-        <span className="description-mobile">
-          {expense.description}
-        </span>
+          <span className="description-mobile is-size-6">
+            {expense.description}
+          </span>
         </div>
         {/* Ligne 3 : Boutons Modifier & Supprimer */}
         <div className="buttons is-flex is-justify-content-space-between">
@@ -102,6 +108,7 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
       </li>
     ))}
 </ul>
+
 
         </>
       ) : (
