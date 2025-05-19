@@ -14,8 +14,12 @@ form #box-button-profile-form {
   justify-content: center;
   align-items: center;
 }
-
-
+.button-profile {
+  width: 220px;
+}
+#is-no-gap {
+  gap: 0;
+}
 
 @media screen and (min-width: 769px) {
   form #box-button-profile-form {

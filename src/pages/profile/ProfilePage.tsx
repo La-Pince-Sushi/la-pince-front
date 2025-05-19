@@ -45,7 +45,7 @@ export function ProfilePage() {
         className="box box-custom-form is-flex is-flex-direction-column is-justify-content-space-between uniform-spacing"
         style={{ height: "100%" }}
       >
-        <form className="mb-3">
+        <form className="mb-0">
           <div className="field">
             <label className="label" htmlFor="email">
               Adresse mail
@@ -61,17 +61,17 @@ export function ProfilePage() {
           </div>
 
           <div id="box-button-profile-form">
-            <div className="p-2">
+            <div className="p-2 button-profile">
               <Button to={"/profile/email"} label="Modifier l'email" />
             </div>
-            <div className="p-2">
+            <div className="p-2 button-profile">
               <Button
                 to={"/profile/password"}
                 label="Modifier le mot de passe"
                 className="is-fullwidth"
               />
             </div>
-            <div className="p-2">
+            <div className="p-2 button-profile">
               <Button
                 type="button"
                 label="Supprimer le compte"
@@ -83,17 +83,21 @@ export function ProfilePage() {
         </form>
 
         {/* Section pour les mentions légales et la politique de confidentialité */}
-        <div className="buttons is-flex is-justify-content-center is-align-items-center">
-          <Button
-            to={"/profile/legal-notice"}
-            label="Mentions légales"
-            className="is-fullwidth"
-          />
-          <Button
-            to={"/profile/privacy-policy"}
-            label="Politique de confidentialité"
-            className="is-fullwidth ml-4" // Ajoutez un espacement entre les boutons
-          />
+        <div id="is-no-gap" className="buttons is-flex is-justify-content-center is-align-items-center">
+          <div className="button-profile p-2">
+            <Button
+              to={"/profile/legal-notice"}
+              label="Mentions légales"
+              className="is-fullwidth"
+            />
+          </div>
+          <div className="button-profile p-2">
+            <Button
+              to={"/profile/privacy-policy"}
+              label="Politique de confidentialité"
+              className="is-fullwidth ml-4" // Ajoutez un espacement entre les boutons
+            />
+          </div>
         </div>
       </div>
       {/* Modale de confirmation */}
