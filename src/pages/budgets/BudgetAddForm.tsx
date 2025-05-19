@@ -145,7 +145,7 @@ export function BudgetAddForm() {
               />
             </div>
           </div>
-          <div className="field is-grouped">
+          <div className="field is-grouped mt-4">
             <div className="control">
               <button className="button is-link" type="submit">
                 Ajouter
@@ -162,12 +162,12 @@ export function BudgetAddForm() {
             </div>
           </div>
 
-          <div className="mt-2">
+          <div className="mt-4">
             <p className="is-info">
-              À la création de ce budget, un seuil d'alerte sera défini automatiquement <strong>{alertAmount}€</strong>
+              À la création d'un budget, un seuil d'alerte sera défini automatiquement <strong>{alertAmount}€</strong>
             </p>
             <p className="is-info">
-              Lorsque les dépenses pour cette catégorie dépasseront le seuil d'alerte vous recevrez automatiquement une notification.
+              Lorsque les dépenses pour cette catégorie dépasseront le seuil d'alerte une notification s'affichera.
             </p>
           </div>
         </form>
