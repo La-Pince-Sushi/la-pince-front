@@ -58,7 +58,7 @@ export function EmailForm() {
     const success = await updateUser({ email: newEmail });
   
     if (success) {
-      navigate("/profile");
+      setLocalSuccess(true);
     } else {
       setNewEmail("");
       setConfirmEmail("");
