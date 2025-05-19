@@ -1,8 +1,7 @@
 import { AppRoutes } from "./router/AppRoutes";
 import { useEffect, useRef } from "react";
 import { useAuthStore } from "./store/authStore.ts";
-import "./styles/_forms.scss";
-import "./styles/Tables.scss";
+
 
 export function App() {
 

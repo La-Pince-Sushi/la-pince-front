@@ -7,6 +7,7 @@ import { useState } from "react";
 import { clearAccessToken, clearRefreshToken } from "../../utils/jwtUtils.ts";
 import { useBudgetStore } from "../../store/budgetStore.ts";
 import { useExpenseStore } from "../../store/expensesStore.ts";
+import "../../styles/_forms.scss";
 
 export function ProfilePage() {
   const user = useUserStore((state) => state.user);
@@ -44,7 +45,7 @@ export function ProfilePage() {
         className="box box-custom-form is-flex is-flex-direction-column is-justify-content-space-between"
         style={{ height: "100%" }}
       >
-        <form>
+        <form className="mb-3">
           <div className="field">
             <label className="label" htmlFor="email">
               Adresse mail
@@ -59,17 +60,17 @@ export function ProfilePage() {
             </div>
           </div>
 
-          <div className="columns">
-            <div className="column">
+          <div className=""id="box-button-profile-form">
+            <div className="p-2">
               <Button to={"/profile/email"} label="Modifier l'email" />
             </div>
-            <div className="column">
+            <div className="p-2">
               <Button
                 to={"/profile/password"}
                 label="Modifier le mot de passe"
               />
             </div>
-            <div className="column">
+            <div className="p-2">
               <Button
                 type="button"
                 label="Supprimer le compte"
