@@ -1,9 +1,9 @@
 @charset "utf-8";
 
 @use './variables' as vars;
-@use './_fonts';
 
 @use "bulma/sass/utilities" with (
+  $family-primary: '"Ubuntu", sans-serif',
   $primary: vars.$cannelle,
   $link: vars.$beige,
   $info: vars.$info,
@@ -19,7 +19,7 @@
 @use "bulma/bulma";
 
 html, body {
-  background-color: #FFFFF9;  
+  background-color: #FFFFF9;
 }
 
 .content {
@@ -37,6 +37,7 @@ html, body {
   --toastify-color-error: #D77D82;
   height: 100%;
 }
+
 .bg-ivoire {
   background-color: vars.$ivoire; 
 }
