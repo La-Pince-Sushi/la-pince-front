@@ -9,15 +9,15 @@ import { generateCategoryColors } from "../../utils/colorsUtils";
 import "./TotalsBar.scss";
 
 export const TotalsBar = () => {
-  const budgets = useBudgetStore(state => state.budgets);
-  const expenses = useExpenseStore(state => state.expenses);
+  const budgets = useBudgetStore(state => state.budgets);  
+  const filteredExpenses = useExpenseStore(state => state.filteredExpenses)
   const categories = useCategoryStore(state => state.categories);
   const isLoadedBudget = useBudgetStore(state => state.isLoadedBudget);
   const isLoadedExpense = useExpenseStore(state => state.isLoadedExpense);
   const isLoadedCategory = useCategoryStore(state => state.isLoadedCategory);
   const getAllCategories = useCategoryStore(state => state.getAllCategories);
   const getAllBudgets = useBudgetStore(state => state.getAllBudgets);
-  const getAllExpenses = useExpenseStore(state => state.getAllExpenses);
+  const getAllExpenses = useExpenseStore(state => state.getAllExpenses);  
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -36,7 +36,7 @@ export const TotalsBar = () => {
   ) / 100;
 
   const totalExpenses = Math.round(
-    expenses.reduce((sum, expense) => sum + Number(expense.amount), 0) * 100
+    filteredExpenses.reduce((sum, expense) => sum + Number(expense.amount), 0) * 100
   ) / 100;
 
   const remainingBudget = Number((totalBudget - totalExpenses).toFixed(2));
@@ -55,7 +55,7 @@ export const TotalsBar = () => {
   };
 
   const filteredCategories = categories.filter(category =>
-    expenses.some(expense => expense.category_id === category.id)
+    filteredExpenses.some(expense => expense.category_id === category.id)
   );
 
   const pieData = {
@@ -63,7 +63,7 @@ export const TotalsBar = () => {
     datasets: [
       {
         data: filteredCategories.map(category =>
-          expenses
+          filteredExpenses
             .filter(expense => expense.category_id === category.id)
             .reduce((sum, expense) => sum + Number(expense.amount), 0)
         ),
@@ -76,7 +76,7 @@ export const TotalsBar = () => {
 
   return (
     <>
-      {budgets.length > 0 || expenses.length > 0 ? (
+      {budgets.length > 0 || filteredExpenses.length > 0 ? (
         <div className={`charts-container ${isMobile ? "mobile" : ""}`}>
           {budgets.length > 0 && (
             <div className="doughnut-wrapper">
@@ -84,7 +84,7 @@ export const TotalsBar = () => {
             </div>
           )}
 
-          {expenses.length > 0 && (
+          {filteredExpenses.length > 0 && (
             <div className="pie-wrapper">
               <PieChart data={pieData} options={getPieOptions(isMobile)} />
             </div>
