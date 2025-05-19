@@ -2,16 +2,26 @@
 
 .ivory-panel {
   background-color: vars.$ivoire;
-  padding: 2rem;
+  padding: 1.5rem;
   border: solid 1px vars.$jaune-sable;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   min-height: 250px;
+  gap: 0.5rem;
 
-  .table-title {
-    color: vars.$cacao;
+  .table-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .month-menu span, .dropdown-content .dropdown-item{
+      color: vars.$cacao;      
+    }
+  
+    .table-title {
+      color: vars.$cacao;
+    }
   }
 
   .table.custom-table {

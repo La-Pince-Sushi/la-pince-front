@@ -7,3 +7,20 @@
   border-bottom: 1px solid #ddd;
   height: 76px;
 }
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+@media screen and (min-width: 769px) {
+  
+  .with-sidebar{
+    width: calc(100vw - 200px);
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
