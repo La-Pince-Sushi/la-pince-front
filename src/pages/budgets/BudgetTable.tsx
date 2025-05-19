@@ -54,10 +54,12 @@ export function BudgetsTable() {
           {/* Mobile list */}
           <ul className="is-hidden-desktop">
             {budgets.slice().sort((a, b) => (a.category?.name || "").localeCompare(b.category?.name || "")).map((budget) => (
-              <li className="box mb-4" key={budget.id}>
-                <p><strong>Catégorie :</strong> {budget.category?.name}</p>
-                <p><strong>Montant :</strong> {Number(budget.amount).toFixed(2)}€</p>
-                <div className="buttons mt-2">
+              <li className="box mb-4 p-2" key={budget.id}>
+                <div className="columns is-mobile is-vcentered is-justify-content-space-between mb-0 mr-2">
+                <div className="column is-5">{budget.category?.name}</div>
+                <div className="column is-3 is-size-6 has-text-weight-bold has-text-right">{Number(budget.amount).toFixed(2)}€</div>
+                </div>
+                <div className="buttons is-flex is-justify-content-space-between mt-2">
                   <UpdateButton to={`/budgets/edit/${budget.id}`} label="Modifier" />
                   <DeleteButton label="Supprimer" onClick={() => deleteBudget(budget.id)} />
                 </div>
