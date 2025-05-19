@@ -60,22 +60,22 @@ export function ProfilePage() {
           </div>
 
           {/* Section des 3 premiers boutons */}
-          <div className="columns is-vcentered is-mobile">
-            <div className="column is-full-mobile is-one-third-desktop has-text-left">
+          <div className="columns is-vcentered">
+            <div className="column is-one-third-desktop has-text-left">
               <Button
                 to={"/profile/email"}
                 label="Modifier l'email"
                 className="is-fullwidth"
               />
             </div>
-            <div className="column is-full-mobile is-one-third-desktop has-text-centered">
+            <div className="column is-one-third-desktop has-text-centered">
               <Button
                 to={"/profile/password"}
                 label="Modifier le mot de passe"
                 className="is-fullwidth"
               />
             </div>
-            <div className="column is-full-mobile is-one-third-desktop has-text-right">
+            <div className="column is-one-third-desktop has-text-right">
               <Button
                 label="Supprimer le compte"
                 onClick={handleOpenModal}
