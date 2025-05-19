@@ -80,20 +80,8 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
 
           {/* Liste mobile */}
           <ul className="is-hidden-desktop">
-<<<<<<< HEAD
-  {expensesToShow
-    .slice()
-    .sort((a, b) => {
-      const dateA = new Date(a.date as string).getTime();
-      const dateB = new Date(b.date as string).getTime();
-      return dateB - dateA;
-    })
-    .map((expense) => (
-      <li className="box mb-4 p-2 is-clipped" key={expense.id}>
-=======
   {expensesToShow.map((expense) => (
       <li className="box mb-4" key={expense.id}>
->>>>>>> dev
         {/* Ligne 1 : Catégorie | Date | Montant */}
         <div className="columns is-mobile is-vcentered mb-0">
           <div className="column p-2">
