@@ -1,6 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useBudgetStore } from "../../store/budgetStore.ts";
 import { UpdateButton, DeleteButton, AddBudgetButton } from "../../components/common/Button.tsx";
+import Pagination from "@mui/material/Pagination";
+import { ThemeProvider } from '@mui/material/styles';
+import { paginationTheme } from "../../utils/paginationTheme";
 import "../../styles/Tables.scss";
 
 export function BudgetsTable() {
@@ -8,20 +11,32 @@ export function BudgetsTable() {
   const getAllBudgets = useBudgetStore((state) => state.getAllBudgets);
   const deleteBudget = useBudgetStore((state) => state.deleteBudget);
   const isLoadedBudget = useBudgetStore((state) => state.isLoadedBudget);
+  const isBudgetsPage = window.location.pathname === "/budgets";
+  const isMobile = window.innerWidth <= 768;
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 10;
 
   useEffect(() => {
     if (!isLoadedBudget) getAllBudgets();
   }, [isLoadedBudget]);
 
+  const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
+    setCurrentPage(page);
+  };
+
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const paginatedBudgets = budgets.slice(startIndex, startIndex + rowsPerPage);
+
   return (
-    <div className="container ivory-panel">
+    <div className={`container ivory-panel ${isBudgetsPage ? "table-panel" : ""}`}>
       <h2 className="table-title is-size-4 m-0">Budgets mensuels</h2>
 
       <div>
-      <AddBudgetButton to={"/budgets/add"} label="+ Ajout Budget" />
+        <AddBudgetButton to={"/budgets/add"} label="+ Ajout Budget" />
       </div>
 
-      {budgets.length > 0 ? (
+      {paginatedBudgets.length > 0 ? (
         <>
           {/* Table for desktop */}
           <div className="is-hidden-touch table-container">
@@ -35,7 +50,7 @@ export function BudgetsTable() {
                 </tr>
               </thead>
               <tbody>
-                {budgets.slice().sort((a, b) => (a.category?.name || "").localeCompare(b.category?.name || "")).map((budget) => (
+                {paginatedBudgets.map((budget) => (
                   <tr key={budget.id}>
                     <td title={`Seuil d’alerte : ${budget.alert}€`}>{budget.category?.name}</td>
                     <td>{Number(budget.amount).toFixed(2)}€</td>
@@ -53,7 +68,7 @@ export function BudgetsTable() {
 
           {/* Mobile list */}
           <ul className="is-hidden-desktop">
-            {budgets.slice().sort((a, b) => (a.category?.name || "").localeCompare(b.category?.name || "")).map((budget) => (
+            {paginatedBudgets.map((budget) => (
               <li className="box mb-4" key={budget.id}>
                 <div className="columns is-mobile is-vcentered mb-0 mr-2 pl-1">
                 <div className="column is-5">{budget.category?.name}</div>
@@ -66,6 +81,21 @@ export function BudgetsTable() {
               </li>
             ))}
           </ul>
+
+          {/* Pagination avec ThemeProvider pour appliquer le style personnalisé */}
+          <div className="pagination-wrapper">
+            <ThemeProvider theme={paginationTheme}>
+              <Pagination
+                count={Math.ceil(budgets.length / rowsPerPage)}
+                page={currentPage}
+                onChange={handlePageChange}
+                color="primary"
+                size= {isMobile ? "large" : "medium"}
+                siblingCount={1}
+                boundaryCount={1}
+              />
+            </ThemeProvider>
+          </div>
         </>
       ) : (
         <p className="has-text-left mt-5">Aucun budget n'a été trouvé.</p>

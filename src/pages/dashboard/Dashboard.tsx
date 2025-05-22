@@ -12,17 +12,17 @@ export function Dashboard() {
 
   return (
     <div className="container">
-      <h1 id="dashboard-title" className="has-text-centered mb-4">
+      <h1 id="dashboard-title" className="has-text-centered">
         {currentMonth === "all" ? "Situation pour toutes les dépenses" : `Situation pour le mois de ${formatMonth(currentMonth)}`}
       </h1>
       <TotalsBar />
 
-      <div className="actions mb-4">
+      <div className="actions mb-2">
         <AddBudgetButton to={"/budgets/add"} label="+ Ajout Budget" />
         <AddExpenseButton to={"/expenses/add"} label="+ Ajout Dépense" />
       </div>
 
-      <ExpensesTable limit={5} />
+      <ExpensesTable />
 
     </div>
   );
