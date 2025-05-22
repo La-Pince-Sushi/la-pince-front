@@ -2,7 +2,7 @@ import React from "react";
 
 const LegalNotice: React.FC = () => {
   return (
-    <div className="legal-page container">
+    <div className="legal-page container m-3">
       <h1 className="title is-4 mb-1"><strong>Mentions Légales</strong></h1>
 
       <p className="mt-0 mb-1">
