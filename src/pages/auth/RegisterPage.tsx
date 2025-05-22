@@ -125,9 +125,13 @@ export default function RegisterPage() {
                 ref={checkboxRef}
               />
               {" "}J'accepte la{" "}
-              <Link to="/politique-de-confidentialite">
+              <Link to="/privacy-policy">
                 politique de confidentialité
-              </Link>.
+              </Link> 
+              {" "}et le {" "}
+              <Link to="/privacy-policy">
+                traitement des données personnelles
+                </Link>
             </label>
           </div>
 
