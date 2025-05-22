@@ -4,12 +4,14 @@ import { Button } from "../../components/common/Button.tsx";
 import { useNavigate } from "react-router-dom";
 import { showWarningToast } from "../../utils/toastUtils.tsx";
 import { PasswordInput } from "../../components/common/PasswordInput.tsx";
+import { IUpdatePasswordPayload } from "../../types/index";
 
 export function PasswordForm() {
   const inputRef = useRef<HTMLInputElement>(null)
   const navigate = useNavigate();
   const updateUser = useUserStore(state => state.updateUser);
 
+  const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setconfirmNewPassword] = useState("");
   const [localSuccess, setLocalSuccess] = useState(false);
@@ -27,6 +29,7 @@ export function PasswordForm() {
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    if (name === "oldPassword") setOldPassword(value);
     if (name === "newPassword") setNewPassword(value);
     if (name === "confirmNewPassword") setconfirmNewPassword(value);
     }
@@ -34,29 +37,50 @@ export function PasswordForm() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
 
+    if (!oldPassword) {
+      showWarningToast("Veuillez entrer votre ancien mot de passe.");
+      return;
+    }
+
     if (newPassword !== confirmNewPassword) {
       showWarningToast("Le nouveau mot de passe et la confirmation ne correspondent pas.");
       inputRef.current?.focus()
+      setOldPassword("");
       setNewPassword("")
       setconfirmNewPassword("")
       return;
     }
 
-    const success = await updateUser({ password: newPassword })
-    if(success) {
-      setLocalSuccess(true);
-    } else {
-      inputRef.current?.focus()
-      setNewPassword("")
-      setconfirmNewPassword("")
+      const success = await updateUser({ oldPassword, password: newPassword } as IUpdatePasswordPayload);
+      if (success) {
+        setLocalSuccess(true);
+      } else {
+      inputRef.current?.focus();
+      setOldPassword("");
+      setNewPassword("");
+      setconfirmNewPassword("");
     }
-  }
+  };
 
   return (
     <div className="container">
       <h2 className="title">Changement du mot de passe</h2>
       <div className="box box-custom-form">
-        <form onSubmit={handleSubmit} method='POST'>
+        <form onSubmit={handleSubmit} method="POST">
+          <div className="field">
+            <label className="label" htmlFor="oldPassword">Ancien mot de passe</label>
+            <div className="control">
+              <PasswordInput
+                className="input"
+                type="password"
+                name="oldPassword"
+                id="oldPassword"
+                value={oldPassword}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
 
           <div className="field">
             <label className="label" htmlFor="newPassword">Nouveau mot de passe</label>
@@ -88,9 +112,10 @@ export function PasswordForm() {
               />
             </div>
           </div>
+
           <Button type="submit" label={"Confirmer"} />
         </form>
       </div>
     </div>
-  )
+  );
 }
