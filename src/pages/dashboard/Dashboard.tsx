@@ -8,7 +8,7 @@ import { useExpenseStore } from "../../store/expensesStore.ts";
 import { formatMonth } from "../../utils/parseExpenses.ts";
 
 export function Dashboard() {
-const currentMonth = useExpenseStore((state) => state.monthSelected)
+  const currentMonth = useExpenseStore((state) => state.monthSelected)
 
   return (
     <div className="container">
