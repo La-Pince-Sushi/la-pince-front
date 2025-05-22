@@ -2,7 +2,7 @@
 
 .ivory-panel {
   background-color: vars.$ivoire;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   border: solid 1px vars.$jaune-sable;
   border-radius: 1rem;
   display: flex;
@@ -11,14 +11,23 @@
   min-height: 250px;
   gap: 0.5rem;
 
+  .table-container {
+    margin: 0 !important;
+  }
+
+  &.table-panel {
+    margin: 3rem auto;
+  }
+
   .table-bar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    .month-menu span, .dropdown-content .dropdown-item{
-      color: vars.$cacao;      
+
+    .month-menu span,
+    .dropdown-content .dropdown-item {
+      color: vars.$cacao;
     }
-  
+
     .table-title {
       color: vars.$cacao;
     }
@@ -74,8 +83,10 @@
     }
   }
 }
+
 .content .ivory-panel ul {
   margin-inline-start: 0;
+
   &:not(:first-child) {
     margin-top: 0;
   }

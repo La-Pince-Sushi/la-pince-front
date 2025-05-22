@@ -8,11 +8,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import { paginationTheme } from "../../utils/paginationTheme";
 import "../../styles/Tables.scss";
 
-interface ExpensesTableProps {
-  limit?: number;
-}
-
-export function ExpensesTable({ limit }: ExpensesTableProps) {
+export function ExpensesTable() {
+  const location = useLocation();
   const isLoadedExpense = useExpenseStore((state) => state.isLoadedExpense);
   const filteredExpenses = useExpenseStore((state) => state.filteredExpenses);
   const monthSelected = useExpenseStore((state) => state.monthSelected);
@@ -20,18 +17,22 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
   const deleteExpense = useExpenseStore((state) => state.deleteExpense);
   const setMonthSelected = useExpenseStore((state) => state.setMonthSelected);
   const isMobile = window.innerWidth <= 768;
-
-  const location = useLocation();
+  const isExpensesPage = location.pathname === "/expenses";
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = location.pathname === "/dashboard" ? 5 : 10;
 
+  // Réinitialiser la page à 1 lorsque le filtre de mois change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [monthSelected]);
+
   useEffect(() => {
     if (location.pathname === "/dashboard" || location.pathname === "/expenses") {
       setMonthSelected("all");
-      }
-    }, [location.pathname]);
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     if (!isLoadedExpense) {
@@ -51,10 +52,31 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
   const startIndex = (currentPage - 1) * rowsPerPage;
   const paginatedExpenses = sortedExpenses.slice(startIndex, startIndex + rowsPerPage);
 
-  const expensesToShow = limit ? sortedExpenses.slice(0, limit) : sortedExpenses;
+  // Ajout d'un effect pour vérifier si la page actuelle est valide après tout changement dans les dépenses filtrées
+  useEffect(() => {
+    const maxPage = Math.max(1, Math.ceil(filteredExpenses.length / rowsPerPage));
+    if (currentPage > maxPage) {
+      setCurrentPage(maxPage);
+    }
+  }, [filteredExpenses, currentPage, rowsPerPage]);
+
+  // Fonction modifiée pour la suppression avec gestion de pagination
+  const handleDeleteExpense = (expenseId: string | number) => {
+    // Calculer combien d'éléments resteront sur la page actuelle après suppression
+    const currentItems = paginatedExpenses.length;
+    
+    // Si c'est le seul élément de la page et qu'on n'est pas sur la première page
+    if (currentItems === 1 && currentPage > 1) {
+      // Passer à la page précédente avant de supprimer
+      setCurrentPage(prev => Math.max(1, prev - 1));
+    }
+    
+    // Supprimer l'élément après avoir ajusté la pagination si nécessaire
+    deleteExpense(expenseId);
+  };
 
   return (
-    <div className="container ivory-panel">
+    <div className={`container ivory-panel ${isExpensesPage ? "table-panel" : ""}`}>
       <div className="table-bar">
         <h2 className="table-title is-size-4 m-0">Dépenses</h2>
         <div className="month-menu">
@@ -75,7 +97,7 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
       {paginatedExpenses.length > 0 ? (
         <>
           {/* Table desktop */}
-          <div className="is-hidden-touch table-container m-0">
+          <div className="is-hidden-touch table-container" id="no-margin">
             <table className="table is-fullwidth custom-table">
               <thead className="thead-beige">
                 <tr>
@@ -105,7 +127,10 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
                         <UpdateButton to={`/expenses/edit/${expense.id}`} label="Modifier" />
                       </td>
                       <td>
-                        <DeleteButton label="Supprimer" onClick={() => deleteExpense(expense.id)} />
+                        <DeleteButton 
+                          label="Supprimer" 
+                          onClick={() => handleDeleteExpense(expense.id)} 
+                        />
                       </td>
                     </tr>
                   ))}
@@ -115,7 +140,7 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
 
           {/* Liste mobile */}
           <ul className="is-hidden-desktop">
-            {expensesToShow
+            {sortedExpenses
               .slice()
               .sort((a, b) => {
                 const dateA = new Date(a.date as string).getTime();
@@ -139,7 +164,7 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
                   {/* Ligne 3 : Boutons Modifier & Supprimer */}
                   <div className="buttons is-flex is-justify-content-space-between">
                     <UpdateButton to={`/expenses/edit/${expense.id}`} label="Modifier" />
-                    <DeleteButton label="Supprimer" onClick={() => deleteExpense(expense.id)} />
+                    <DeleteButton label="Supprimer" onClick={() => handleDeleteExpense(expense.id)} />
                   </div>
                 </li>
               ))}

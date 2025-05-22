@@ -11,6 +11,8 @@ export function BudgetsTable() {
   const getAllBudgets = useBudgetStore((state) => state.getAllBudgets);
   const deleteBudget = useBudgetStore((state) => state.deleteBudget);
   const isLoadedBudget = useBudgetStore((state) => state.isLoadedBudget);
+  const isBudgetsPage = window.location.pathname === "/budgets";
+  const isMobile = window.innerWidth <= 768;
 
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
@@ -27,7 +29,7 @@ export function BudgetsTable() {
   const paginatedBudgets = budgets.slice(startIndex, startIndex + rowsPerPage);
 
   return (
-    <div className="container ivory-panel">
+    <div className={`container ivory-panel ${isBudgetsPage ? "table-panel" : ""}`}>
       <h2 className="table-title is-size-4 m-0">Budgets mensuels</h2>
 
       <div>
@@ -88,7 +90,7 @@ export function BudgetsTable() {
                 page={currentPage}
                 onChange={handlePageChange}
                 color="primary"
-                size="medium"
+                size= {isMobile ? "large" : "medium"}
                 siblingCount={1}
                 boundaryCount={1}
               />
