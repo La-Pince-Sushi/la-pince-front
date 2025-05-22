@@ -4,6 +4,8 @@ import { UpdateButton, DeleteButton, AddExpenseButton } from "../../components/c
 import { MonthMenu } from "./MonthMenu.tsx";
 import { useExpenseStore } from "../../store/expensesStore";
 import Pagination from "@mui/material/Pagination";
+import { ThemeProvider } from '@mui/material/styles';
+import { paginationTheme } from "../../utils/paginationTheme";
 import "../../styles/Tables.scss";
 
 interface ExpensesTableProps {
@@ -11,13 +13,13 @@ interface ExpensesTableProps {
 }
 
 export function ExpensesTable({ limit }: ExpensesTableProps) {
-  const expenses = useExpenseStore((state) => state.expenses);
   const isLoadedExpense = useExpenseStore((state) => state.isLoadedExpense);
   const filteredExpenses = useExpenseStore((state) => state.filteredExpenses);
   const monthSelected = useExpenseStore((state) => state.monthSelected);
   const getAllExpenses = useExpenseStore((state) => state.getAllExpenses);
   const deleteExpense = useExpenseStore((state) => state.deleteExpense);
   const setMonthSelected = useExpenseStore((state) => state.setMonthSelected);
+  const isMobile = window.innerWidth <= 768;
 
   const location = useLocation();
 
@@ -143,14 +145,20 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
               ))}
           </ul>
 
-          {/* Pagination */}
-          <Pagination
-            className="pagination is-centered"
-            count={Math.ceil(expenses.length / rowsPerPage)}
-            page={currentPage}
-            onChange={handlePageChange}
-            color="primary"
-          />
+          {/* Pagination avec ThemeProvider pour appliquer le style personnalisé */}
+          <div className="pagination-wrapper">
+            <ThemeProvider theme={paginationTheme}>
+              <Pagination
+                count={Math.ceil(filteredExpenses.length / rowsPerPage)}
+                page={currentPage}
+                onChange={handlePageChange}
+                color="primary"
+                size= {isMobile ? "large" : "medium"}
+                siblingCount={1}
+                boundaryCount={1}
+              />
+            </ThemeProvider>
+          </div>
         </>
       ) : (
         <p className="has-text-left mt-5">Aucune dépense n'a été trouvée.</p>

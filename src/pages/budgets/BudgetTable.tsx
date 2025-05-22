@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useBudgetStore } from "../../store/budgetStore.ts";
 import { UpdateButton, DeleteButton, AddBudgetButton } from "../../components/common/Button.tsx";
 import Pagination from "@mui/material/Pagination";
+import { ThemeProvider } from '@mui/material/styles';
+import { paginationTheme } from "../../utils/paginationTheme";
 import "../../styles/Tables.scss";
 
 export function BudgetsTable() {
@@ -78,14 +80,20 @@ export function BudgetsTable() {
             ))}
           </ul>
 
-          {/* Pagination */}
-          <Pagination
-            className="pagination"
-            count={Math.ceil(budgets.length / rowsPerPage)}
-            page={currentPage}
-            onChange={handlePageChange}
-            color="primary"
-          />
+          {/* Pagination avec ThemeProvider pour appliquer le style personnalisé */}
+          <div className="pagination-wrapper">
+            <ThemeProvider theme={paginationTheme}>
+              <Pagination
+                count={Math.ceil(budgets.length / rowsPerPage)}
+                page={currentPage}
+                onChange={handlePageChange}
+                color="primary"
+                size="medium"
+                siblingCount={1}
+                boundaryCount={1}
+              />
+            </ThemeProvider>
+          </div>
         </>
       ) : (
         <p className="has-text-left mt-5">Aucun budget n'a été trouvé.</p>

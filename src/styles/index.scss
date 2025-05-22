@@ -27,6 +27,10 @@ html, body {
 
 .content {
   margin-bottom: 0 !important;
+
+  ul {
+    list-style: none;
+  }
 }
 
 .Toastify__toast {
