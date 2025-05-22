@@ -1,5 +1,10 @@
 import { IStoreError } from "../types/index";
 
+/**
+ * Logs an error from the store with information about its origin.
+ * 
+ * @param {IStoreError} error - The error to log.
+ */
 export function logStoreError(error: IStoreError) {
   const bold = "\x1b[1m";
   const reset = "\x1b[0m";

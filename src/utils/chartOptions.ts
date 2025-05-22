@@ -1,6 +1,11 @@
 import { ChartOptions, Chart, Title, Legend, Tooltip, SubTitle } from "chart.js";
 
-// Enregistrement des plugins nécessaires
+/**
+ * Generates options for a doughnut chart.
+ * 
+ * @param {boolean} isMobile - Indicates if the display is on mobile.
+ * @returns {ChartOptions<"doughnut">} - Configured options for the chart.
+ */
 Chart.register(Title, Legend, Tooltip, SubTitle);
 
 export const getDoughnutOptions = (isMobile: boolean): ChartOptions<"doughnut"> => ({
@@ -43,6 +48,12 @@ export const getDoughnutOptions = (isMobile: boolean): ChartOptions<"doughnut"> 
   },
 });
 
+/**
+ * Generates options for a pie chart.
+ * 
+ * @param {boolean} isMobile - Indicates if the display is on mobile.
+ * @returns {ChartOptions<"pie">} - Configured options for the chart.
+ */
 export const getPieOptions = (isMobile: boolean): ChartOptions<"pie"> => ({
   responsive: true,
   maintainAspectRatio: false,

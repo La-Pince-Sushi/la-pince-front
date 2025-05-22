@@ -5,8 +5,14 @@ import { getAccessToken, getRefreshToken } from "../utils/jwtUtils.ts";
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 /**
- * Utility function to make any API request.
- * It handles methods, body, headers, auth token, and throw errors.
+ * Performs an API request with token management and error handling.
+ * 
+ * @template T - The type of the expected response data.
+ * @param {string} endpoint - The relative URL of the API.
+ * @param {THttpMethods} [method="GET"] - The HTTP method (GET, POST, etc.).
+ * @param {T | null} [data=null] - The data to send in the request body.
+ * @returns {Promise<T>} - The result of the request as a promise.
+ * @throws {any} - Throws an error if the request fails.
  */
 export async function apiRequest<T>(endpoint: string, method: THttpMethods = "GET", data: T | null = null): Promise<T> {
 

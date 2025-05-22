@@ -4,6 +4,13 @@ type WithSelectors<S> = S extends { getState: () => infer T }
   ? S & { use: { [K in keyof T]: () => T[K] } }
   : never
 
+/**
+ * Adds custom selectors to a Zustand store.
+ * 
+ * @template S - The type of the Zustand store.
+ * @param {S} _store - The Zustand store to enhance.
+ * @returns {WithSelectors<S>} - The store enhanced with selectors.
+ */ 
 export const createSelectors = <S extends UseBoundStore<StoreApi<object>>>(
   _store: S,
 ) => {

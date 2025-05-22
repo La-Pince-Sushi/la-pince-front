@@ -15,10 +15,11 @@ const primaryColors = [
 ];
 
 /**
- * Génère une couleur HSL pastel basée sur un index et le nombre total d'éléments.
- * @param index Index de l'élément
- * @param total Nombre total d'éléments
- * @returns Une couleur HSL sous forme de chaîne
+ * Generates a pastel HSL color based on an index and the total number of elements.
+ * 
+ * @param {number} index - The index of the element.
+ * @param {number} total - The total number of elements.
+ * @returns {string} - An HSL color as a string.
  */
 export const generateHSLColor = (index: number, total: number): string => {
   const hue = (index * 360) / total; // Répartit les teintes sur la roue chromatique
@@ -28,9 +29,10 @@ export const generateHSLColor = (index: number, total: number): string => {
 };
 
 /**
- * Génère une liste de couleurs HSL pastel pour un ensemble d'éléments, en excluant les couleurs primaires.
- * @param length Nombre total d'éléments
- * @returns Un tableau de couleurs HSL
+ * Generates a list of pastel HSL colors for a set of elements, excluding primary colors.
+ * 
+ * @param {number} length - The total number of elements.
+ * @returns {string[]} - An array of HSL colors.
  */
 export const generateCategoryColors = (length: number): string[] => {
   const colors = [];

@@ -1,10 +1,10 @@
 import { ICategory } from "../types";
 
 /**
- * Trie les catégories par ordre alphabétique, en plaçant la catégorie "Autres" en dernière position.
+ * Sorts categories alphabetically, placing the "Other" category at the end.
  * 
- * @param {ICategory[]} categories - Liste des catégories à trier.
- * @returns {ICategory[]} - Liste triée des catégories.
+ * @param {ICategory[]} categories - The list of categories to sort.
+ * @returns {ICategory[]} - The sorted list of categories.
  */
 export function getSortedCategories(categories: ICategory[]): ICategory[] {
   return categories.slice().sort((a, b) => {
