@@ -39,7 +39,16 @@ const useExpenseStoreBase = create<IExpenseState>()((set, get) => ({
   setMonthSelected: (month) => {
     const expenses = get().expenses;
     const filtered = filterExpensesByMonth(expenses, month);
-    set({monthSelected: month, filteredExpenses:filtered})
+    
+    // Si un mois spécifique est sélectionné, mais qu'il n'y a pas de dépenses pour ce mois,
+    // on revient automatiquement à "all"
+    if (month !== ALL_MONTHS && filtered.length === 0) {
+      // Pas de dépenses pour ce mois, on revient à "all"
+      set({monthSelected: ALL_MONTHS, filteredExpenses: expenses});
+    } else {
+      // Cas normal
+      set({monthSelected: month, filteredExpenses: filtered});
+    }
   },
 
   clearExpenseState: () => set({ expenses: [], isLoadedExpense: false, error: null }),
@@ -114,12 +123,34 @@ const useExpenseStoreBase = create<IExpenseState>()((set, get) => ({
       await deleteExpense(expenseId);
 
       const updatedExpenses = get().expenses.filter((expense) => expense.id !== expenseId);
+      const currentMonth = get().monthSelected;
       const updatedAvailableMonths = handleUniqueMonth(updatedExpenses);
-      const updatedFiltered = filterExpensesByMonth(updatedExpenses, get().monthSelected);
-
-      set({expenses: updatedExpenses, filteredExpenses: updatedFiltered, availableMonths: updatedAvailableMonths, error: null});
+      
+      // Vérifier si des dépenses existent encore pour le mois sélectionné
+      const filteredForCurrentMonth = filterExpensesByMonth(updatedExpenses, currentMonth);
+      
+      // Si aucune dépense n'existe plus pour ce mois et qu'il n'est pas "all",
+      // réinitialiser à "all"
+      if (currentMonth !== ALL_MONTHS && filteredForCurrentMonth.length === 0) {
+        set({
+          expenses: updatedExpenses, 
+          filteredExpenses: updatedExpenses, 
+          availableMonths: updatedAvailableMonths, 
+          monthSelected: ALL_MONTHS,
+          error: null
+        });
+      } else {
+        // Sinon, continuer avec le mois actuellement sélectionné
+        const updatedFiltered = filterExpensesByMonth(updatedExpenses, currentMonth);
+        set({
+          expenses: updatedExpenses, 
+          filteredExpenses: updatedFiltered, 
+          availableMonths: updatedAvailableMonths, 
+          error: null
+        });
+      }
+      
       showSuccessToast("Dépense supprimée avec succès !");
-
     } catch (error) {
       const parsedError = parseStoreError(error);
       logStoreError(parsedError);
