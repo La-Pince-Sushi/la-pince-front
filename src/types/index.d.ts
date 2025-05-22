@@ -64,3 +64,8 @@ export interface IParsedError {
   details?: string[]
   statusCode?: number
 }
+
+export interface IUpdatePasswordPayload {
+  oldPassword: string
+  password: string
+}
