@@ -1,0 +1,22 @@
+User-agent: *
+
+Allow: /
+Allow: /signin
+Allow: /signup
+Allow: /legal-notice
+Allow: /privacy-policy
+
+Disallow: /dashboard
+Disallow: /expenses
+Disallow: /expenses/add
+Disallow: /expenses/edit
+Disallow: /budgets
+Disallow: /budgets/add
+Disallow: /budgets/edit
+Disallow: /profile
+Disallow: /profile/email
+Disallow: /profile/password
+Disallow: /profile/legal-notice
+Disallow: /profile/privacy-policy
+
+Disallow: /*?
