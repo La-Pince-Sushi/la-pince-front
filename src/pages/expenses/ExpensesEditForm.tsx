@@ -31,6 +31,8 @@ export function ExpensesEditForm() {
 
   const [currentData, setCurrentData] = useState({
     amount: "",
+    description: "",
+    date: new Date().toISOString().split("T")[0],
     categoryId: ""
   });
 
@@ -65,6 +67,8 @@ export function ExpensesEditForm() {
     if (expenseToEdit) {
       setCurrentData({
         amount: `${expenseToEdit.amount}`,
+        description: expenseToEdit.description,
+        date: new Date(expenseToEdit.date).toISOString().split("T")[0],
         categoryId: `${expenseToEdit.category_id}`
       });
     }
@@ -94,9 +98,11 @@ export function ExpensesEditForm() {
     const budget = budgets.find((b) => b.category_id === categoryId);
 
     const hasAmountChanged = formData.amount !== currentData.amount;
+    const hasDescriptionChanged = formData.description !== currentData.description;
+    const hasDateChanged = formData.date !== currentData.date;
     const hasCategoryChanged = formData.categoryId !== currentData.categoryId;
 
-    if (!hasAmountChanged && !hasCategoryChanged) {
+    if (!hasAmountChanged && !hasCategoryChanged && !hasDescriptionChanged && !hasDateChanged) {
       navigate(-1);
       return;
     }

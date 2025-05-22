@@ -6,7 +6,7 @@ import { IExpense } from "../../types";
 import { useBudgetStore } from "../../store/budgetStore";
 import { getSortedCategories } from "../../utils/categoryUtils";
 import "../../styles/Tables.scss"
-import { getYearMonthFromISO } from "../../utils/resetExpenses";
+import { getYearMonthFromISO } from "../../utils/parseExpenses";
 
 export function ExpensesAddForm() {
   const selectRef = useRef<HTMLSelectElement>(null);

@@ -5,7 +5,7 @@ import "../../components/Header.scss";
 import "../../components/layout/HeaderLayout"
 import "./dashboard.scss";
 import { useExpenseStore } from "../../store/expensesStore.ts";
-import { formatMonth } from "../../utils/resetExpenses.ts";
+import { formatMonth } from "../../utils/parseExpenses.ts";
 
 export function Dashboard() {
 const currentMonth = useExpenseStore((state) => state.monthSelected)

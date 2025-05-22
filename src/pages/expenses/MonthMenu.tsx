@@ -1,4 +1,4 @@
-import { formatMonth } from "../../utils/resetExpenses";
+import { formatMonth } from "../../utils/parseExpenses";
 import { useExpenseStore } from "../../store/expensesStore";
 import { ALL_MONTHS } from "../../constant/constant";
 

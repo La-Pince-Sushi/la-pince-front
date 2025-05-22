@@ -6,7 +6,7 @@ import { useCategoryStore } from "./categoryStore.ts";
 import { parseStoreError } from "../utils/parseStoreError.ts";
 import { logStoreError } from "../utils/logStoreError.ts";
 import { showErrorToast, showSuccessToast } from "../utils/toastUtils.tsx";
-import { filterExpensesByMonth, handleUniqueMonth } from "../utils/resetExpenses.ts";
+import { filterExpensesByMonth, handleUniqueMonth } from "../utils/parseExpenses.ts";
 import { ALL_MONTHS } from "../constant/constant.ts";
 
 
