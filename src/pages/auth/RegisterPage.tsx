@@ -130,7 +130,7 @@ export default function RegisterPage() {
               </Link> 
               {" "}et le {" "}
               <Link to="/privacy-policy">
-                traitement des données personnelles
+                traitement des données personnelles.
                 </Link>
             </label>
           </div>
