@@ -1,9 +1,10 @@
-import { useExpenseStore } from "../../store/expensesStore";
 import { useEffect, useState } from "react";
-import { UpdateButton, DeleteButton, AddExpenseButton } from "../../components/common/Button.tsx";
 import { useLocation } from "react-router-dom";
+import { UpdateButton, DeleteButton, AddExpenseButton } from "../../components/common/Button.tsx";
+import { MonthMenu } from "./MonthMenu.tsx";
+import { useExpenseStore } from "../../store/expensesStore";
 import Pagination from "@mui/material/Pagination";
-import "../../styles/Tables.scss"
+import "../../styles/Tables.scss";
 
 interface ExpensesTableProps {
   limit?: number;
@@ -11,9 +12,12 @@ interface ExpensesTableProps {
 
 export function ExpensesTable({ limit }: ExpensesTableProps) {
   const expenses = useExpenseStore((state) => state.expenses);
+  const isLoadedExpense = useExpenseStore((state) => state.isLoadedExpense);
+  const filteredExpenses = useExpenseStore((state) => state.filteredExpenses);
+  const monthSelected = useExpenseStore((state) => state.monthSelected);
   const getAllExpenses = useExpenseStore((state) => state.getAllExpenses);
   const deleteExpense = useExpenseStore((state) => state.deleteExpense);
-  const isLoadedExpense = useExpenseStore((state) => state.isLoadedExpense);
+  const setMonthSelected = useExpenseStore((state) => state.setMonthSelected);
 
   const location = useLocation();
 
@@ -22,8 +26,20 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
   const rowsPerPage = location.pathname === "/dashboard" ? 5 : 10;
 
   useEffect(() => {
-    if (!isLoadedExpense) getAllExpenses();
-  }, [isLoadedExpense]);
+    if (location.pathname === "/dashboard" || location.pathname === "/expenses") {
+      setMonthSelected("all");
+      }
+    }, [location.pathname]);
+
+  useEffect(() => {
+    if (!isLoadedExpense) {
+      getAllExpenses();
+    }
+  }, [isLoadedExpense, getAllExpenses]);
+
+  const sortedExpenses = [...filteredExpenses].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
   const handlePageChange = (_: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
@@ -31,13 +47,22 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
 
   // Calculate paginated data
   const startIndex = (currentPage - 1) * rowsPerPage;
-  const paginatedExpenses = expenses.slice(startIndex, startIndex + rowsPerPage);
+  const paginatedExpenses = sortedExpenses.slice(startIndex, startIndex + rowsPerPage);
 
-  const expensesToShow = limit ? expenses.slice(0, limit) : expenses;
+  const expensesToShow = limit ? sortedExpenses.slice(0, limit) : sortedExpenses;
 
   return (
     <div className="container ivory-panel">
-      <h2 className="table-title is-size-4 m-0">Dépenses</h2>
+      <div className="table-bar">
+        <h2 className="table-title is-size-4 m-0">Dépenses</h2>
+        <div className="month-menu">
+          {/* Menu pour changer le mois sélectionné */}
+          <MonthMenu
+            selectedMonth={monthSelected}
+            onChange={(month) => setMonthSelected(month)}
+          />
+        </div>
+      </div>
 
       <div>
         {location.pathname === "/expenses" && (
@@ -120,7 +145,7 @@ export function ExpensesTable({ limit }: ExpensesTableProps) {
 
           {/* Pagination */}
           <Pagination
-            className="pagination"
+            className="pagination is-centered"
             count={Math.ceil(expenses.length / rowsPerPage)}
             page={currentPage}
             onChange={handlePageChange}

@@ -6,6 +6,31 @@
   border: solid 1px vars.$jaune-sable;
   border-radius: 1rem;  
   height: 100%;
-  min-height: 500px;
+  min-height: 400px;
 }
 
+form #box-button-profile-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-profile {
+  width: 220px;
+}
+#is-no-gap {
+  gap: 0;
+}
+
+@media screen and (min-width: 769px) {
+  form #box-button-profile-form {
+    display: flex;
+    flex-direction: row;    
+    justify-content: space-between;    
+  }
+
+  .button-profile {
+    width: auto;
+  }
+}

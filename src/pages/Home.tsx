@@ -9,47 +9,44 @@ export function Home() {
   return (
     <section className="bg-ivoire">
       <div className="container is-flex-direction-column">
-        
-          <div className="columns is-vcentered is-gapless">
-            <div className="column is-half">
-              <h1 className="title pb-5 has-text-centered">Bienvenue sur La Pince</h1>
-              <div className="subtitle pb-4">
-                <p className="px-4">Suivez vos <strong>revenus</strong> et <strong>dépenses</strong> en un clin d’œil. 
-                Fixez vos objectifs d’épargne et contrôlez vos <strong>finances</strong> facilement. 
-                Adaptée à tous : étudiants, familles, indépendants.
-                La <strong>Sécurité</strong> et <strong>confidentialité</strong> sont garanties.
-                </p>
-              </div>
-              {location.pathname === "/mentions-legales" ? (
-                <LegalNotice />
-              ) : location.pathname === "/politique-de-confidentialite" ? (
-                <PrivacyPolicy />
-              ) : (
-                <>
-                  <div className="hero-foot buttons is-centered pb-4">
-                    <Link to="/signin" className="button is-medium mr-6">
-                      Se connecter
-                    </Link>
-                    <Link to="/signup" className="button is-medium">
-                      S'inscrire
-                    </Link>
-                  </div>
-                </>
-              )}
+
+        <div className="columns is-vcentered is-gapless">
+          <div className="column is-half">
+            <h1 className="title pb-2 has-text-centered">Bienvenue sur La Pince</h1>
+            <div className="subtitle m-0 pb-2">
+              <p className="px-5 is-size-5"><strong>La Pince</strong> est une application pensée pour vous <strong>accompagner</strong> pas à pas vers une gestion <strong>simple</strong>, sereine et accessible de vos <strong>budgets</strong>. Suivez vos <strong>dépenses</strong>, fixez vos <strong>objectifs</strong>, recevez des <strong>alertes</strong> quand un budget est presque atteint, et <strong>visualisez</strong> en un clin d'œil où va votre argent — sur tous vos appareils, en toute <strong>sécurité</strong>.
+              </p>
             </div>
-            <div className="column is-half has-text-centered">
-              {location.pathname === "/mentions-legales" ||
-              location.pathname === "/politique-de-confidentialite" ? null : (
-                <img
-                  src={mascot}
-                  alt="La mascotte"
-                  style={{ maxHeight: "400px" }}
-                />
-              )}
-            </div>
+            {location.pathname === "/mentions-legales" ? (
+              <LegalNotice />
+            ) : location.pathname === "/politique-de-confidentialite" ? (
+              <PrivacyPolicy />
+            ) : (
+              <>
+                <div className="hero-foot buttons is-centered pb-4">
+                  <Link to="/signin" className="button is-medium mr-6">
+                    Se connecter
+                  </Link>
+                  <Link to="/signup" className="button is-medium">
+                    S'inscrire
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
-       
-        
+          <div className="column is-half has-text-centered">
+            {location.pathname === "/mentions-legales" ||
+              location.pathname === "/politique-de-confidentialite" ? null : (
+              <img
+                src={mascot}
+                alt="La mascotte"
+                style={{ maxHeight: "400px" }}
+              />
+            )}
+          </div>
+        </div>
+
+
       </div>
     </section>
   );

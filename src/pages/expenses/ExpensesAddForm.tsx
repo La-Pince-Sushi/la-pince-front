@@ -6,6 +6,7 @@ import { IExpense } from "../../types";
 import { useBudgetStore } from "../../store/budgetStore";
 import { getSortedCategories } from "../../utils/categoryUtils";
 import "../../styles/Tables.scss"
+import { getYearMonthFromISO } from "../../utils/parseExpenses";
 
 export function ExpensesAddForm() {
   const selectRef = useRef<HTMLSelectElement>(null);
@@ -66,9 +67,16 @@ export function ExpensesAddForm() {
     const budget = budgets.find((b) => b.category_id === categoryId);
 
     if (budget) {
+      const newExpenseDate = formData.date
       const expensesForCategory = useExpenseStore
         .getState()
-        .expenses.filter((e) => e.category_id === categoryId);
+        .expenses.filter((e) => {
+          const expenseDate = e.date
+          return(
+            e.category_id === categoryId && getYearMonthFromISO(expenseDate) === getYearMonthFromISO(newExpenseDate)
+          )
+          
+        });
 
       const currentTotal = expensesForCategory.reduce(
         (sum, e) => sum + Number(e.amount),

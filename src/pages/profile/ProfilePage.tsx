@@ -7,6 +7,7 @@ import { useState } from "react";
 import { clearAccessToken, clearRefreshToken } from "../../utils/jwtUtils.ts";
 import { useBudgetStore } from "../../store/budgetStore.ts";
 import { useExpenseStore } from "../../store/expensesStore.ts";
+import "../../styles/_forms.scss";
 
 export function ProfilePage() {
   const user = useUserStore((state) => state.user);
@@ -38,13 +39,13 @@ export function ProfilePage() {
   }
 
   return (
-    <div className="container">
+    <div className="container profile-page">
       <h2 className="title">Profil utilisateur</h2>
       <div
-        className="box box-custom-form is-flex is-flex-direction-column is-justify-content-space-between"
+        className="box box-custom-form is-flex is-flex-direction-column is-justify-content-space-between uniform-spacing"
         style={{ height: "100%" }}
       >
-        <form>
+        <form className="mb-0">
           <div className="field">
             <label className="label" htmlFor="email">
               Adresse mail
@@ -59,33 +60,44 @@ export function ProfilePage() {
             </div>
           </div>
 
-          <div className="columns">
-            <div className="column">
+          <div id="box-button-profile-form">
+            <div className="p-2 button-profile">
               <Button to={"/profile/email"} label="Modifier l'email" />
             </div>
-            <div className="column">
+            <div className="p-2 button-profile">
               <Button
                 to={"/profile/password"}
                 label="Modifier le mot de passe"
+                className="is-fullwidth"
               />
             </div>
-            <div className="column">
+            <div className="p-2 button-profile">
               <Button
                 type="button"
                 label="Supprimer le compte"
                 onClick={handleOpenModal}
+                className="button"
               />
             </div>
           </div>
         </form>
 
         {/* Section pour les mentions légales et la politique de confidentialité */}
-        <div className="buttons is-centered">
-          <Button to={"/profile/legal-notice"} label="Mentions légales" />
-          <Button
-            to={"/profile/privacy-policy"}
-            label="Politique de confidentialité"
-          />
+        <div id="is-no-gap" className="buttons is-flex is-justify-content-center is-align-items-center">
+          <div className="button-profile p-2">
+            <Button
+              to={"/profile/legal-notice"}
+              label="Mentions légales"
+              className="is-fullwidth"
+            />
+          </div>
+          <div className="button-profile p-2">
+            <Button
+              to={"/profile/privacy-policy"}
+              label="Politique de confidentialité"
+              className="is-fullwidth ml-4" // Ajoutez un espacement entre les boutons
+            />
+          </div>
         </div>
       </div>
       {/* Modale de confirmation */}
@@ -110,7 +122,7 @@ export function ProfilePage() {
                 est irréversible et toutes vos données seront supprimées.
               </p>
             </section>
-            <footer className="modal-card-foot">
+            <footer className="modal-card-foot is-justify-content-space-between">
               <button
                 className="button is-danger"
                 onClick={handleConfirmDeleteUser}
