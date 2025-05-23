@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { UpdateButton, DeleteButton, AddExpenseButton } from "../../components/common/Button.tsx";
+import { UpdateButton, DeleteButton, AddExpenseButtonTable } from "../../components/common/Button.tsx";
 import { MonthMenu } from "./MonthMenu.tsx";
 import { useExpenseStore } from "../../store/expensesStore";
 import Pagination from "@mui/material/Pagination";
@@ -90,7 +90,7 @@ export function ExpensesTable() {
 
       <div>
         {location.pathname === "/expenses" && (
-          <AddExpenseButton to={"/expenses/add"} label="+ Ajout Dépense" />
+          <AddExpenseButtonTable to={"/expenses/add"} label="+ Ajout Dépense" />
         )}
       </div>
 
