@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../../components/common/Button.tsx";
 
 const PrivacyPolicy: React.FC = () => {
 
+  const navigate = useNavigate();
   const isMobile = window.innerWidth <= 768;
   
   return (
@@ -40,6 +43,7 @@ const PrivacyPolicy: React.FC = () => {
         utilisées pour personnaliser votre expérience et répondre à vos besoins
           individuels.
       </p>
+      <Button className="back-link" onClick={() => navigate(-1)} label="Retour"/>
     </div>
   );
 };

@@ -13,10 +13,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-y: auto; /* Pour gérer le défilement si nécessaire */
+  overflow-y: auto;
 }
 
-/* Ajout pour s'assurer que header et footer ne se réduisent pas */
+/* Pour s'assurer que header et footer ne se réduisent pas */
 .header-public, .footer-public {
   flex-shrink: 0;
 }

@@ -164,7 +164,7 @@ export function BudgetAddForm() {
 
           <div className="mt-4">
             <p className="is-info">
-              À la création d'un budget, un seuil d'alerte sera défini automatiquement <strong>{alertAmount}€</strong>
+              À la création d'un budget, un seuil d'alerte sera défini automatiquement <strong>{alertAmount.toFixed(2)}€</strong>
             </p>
             <p className="is-info">
               Lorsque les dépenses pour cette catégorie dépasseront le seuil d'alerte une notification s'affichera.

@@ -23,15 +23,6 @@
 html,
 body {
   background-color: #FFFFF9;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-#root {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 .content {
@@ -64,4 +55,17 @@ body {
 
 .has-margin-top {
   margin: 3.5rem auto !important;
+}
+
+.back-link {
+  font-size: 1.25rem;
+  color: vars.$cannelle;
+  font-weight: bold;
+  text-decoration: underline;
+  transition: color 0.2s;
+  width: fit-content;
+
+  &:hover {
+    color: vars.$peche;
+  }
 }
