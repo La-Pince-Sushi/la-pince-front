@@ -1,7 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import mascot from "../assets/logo-pince-crabe-final.png";
 import LegalNotice from "./legal/LegalNotice";
 import PrivacyPolicy from "./legal/PrivacyPolicy";
+import { HomeButton } from "../components/common/Button.tsx";
 
 export function Home() {
   const location = useLocation();
@@ -23,13 +24,9 @@ export function Home() {
               <PrivacyPolicy />
             ) : (
               <>
-                <div className="hero-foot buttons is-centered pb-4 mt-4">
-                  <Link to="/signin" className="button is-medium mr-6 is-link">
-                    Se connecter
-                  </Link>
-                  <Link to="/signup" className="button is-medium is-link">
-                    S'inscrire
-                  </Link>
+                <div className="hero-foot buttons is-centered mt-4">
+                  <HomeButton to="/signin" label="Se connecter"/>
+                  <HomeButton to="/signup" label="Se connecter"/>
                 </div>
               </>
             )}
@@ -45,7 +42,6 @@ export function Home() {
             )}
           </div>
         </div>
-
 
       </div>
     </section>
