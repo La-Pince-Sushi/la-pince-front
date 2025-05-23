@@ -84,8 +84,7 @@ export default function LoginPage() {
           </div>
           <button
             type="submit"
-            className="button is-primary is-fullwidth login-btn"
-          >
+            className="button is-primary is-fullwidth login-btn">
             Se connecter
           </button>
         </form>

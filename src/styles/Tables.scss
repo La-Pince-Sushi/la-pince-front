@@ -11,6 +11,11 @@
   min-height: 250px;
   gap: 0.5rem;
 
+  // Nouvelle règle globale pour tous les titres
+  .table-title {
+    color: vars.$cacao;
+  }
+
   .table-container {
     margin: 0 !important;
   }
@@ -28,9 +33,7 @@
       color: vars.$cacao;
     }
 
-    .table-title {
-      color: vars.$cacao;
-    }
+    /* Supprimé l'ancienne règle .table-title ici */
   }
 
   .table.custom-table {
@@ -84,6 +87,7 @@
   }
 }
 
+/* Le reste du code reste inchangé */
 .content .ivory-panel ul {
   margin-inline-start: 0;
 

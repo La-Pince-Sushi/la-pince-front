@@ -63,9 +63,8 @@ export function PasswordForm() {
   };
 
   return (
-    <div className="container">
-      <h2 className="title">Changement du mot de passe</h2>
-      <div className="box box-custom-form">
+      <div className="container ivory-panel table-panel">
+        <h2 className="table-title is-size-4">Changement du mot de passe</h2>
         <form onSubmit={handleSubmit} method="POST">
           <div className="field">
             <label className="label" htmlFor="oldPassword">Ancien mot de passe</label>
@@ -116,6 +115,5 @@ export function PasswordForm() {
           <Button type="submit" label={"Confirmer"} />
         </form>
       </div>
-    </div>
   );
 }
