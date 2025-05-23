@@ -22,12 +22,12 @@
 // Bouton "Modifier"
 .button.is-update {
   transition: transform 0.2s ease-in-out;
-  background-color: rgb(196, 222, 241);
+  background-color: rgb(191, 217, 226); // Équivalent RGB de vars.$bleu (#D4E3FC)
   color: vars.$cacao;
 
   &:hover {
     transform: scale(1.05);
-    background-color: rgb(196, 222, 241, 0.8);
+    background-color: rgb(191, 217, 226, 0.8); // Même couleur avec opacité à 80%
   }
 }
 
