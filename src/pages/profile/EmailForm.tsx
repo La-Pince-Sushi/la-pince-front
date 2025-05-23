@@ -67,7 +67,6 @@ export function EmailForm() {
   };
 
   return (
-    <div className="container">
       <div className="container ivory-panel table-panel">
         <h2 className="table-title is-size-4">Modification de l'adresse mail</h2>
         <form onSubmit={handleSubmit} method='POST'>
@@ -120,6 +119,5 @@ export function EmailForm() {
           <Button type="submit" label={"Confirmer"} />
         </form>
       </div>
-    </div>
   )
 }

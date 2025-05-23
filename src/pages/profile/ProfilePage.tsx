@@ -39,8 +39,8 @@ export function ProfilePage() {
   }
 
   return (
-      <div
-        className="container ivory-panel table-panel">
+    <div className="container profile-page">
+      <div className="container ivory-panel table-panel">
         <form className="mb-0">
         <h2 className="table-title is-size-4">Profil utilisateur</h2>
           <div className="field">
@@ -133,6 +133,7 @@ export function ProfilePage() {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 }
