@@ -39,13 +39,10 @@ export function ProfilePage() {
   }
 
   return (
-    <div className="container profile-page">
-      <h2 className="title">Profil utilisateur</h2>
       <div
-        className="box box-custom-form is-flex is-flex-direction-column is-justify-content-space-between uniform-spacing"
-        style={{ height: "100%" }}
-      >
+        className="container ivory-panel table-panel">
         <form className="mb-0">
+        <h2 className="table-title is-size-4">Profil utilisateur</h2>
           <div className="field">
             <label className="label" htmlFor="email">
               Adresse mail
@@ -99,7 +96,7 @@ export function ProfilePage() {
             />
           </div>
         </div>
-      </div>
+      
       {/* Modale de confirmation */}
       {showModal && (
         <div className="modal is-active">
