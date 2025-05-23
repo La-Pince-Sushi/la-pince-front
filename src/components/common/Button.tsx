@@ -104,4 +104,18 @@ export function AddExpenseButton({ label, to, onClick, ...rest }: IButtonProps) 
   );
 }
 
+export function HomeButton({ label, to, onClick, ...rest }: IButtonProps) {
+  if (to) {
+    return (
+      <Link to={to} className="button is-medium is-link is-home">
+        {label}
+      </Link>
+    );
+  }
+  return (
+    <button className="button is-medium" onClick={onClick} {...rest}>
+      {label}
+    </button>
+  );
+}
 

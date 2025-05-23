@@ -1,8 +1,11 @@
 import React from "react";
 
 const PrivacyPolicy: React.FC = () => {
+
+  const isMobile = window.innerWidth <= 768;
+  
   return (
-    <div className="legal-page container m-3">
+    <div className={`legal-page container ${isMobile ? "" : "has-margin-top"}`}>
       <h1 className="title is-4 mb-1"><strong>Politique de confidentialité</strong></h1>
 
       <h2 className="subtitle is-5 mt-0 mb-1"><strong>Introduction</strong></h2>
