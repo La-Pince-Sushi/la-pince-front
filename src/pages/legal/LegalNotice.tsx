@@ -1,8 +1,11 @@
 import React from "react";
 
 const LegalNotice: React.FC = () => {
+
+  const isMobile = window.innerWidth <= 768;
+
   return (
-    <div className="legal-page container m-3">
+    <div className={`legal-page container ${isMobile ? "" : "has-margin-top"}`}>
       <h1 className="title is-4 mb-1"><strong>Mentions Légales</strong></h1>
 
       <p className="mt-0 mb-1">
