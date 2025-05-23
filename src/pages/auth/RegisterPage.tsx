@@ -116,6 +116,7 @@ export default function RegisterPage() {
           </div>
 
           {/* Case à cocher pour accepter la politique de confidentialité */}
+          <div className="register-link">
           <div className="field">
             <label className="checkbox policy-font-size">
               <input
@@ -124,15 +125,17 @@ export default function RegisterPage() {
                 onChange={(e) => setAcceptedPrivacyPolicy(e.target.checked)}
                 ref={checkboxRef}
               />
-              {" "}J'accepte la{" "}
+              
+              {" "}J'accepte la
               <Link to="/privacy-policy">
                 politique de confidentialité
               </Link> 
-              {" "}et le {" "}
+              {" "}et le 
               <Link to="/privacy-policy">
                 traitement des données personnelles.
                 </Link>
             </label>
+          </div>
           </div>
 
           <div className="field">
