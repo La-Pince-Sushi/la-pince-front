@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../../components/common/Button.tsx";
 
 const LegalNotice: React.FC = () => {
 
+  const navigate = useNavigate();
   const isMobile = window.innerWidth <= 768;
 
   return (
@@ -52,6 +55,7 @@ const LegalNotice: React.FC = () => {
         La Pince ne peut être tenue responsable des dommages directs ou indirects
         causés au matériel de l'utilisateur lors de l'accès au site.
       </p>
+      <Button className="back-link" onClick={() => navigate(-1)} label="Retour"/>
     </div>
   );
 };
