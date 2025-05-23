@@ -15,6 +15,10 @@
   }
 }
 
+.is-home {
+  min-width: 150px;
+}
+
 // Bouton "Modifier"
 .button.is-update {
   transition: transform 0.2s ease-in-out;

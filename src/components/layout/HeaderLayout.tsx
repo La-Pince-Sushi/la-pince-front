@@ -9,9 +9,9 @@ export default function HeaderLayout() {
       <div className="header-public">
         <Header />
       </div>
-      <div className="main-public">
+      <main className="main-public">
         <Outlet />
-      </div>
+      </main>
       <div className="footer-public">
         <Footer />
       </div>      

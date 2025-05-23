@@ -26,7 +26,7 @@ export function Home() {
               <>
                 <div className="hero-foot buttons is-centered mt-4">
                   <HomeButton to="/signin" label="Se connecter"/>
-                  <HomeButton to="/signup" label="Se connecter"/>
+                  <HomeButton to="/signup" label="S'inscrire"/>
                 </div>
               </>
             )}

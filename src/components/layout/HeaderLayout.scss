@@ -3,12 +3,20 @@
 .public-layout {
   display: flex;
   flex-direction: column; 
-  height: 100vh; 
+  min-height: 100vh; /* Fallback pour anciens navigateurs */
+  min-height: 100dvh; /* Solution moderne avec dvh */
   background-color: $ivoire;
 }
+
 .main-public {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-y: auto; /* Pour gérer le défilement si nécessaire */
+}
+
+/* Ajout pour s'assurer que header et footer ne se réduisent pas */
+.header-public, .footer-public {
+  flex-shrink: 0;
 }

@@ -3,8 +3,7 @@
 @use './variables' as vars;
 @use './fonts' as fonts;
 
-@use "bulma/sass/utilities" with (
-  $family-primary: fonts.$font-family,
+@use "bulma/sass/utilities" with ($family-primary: fonts.$font-family,
   $family-secondary: fonts.$font-family,
   $family-code: fonts.$font-family,
   $primary: vars.$cannelle,
@@ -21,8 +20,18 @@
 
 @use "bulma/bulma";
 
-html, body {
+html,
+body {
   background-color: #FFFFF9;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .content {
@@ -46,5 +55,13 @@ html, body {
 }
 
 .bg-ivoire {
-  background-color: vars.$ivoire; 
+  background-color: vars.$ivoire;
+}
+
+.legal-page {
+  max-width: 700px !important;
+}
+
+.has-margin-top {
+  margin: 3.5rem auto !important;
 }
