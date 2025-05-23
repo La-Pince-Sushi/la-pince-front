@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useBudgetStore } from "../../store/budgetStore.ts";
-import { UpdateButton, DeleteButton, AddBudgetButton } from "../../components/common/Button.tsx";
+import { UpdateButton, DeleteButton, AddBudgetButtonTable } from "../../components/common/Button.tsx";
 import Pagination from "@mui/material/Pagination";
 import { ThemeProvider } from '@mui/material/styles';
 import { paginationTheme } from "../../utils/paginationTheme";
@@ -30,11 +30,12 @@ export function BudgetsTable() {
 
   return (
     <div className={`container ivory-panel ${isBudgetsPage ? "table-panel" : ""}`}>
-      <h2 className="table-title is-size-4 m-0">Budgets mensuels</h2>
-
+      <h2 className="table-title is-size-4 mb-4">Budgets mensuels</h2>
+      <div className="table-bar">
       <div>
-        <AddBudgetButton to={"/budgets/add"} label="+ Ajout Budget" />
+        <AddBudgetButtonTable  to={"/budgets/add"} label="+ Ajout Budget" />
       </div>
+    </div>
 
       {paginatedBudgets.length > 0 ? (
         <>

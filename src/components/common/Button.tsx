@@ -89,10 +89,40 @@ export function AddBudgetButton({ label, to, onClick, ...rest }: IButtonProps) {
   );
 }
 
+export function AddBudgetButtonTable({ label, to, onClick, ...rest }: IButtonProps) {
+  if (to) {
+    return (
+    <Link to={to} className="button is-budget mb-2">
+        {label}
+      </Link>
+    );
+  }
+  return (
+    <button className="button " onClick={onClick} {...rest}>
+      {label}
+    </button>
+  );
+}
+
 export function AddExpenseButton({ label, to, onClick, ...rest }: IButtonProps) {
   if (to) {
     return (
       <Link to={to} className="button is-expense">
+        {label}
+      </Link>
+    );
+  }
+  return (
+    <button className="button " onClick={onClick} {...rest}>
+      {label}
+    </button>
+  );
+}
+
+export function AddExpenseButtonTable({ label, to, onClick, ...rest }: IButtonProps) {
+  if (to) {
+    return (
+      <Link to={to} className="button is-expense mb-2">
         {label}
       </Link>
     );
