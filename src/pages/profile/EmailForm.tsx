@@ -91,7 +91,7 @@ export function EmailForm() {
           <div className="control">
             <input
               className="input"
-              type="newEmail"
+              type="email"
               name="newEmail"
               id="newEmail"
               value={newEmail}

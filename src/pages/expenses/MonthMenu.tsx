@@ -16,7 +16,12 @@ export function MonthMenu({ selectedMonth, onChange }: MonthMenuProps) {
 
   return (
     <div className="select">
-      <select value={selectedMonth} onChange={handleChange}>
+      <select
+        id="month-selector"
+        name="month-selector"
+        value={selectedMonth}
+        onChange={handleChange}
+      >
         <option value={ALL_MONTHS}>Toutes les dépenses</option>
         {months.map((month) => (
           <option key={month} value={month}>

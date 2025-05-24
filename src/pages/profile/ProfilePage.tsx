@@ -54,6 +54,7 @@ export function ProfilePage() {
                 id="email"
                 readOnly
                 aria-readonly="true"
+                autoComplete="off"
               />
             </div>
           </div>
@@ -100,7 +101,7 @@ export function ProfilePage() {
       
       {/* Modale de confirmation */}
       {showModal && (
-        <div className="modal is-active">
+        <div className="modal is-active" role="dialog" aria-modal="true">
           <div
             className="modal-background"
             onClick={handleCancelDeleteUser}
@@ -110,7 +111,7 @@ export function ProfilePage() {
               <p className="modal-card-title">Confirmation de suppression</p>
               <button
                 className="delete"
-                aria-label="close"
+                aria-label="Fermer la fenêtre de confirmation"
                 onClick={handleCancelDeleteUser}
               ></button>
             </header>

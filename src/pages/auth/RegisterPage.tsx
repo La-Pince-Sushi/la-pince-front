@@ -121,6 +121,8 @@ export default function RegisterPage() {
             <label className="checkbox policy-font-size">
               <input
                 type="checkbox"
+                name="privacyPolicy"
+                id="privacyPolicy"
                 checked={acceptedPrivacyPolicy}
                 onChange={(e) => setAcceptedPrivacyPolicy(e.target.checked)}
                 ref={checkboxRef}
