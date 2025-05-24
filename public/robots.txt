@@ -20,3 +20,5 @@ Disallow: /profile/legal-notice
 Disallow: /profile/privacy-policy
 
 Disallow: /*?
+
+Sitemap: https://la-pince.up.railway.app/sitemap.xml

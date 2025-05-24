@@ -3,21 +3,31 @@
   <url>
     <loc>https://la-pince.up.railway.app/</loc>
     <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2025-05-24</lastmod>
   </url>
   <url>
     <loc>https://la-pince.up.railway.app/signin</loc>
     <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-05-24</lastmod>
   </url>
   <url>
     <loc>https://la-pince.up.railway.app/signup</loc>
     <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-05-24</lastmod>
   </url>
   <url>
     <loc>https://la-pince.up.railway.app/legal-notice</loc>
     <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+    <lastmod>2025-05-24</lastmod>
   </url>
   <url>
     <loc>https://la-pince.up.railway.app/privacy-policy</loc>
     <priority>0.5</priority>
+    <changefreq>yearly</changefreq>
+    <lastmod>2025-05-24</lastmod>
   </url>
 </urlset>
