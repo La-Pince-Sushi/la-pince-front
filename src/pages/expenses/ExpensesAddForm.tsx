@@ -249,12 +249,14 @@ export function ExpensesAddForm() {
               <button
                 className="button is-danger"
                 onClick={handleConfirmExpense}
+                aria-label="Confirmer l'ajout malgré le dépassement de budget"
               >
                 Oui, enregistrer quand même
               </button>
               <button
                 className="button ml-4"
                 onClick={handleCancelExpense}
+                aria-label="Annuler l'ajout et revenir au formulaire"
               >
                 Annuler
               </button>

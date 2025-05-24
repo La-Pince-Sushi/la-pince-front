@@ -133,6 +133,7 @@ export function BudgetEditForm() {
                 className="input"
                 value={formData.amount}
                 onChange={handleChange}
+                aria-label="Montant du budget en euros"
               />
             </div>
           </div>

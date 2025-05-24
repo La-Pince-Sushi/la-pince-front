@@ -111,10 +111,11 @@ export function BudgetAddForm() {
                 <select
                   id="category"
                   name="categoryId"
-                  aria-label="Category"
                   className="select"
                   value={formData.categoryId}
                   onChange={handleChange}
+                  required
+                  aria-label="Sélectionner une catégorie de budget"
                 >
                   <option disabled value="">
                     -- Choisir une catégorie --
