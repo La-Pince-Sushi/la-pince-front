@@ -53,6 +53,7 @@ export function ProfilePage() {
                 value={user?.email || ""}
                 id="email"
                 readOnly
+                aria-readonly="true"
               />
             </div>
           </div>
@@ -122,11 +123,17 @@ export function ProfilePage() {
             <footer className="modal-card-foot is-justify-content-space-between">
               <button
                 className="button is-danger"
+                type="button"
+                aria-label="Supprimer le compte"
                 onClick={handleConfirmDeleteUser}
               >
                 Oui, supprimer
               </button>
-              <button className="button ml-4" onClick={handleCancelDeleteUser}>
+              <button 
+              className="button ml-4"
+              type="button"
+              aria-label="Annuler la suppression du compte"
+              onClick={handleCancelDeleteUser}>
                 Annuler
               </button>
             </footer>

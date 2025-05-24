@@ -72,10 +72,10 @@ export function ExpensesAddForm() {
         .getState()
         .expenses.filter((e) => {
           const expenseDate = e.date
-          return(
+          return (
             e.category_id === categoryId && getYearMonthFromISO(expenseDate) === getYearMonthFromISO(newExpenseDate)
           )
-          
+
         });
 
       const currentTotal = expensesForCategory.reduce(
