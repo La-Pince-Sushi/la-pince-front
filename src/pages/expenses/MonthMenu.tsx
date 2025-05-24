@@ -15,20 +15,26 @@ export function MonthMenu({ selectedMonth, onChange }: MonthMenuProps) {
   };
 
   return (
-    <div className="select">
-      <select
-        id="month-selector"
-        name="month-selector"
-        value={selectedMonth}
-        onChange={handleChange}
-      >
-        <option value={ALL_MONTHS}>Toutes les dépenses</option>
-        {months.map((month) => (
-          <option key={month} value={month}>
-            {formatMonth(month)}
-          </option>
-        ))}
-      </select>
+    <div className="field">
+      <label htmlFor="month-selector" className="label is-sr-only">
+        Sélectionner un mois
+      </label>
+      <div className="select">
+        <select
+          id="month-selector"
+          name="month-selector"
+          value={selectedMonth}
+          onChange={handleChange}
+          aria-label="Sélectionner un mois"
+        >
+          <option value={ALL_MONTHS}>Toutes les dépenses</option>
+          {months.map((month) => (
+            <option key={month} value={month}>
+              {formatMonth(month)}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 }
