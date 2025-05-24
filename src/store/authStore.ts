@@ -25,7 +25,6 @@ export const useAuthStore = create<IAuthStore>((set) => ({
     try {
       const token = getAccessToken();
       if (!token) {
-        console.warn("Aucun utilisateur authentifié.");
         set({ isAuthChecked: true });
         return;
       }
