@@ -24,16 +24,20 @@ lapince-front/
 │   ├── assets/            # Images, icônes, etc.
 │   ├── components/
 │   │   ├── common/        # Composants réutilisables (boutons, inputs, etc.)
+│   │   ├── Doughnut/      # Graphique Doughnut
 │   │   ├── layout/        # Header, footer, etc.
-│   │   ├── auth/          # Composants liés à l'authentification
-│   │   ├── dashboard/     # Composants du dashboard
-│   │   ├── budget/        # Composants liés aux budgets
-│   │   └── expense/       # Composants liés aux dépenses
+│   │   ├── Pie/           # Graphique Pie
+│   │   └── TotalsBar/     # Composant TotalsBar
+│   ├── constant/
 │   ├── pages/
 │   │   ├── auth/          # Pages d'authentification
-│   │   ├── dashboard/     # Pages du dashboard
+│   │   ├── budgets/       # Pages budgets (formulaires, tableau)
+│   │   ├── dashboard/     # Pages dépenses (formulaires, tableau)
+│   │   ├── expenses/      # Pages d'authentification
+│   │   ├── legal/         # Pages mentions légales et politique de confidentialité
 │   │   └── profile/       # Pages de profil
 │   ├── store/             # État global (Redux, Context API, etc.)
+│   ├── styles/            # Style (fonts, index, tables)
 │   ├── services/          # Services API
 │   ├── utils/             # Fonctions utilitaires
 │   ├── types/             # Types TypeScript
