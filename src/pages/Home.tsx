@@ -21,7 +21,7 @@ export function Home() {
             <img
               src={mascot}
               alt="La mascotte"
-              style={{ maxHeight: "400px" }}
+              className="img-max-height-400"
             />            
           </div>
         </div>
