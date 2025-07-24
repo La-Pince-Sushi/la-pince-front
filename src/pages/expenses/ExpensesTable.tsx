@@ -111,12 +111,6 @@ export function ExpensesTable() {
               </thead>
               <tbody>
                 {paginatedExpenses
-                  .slice()
-                  .sort((a, b) => {
-                    const dateA = new Date(a.date as string).getTime();
-                    const dateB = new Date(b.date as string).getTime();
-                    return dateB - dateA;
-                  })
                   .map((expense) => (
                     <tr key={expense.id}>
                       <td>{expense.category?.name}</td>
@@ -141,12 +135,6 @@ export function ExpensesTable() {
           {/* Liste mobile */}
           <ul className="is-hidden-desktop">
             {sortedExpenses
-              .slice()
-              .sort((a, b) => {
-                const dateA = new Date(a.date as string).getTime();
-                const dateB = new Date(b.date as string).getTime();
-                return dateB - dateA;
-              })
               .map((expense) => (
                 <li className="box mb-4" key={expense.id}>
                   {/* Ligne 1 : Catégorie | Date | Montant */}
@@ -171,7 +159,8 @@ export function ExpensesTable() {
           </ul>
 
           {/* Pagination avec ThemeProvider pour appliquer le style personnalisé */}
-          <div className="pagination-wrapper">
+          
+          <div className="pagination-wrapper is-hidden-touch">
             <ThemeProvider theme={paginationTheme}>
               <Pagination
                 count={Math.ceil(filteredExpenses.length / rowsPerPage)}
